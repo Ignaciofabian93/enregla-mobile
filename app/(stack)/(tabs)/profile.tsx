@@ -1,9 +1,12 @@
+import Layout from "@/app/ui/layout";
 import { View } from "react-native";
 
 export default function Profile() {
   return (
     <>
-      <View></View>
+      <Layout>
+        <View></View>
+      </Layout>
     </>
   );
 }

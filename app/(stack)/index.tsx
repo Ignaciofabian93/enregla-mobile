@@ -1,30 +1,25 @@
-import React, { useState } from "react";
-import { View, Button, TextInput } from "react-native";
+import { View, ActivityIndicator } from "react-native";
+import Layout from "../ui/layout";
+import { useEffect } from "react";
+import { useRouter } from "expo-router";
+import { colors } from "@/constants/theme";
 
-const App = () => {
-  const [vin, setVin] = useState("");
+export default function Auth() {
+  const router = useRouter();
 
-  const handlePrint = async () => {
-    try {
-      // const printer = await connectPrinter();
-      // await printText(printer, vin);
-      // await disconnectPrinter(printer);
-    } catch (error) {
-      console.error("Error printing:", error);
-    }
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      router.replace("(tabs)");
+    }, 2000);
+  }, []);
 
   return (
-    <View style={{ padding: 20 }}>
-      <TextInput
-        placeholder="Enter VIN"
-        value={vin}
-        onChangeText={setVin}
-        style={{ borderWidth: 1, marginBottom: 20, padding: 10 }}
-      />
-      <Button title="Print VIN" onPress={handlePrint} />
-    </View>
+    <>
+      <Layout>
+        <View>
+          <ActivityIndicator size={"large"} color={colors.primary} />
+        </View>
+      </Layout>
+    </>
   );
-};
-
-export default App;
+}
