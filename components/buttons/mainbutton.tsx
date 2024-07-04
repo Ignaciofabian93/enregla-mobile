@@ -11,7 +11,7 @@ export default function MainButton({ text, onPress, type, ...rest }: ButtonProps
   return (
     <>
       <TouchableOpacity onPress={onPress} {...rest} style={[styles.button, styles[type]]}>
-        <Text>{text}</Text>
+        <Text style={styles.text}>{text}</Text>
       </TouchableOpacity>
     </>
   );
@@ -21,12 +21,14 @@ const styles = StyleSheet.create({
   button: {
     minWidth: 100,
     width: "100%",
-    height: 48,
+    height: 56,
     borderRadius: radius.md,
     alignItems: "center",
+    justifyContent: "center",
   },
   text: {
     fontSize: fontStyles.md,
+    color: colors.textWhite,
   },
   primary: {
     backgroundColor: colors.primary,
