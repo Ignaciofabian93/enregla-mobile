@@ -1,3 +1,4 @@
+import { colors, fontStyles, radius } from "@/constants/theme";
 import { Text, StyleSheet, TouchableOpacity, type TouchableOpacityProps } from "react-native";
 
 type ButtonProps = TouchableOpacityProps & {
@@ -21,11 +22,15 @@ const styles = StyleSheet.create({
     minWidth: 100,
     width: "100%",
     height: 48,
-    borderRadius: 16,
+    borderRadius: radius.md,
+    alignItems: "center",
   },
   text: {
-    fontSize: 16,
+    fontSize: fontStyles.md,
   },
-  primary: {},
+  primary: {
+    backgroundColor: colors.primary,
+    color: colors.textWhite,
+  },
   secondary: {},
 });

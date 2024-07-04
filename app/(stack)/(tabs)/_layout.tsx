@@ -17,7 +17,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Inicio",
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.icon, { backgroundColor: focused ? colors.primary : colors.grey }]}>
               <TabBarIcon name={focused ? "home" : "home-outline"} color={color} />
@@ -26,9 +26,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="print"
+        options={{
+          title: "Imprimir",
+          tabBarIcon: ({ color, focused }) => (
+            <View style={[styles.icon, { backgroundColor: focused ? colors.primary : colors.grey }]}>
+              <TabBarIcon name={focused ? "print" : "print-outline"} color={color} />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: "Perfil",
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.icon, { backgroundColor: focused ? colors.primary : colors.grey }]}>
               <TabBarIcon name={focused ? "person-sharp" : "person-outline"} color={color} />
@@ -46,11 +57,13 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderTopWidth: 0,
     height: 56,
+    paddingBottom: 16,
   },
   icon: {
     width: 50,
-    height: 50,
+    height: 48,
     borderRadius: 8,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },

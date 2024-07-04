@@ -9,7 +9,7 @@ export default function Auth() {
 
   useEffect(() => {
     setTimeout(() => {
-      router.replace("(tabs)");
+      router.replace("login");
     }, 2000);
   }, []);
 
