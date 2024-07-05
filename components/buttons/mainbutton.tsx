@@ -1,38 +1,23 @@
-import { colors, fontStyles, radius } from "@/constants/theme";
-import { Text, StyleSheet, TouchableOpacity, type TouchableOpacityProps } from "react-native";
+import { Text, TouchableOpacity, type TouchableOpacityProps } from "react-native";
+import { buttonStyles, textStyles } from "./styles";
 
 type ButtonProps = TouchableOpacityProps & {
   text: string;
   onPress: () => void;
-  type: "primary" | "secondary";
+  type: "primary" | "secondary" | "warning";
+  size?: "sm" | "md" | "lg";
 };
 
-export default function MainButton({ text, onPress, type, ...rest }: ButtonProps) {
+export default function MainButton({ text, onPress, type, size = "md", ...rest }: ButtonProps) {
   return (
     <>
-      <TouchableOpacity onPress={onPress} {...rest} style={[styles.button, styles[type]]}>
-        <Text style={styles.text}>{text}</Text>
+      <TouchableOpacity
+        onPress={onPress}
+        {...rest}
+        style={[buttonStyles.button, buttonStyles[type], buttonStyles[size]]}
+      >
+        <Text style={[textStyles.text, textStyles[type]]}>{text}</Text>
       </TouchableOpacity>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    minWidth: 100,
-    width: "100%",
-    height: 56,
-    borderRadius: radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    fontSize: fontStyles.md,
-    color: colors.textWhite,
-  },
-  primary: {
-    backgroundColor: colors.primary,
-    color: colors.textWhite,
-  },
-  secondary: {},
-});

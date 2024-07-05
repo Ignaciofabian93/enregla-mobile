@@ -11,7 +11,7 @@ type Devices = {
 
 export default function Home() {
   const [devices, setDevices] = useState<Devices[]>([]);
-  const targetMacAddress = "88:12:e4:41:78:39"; // ESC/POS device bluetooth MAC address
+  const targetMacAddress = "00:11:22:33:44:55"; // ESC/POS device bluetooth MAC address
 
   useEffect(() => {
     handleGetDevices();

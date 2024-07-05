@@ -1,10 +1,12 @@
 import { Tabs } from "expo-router";
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Animated } from "react-native";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { colors } from "@/constants/theme";
 
 export default function TabLayout() {
+  const [scale] = useState(new Animated.Value(1.0));
+
   return (
     <Tabs
       screenOptions={{
@@ -18,10 +20,13 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Inicio",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.icon, { backgroundColor: focused ? colors.primary : colors.grey }]}>
-              <TabBarIcon name={focused ? "home" : "home-outline"} color={color} />
-            </View>
+          tabBarIcon: ({ focused }) => (
+            <Animated.View style={[styles.icon, focused ? styles.focused : styles.default]}>
+              <TabBarIcon
+                name={focused ? "home" : "home-outline"}
+                color={focused ? colors.primary[100] : colors.light[400]}
+              />
+            </Animated.View>
           ),
         }}
       />
@@ -29,9 +34,12 @@ export default function TabLayout() {
         name="print"
         options={{
           title: "Imprimir",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.icon, { backgroundColor: focused ? colors.primary : colors.grey }]}>
-              <TabBarIcon name={focused ? "print" : "print-outline"} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <View style={[styles.icon, focused ? styles.focused : styles.default]}>
+              <TabBarIcon
+                name={focused ? "print" : "print-outline"}
+                color={focused ? colors.primary[100] : colors.light[400]}
+              />
             </View>
           ),
         }}
@@ -40,9 +48,12 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Perfil",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.icon, { backgroundColor: focused ? colors.primary : colors.grey }]}>
-              <TabBarIcon name={focused ? "person-sharp" : "person-outline"} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <View style={[styles.icon, focused ? styles.focused : styles.default]}>
+              <TabBarIcon
+                name={focused ? "person-sharp" : "person-outline"}
+                color={focused ? colors.primary[100] : colors.light[400]}
+              />
             </View>
           ),
         }}
@@ -53,11 +64,11 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: colors.dark,
+    backgroundColor: colors.light.default,
     borderWidth: 0,
     borderTopWidth: 0,
-    height: 56,
-    paddingBottom: 16,
+    height: 64,
+    shadowColor: colors.light.default,
   },
   icon: {
     width: 50,
@@ -66,5 +77,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
+  },
+  focused: {
+    backgroundColor: colors.primary[300],
+    borderColor: colors.primary[400],
+  },
+  default: {
+    backgroundColor: colors.primary[200],
+    borderColor: colors.primary[400],
   },
 });

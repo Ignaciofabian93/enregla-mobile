@@ -18,11 +18,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: fontStyles.xxl,
-    color: colors.textWhite,
+    color: colors.text.white,
   },
   subtitle: {
-    fontSize: fontStyles.lg,
-    color: colors.textWhite,
+    color: colors.text.white,
   },
 });

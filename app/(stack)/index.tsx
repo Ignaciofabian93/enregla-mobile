@@ -17,7 +17,7 @@ export default function Auth() {
     <>
       <Layout>
         <View>
-          <ActivityIndicator size={"large"} color={colors.primary} />
+          <ActivityIndicator size={"large"} color={colors.primary.default} />
         </View>
       </Layout>
     </>

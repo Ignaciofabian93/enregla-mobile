@@ -56,6 +56,17 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "sdkVersion": "51.0.0"
+    "sdkVersion": "51.0.0",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0acd45a2-3ca4-44b6-a8fb-b638981b9acb"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0acd45a2-3ca4-44b6-a8fb-b638981b9acb"
+    }
   }
 }

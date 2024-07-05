@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: fontStyles.sm,
-    color: colors.textWhite,
+    color: colors.text.white,
   },
 });

@@ -14,7 +14,7 @@ export default function CustomTextInput({ size = "lg", value, onChangeText, plac
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor={colors.placeholder}
+        placeholderTextColor={colors.text.placeholder}
       />
     </>
   );
@@ -23,7 +23,7 @@ export default function CustomTextInput({ size = "lg", value, onChangeText, plac
 const styles = StyleSheet.create({
   input: {
     borderWidth: 0.5,
-    borderColor: colors.textWhite,
+    borderColor: colors.text.white,
     height: 56,
     borderRadius: radius.md,
     paddingHorizontal: 16,
