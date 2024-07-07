@@ -1,3 +1,4 @@
+import { colors } from "@/constants/theme";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -27,7 +28,7 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
+    <Stack screenOptions={{ navigationBarColor: colors.light[100] }}>
       <Stack.Screen name="(stack)" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>

@@ -99,6 +99,10 @@ export const fontStyles = {
     fontFamily: "Sora_Semi_Bold",
     fontSize: 24,
   },
+  bodysemibold: {
+    fontFamily: "Sora_Semi_Bold",
+    fontSize: 16,
+  },
   body: {
     fontFamily: "Sora_Regular",
     fontSize: 16,

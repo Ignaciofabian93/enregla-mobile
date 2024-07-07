@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import Layout from "../ui/layout";
 import Header from "../ui/login/header";
 import Form from "../ui/login/form";

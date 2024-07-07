@@ -8,12 +8,16 @@ export const buttonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
+    elevation: 3,
   },
   primary: {
-    backgroundColor: colors.primary[300],
-    borderColor: colors.primary[400],
+    backgroundColor: colors.primary[500],
+    borderColor: colors.primary[500],
   },
-  secondary: {},
+  secondary: {
+    backgroundColor: colors.light[50],
+    borderColor: colors.primary[500],
+  },
   warning: {
     backgroundColor: colors.warning[50],
     borderColor: colors.warning[500],
@@ -38,7 +42,9 @@ export const textStyles = StyleSheet.create({
   primary: {
     color: colors.light[50],
   },
-  secondary: {},
+  secondary: {
+    color: colors.primary[500],
+  },
   warning: {
     color: colors.warning[500],
   },

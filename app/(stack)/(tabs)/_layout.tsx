@@ -10,7 +10,6 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#ccc",
         tabBarStyle: styles.tabBar,
         tabBarShowLabel: false,
         headerShown: false,
@@ -81,10 +80,12 @@ const styles = StyleSheet.create({
   },
   focused: {
     backgroundColor: colors.primary[300],
-    borderColor: colors.primary[400],
+    borderColor: colors.primary[300],
+    elevation: 1,
   },
   default: {
-    backgroundColor: colors.primary[200],
-    borderColor: colors.primary[400],
+    backgroundColor: colors.light[200],
+    borderColor: colors.light[300],
+    elevation: 1,
   },
 });

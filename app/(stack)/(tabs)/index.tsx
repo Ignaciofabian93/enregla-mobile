@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Text, View } from "react-native";
 import { GetBluetoothDevices, PrintLabelBluetooth } from "@/app/printer/printer";
 import LabelTemplate from "@/app/printer/template";
+import Container from "@/app/ui/container";
+import Header from "@/app/ui/home/header";
+import Content from "@/app/ui/home/content";
+import Footer from "@/app/ui/home/footer";
 
 type Devices = {
   deviceName: string;
@@ -37,17 +41,11 @@ export default function Home() {
   return (
     <>
       <Layout>
-        <View>
-          {devices &&
-            devices.map((device, index) => (
-              <View key={index}>
-                <Text style={{ color: "#fff", fontSize: 18 }}>
-                  Nombre: {device.deviceName} -- MAC: {device.macAddress}
-                </Text>
-              </View>
-            ))}
-          <Button title="Print" onPress={handlePrintLabel} />
-        </View>
+        <Container>
+          <Header />
+          <Content />
+          <Footer />
+        </Container>
       </Layout>
     </>
   );
