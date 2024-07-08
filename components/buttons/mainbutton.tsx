@@ -8,13 +8,13 @@ type ButtonProps = TouchableOpacityProps & {
   size?: "sm" | "md" | "lg";
 };
 
-export default function MainButton({ text, onPress, type, size = "md", ...rest }: ButtonProps) {
+export default function MainButton({ text, onPress, type, size = "md", style, ...rest }: ButtonProps) {
   return (
     <>
       <TouchableOpacity
         onPress={onPress}
         {...rest}
-        style={[buttonStyles.button, buttonStyles[type], buttonStyles[size]]}
+        style={[buttonStyles.button, buttonStyles[type], buttonStyles[size], style]}
       >
         <Text style={[textStyles.text, textStyles[type]]}>{text}</Text>
       </TouchableOpacity>

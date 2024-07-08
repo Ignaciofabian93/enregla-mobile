@@ -1,12 +1,14 @@
-import { colors, fontStyles } from "@/constants/theme";
-import { Text, View, StyleSheet } from "react-native";
+import { fontStyles } from "@/constants/theme";
+import { Text, View, StyleSheet, Image } from "react-native";
+
+const enregla = require("@/assets/icons/splash.png");
 
 export default function Header() {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.title}>EnRegla</Text>
-        <Text style={styles.subtitle}>Seguridad automotriz</Text>
+        <Image source={enregla} resizeMode="contain" style={{ width: "70%", height: "80%" }} />
+        <Text style={fontStyles.detail}>Etiquetadora VIN</Text>
       </View>
     </>
   );
@@ -15,12 +17,8 @@ export default function Header() {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    height: "20%",
     alignItems: "center",
-  },
-  title: {
-    color: colors.text.white,
-  },
-  subtitle: {
-    color: colors.text.white,
+    justifyContent: "center",
   },
 });

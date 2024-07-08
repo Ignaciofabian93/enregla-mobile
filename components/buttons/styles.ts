@@ -23,13 +23,13 @@ export const buttonStyles = StyleSheet.create({
     borderColor: colors.warning[500],
   },
   sm: {
-    width: "50%",
+    width: "60%",
   },
   md: {
-    width: "70%",
+    width: "80%",
   },
   lg: {
-    width: "90%",
+    width: "100%",
   },
 });
 

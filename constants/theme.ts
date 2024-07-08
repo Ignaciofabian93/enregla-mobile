@@ -95,10 +95,6 @@ export const fontStyles = {
     fontFamily: "Sora_Bold",
     fontSize: 32,
   },
-  subtitle: {
-    fontFamily: "Sora_Semi_Bold",
-    fontSize: 24,
-  },
   bodysemibold: {
     fontFamily: "Sora_Semi_Bold",
     fontSize: 16,
@@ -110,6 +106,14 @@ export const fontStyles = {
   link: {
     fontFamily: "Sora_Light",
     fontSize: 14,
+  },
+  detail: {
+    fontFamily: "Sora_Semi_Bold",
+    fontSize: 14,
+  },
+  mark: {
+    fontFamily: "Sora_Semi_Bold",
+    fontSize: 12,
   },
 };
 

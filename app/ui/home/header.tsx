@@ -1,13 +1,13 @@
 import { fontStyles } from "@/constants/theme";
 import { View, StyleSheet, Image, Text } from "react-native";
 
-const enregla = require("@/assets/icons/enregla.png");
+const enregla = require("@/assets/icons/splash.png");
 
 export default function Header() {
   return (
     <>
       <View style={styles.header}>
-        <Text style={fontStyles.title}>enregla</Text>
+        <Image source={enregla} resizeMode="contain" style={{ width: "50%" }} />
       </View>
     </>
   );

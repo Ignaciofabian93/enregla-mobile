@@ -5,8 +5,7 @@ export default function Footer() {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.text}>enregla&copy;</Text>
-        <Text style={styles.text}>Todos los derechos reservados</Text>
+        <Text style={fontStyles.mark}>enregla&copy;</Text>
       </View>
     </>
   );
@@ -15,6 +14,7 @@ export default function Footer() {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    height: "5%",
     alignItems: "center",
   },
   text: {
