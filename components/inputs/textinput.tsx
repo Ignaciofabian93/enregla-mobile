@@ -22,6 +22,7 @@ export default function CustomTextInput({
   iconName,
   onIconPress,
   secureTextEntry = false,
+  keyboardType = "default",
   ...rest
 }: InputProps) {
   const checkBorderColor = () => {
@@ -39,6 +40,7 @@ export default function CustomTextInput({
           value={value}
           secureTextEntry={secureTextEntry}
           onChangeText={onChangeText}
+          keyboardType={keyboardType}
           placeholder={placeholder}
           placeholderTextColor={colors.text.placeholder}
         />

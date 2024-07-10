@@ -3,12 +3,14 @@ import CustomTextInput from "@/components/inputs/textinput";
 import MainButton from "@/components/buttons/mainbutton";
 import useSession from "@/hooks/useSession";
 import { validate_email, validate_password } from "@/utils/regexvalidations";
+import Notification from "@/components/toast";
 
 export default function Form() {
-  const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility } = useSession();
+  const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility, message, showMessage } = useSession();
   return (
     <>
       <View style={styles.form}>
+        <Notification visible={showMessage} message={message.content} type={message.type} />
         <CustomTextInput
           value={form.email}
           onChangeText={(e) => handleForm("email", e)}
@@ -18,6 +20,8 @@ export default function Form() {
           errorMessage="Correo inválido"
           icon={true}
           iconName="mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
         <CustomTextInput
           value={form.password}
