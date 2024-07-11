@@ -1,15 +1,12 @@
-import { colors, fontStyles } from "@/constants/theme";
-import useSessionStore from "@/store/session";
+import { fontStyles } from "@/constants/theme";
 import { View, StyleSheet, Text } from "react-native";
 
 export default function Header() {
-  const { user } = useSessionStore();
   return (
     <>
       <View style={styles.container}>
         <View>
-          <Text style={fontStyles.title}>{user.name}</Text>
-          <Text style={fontStyles.title}>{user.email}</Text>
+          <Text style={[fontStyles.title, { fontSize: 28 }]}>Perfil</Text>
         </View>
       </View>
     </>

@@ -58,6 +58,7 @@ export default function useSession() {
       content: "Iniciando sesión",
       type: "success",
     });
+    setShowMessage(true);
     handleMessageShow();
     setTimeout(() => {
       router.replace("(tabs)");
