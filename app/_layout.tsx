@@ -30,7 +30,7 @@ export default function RootLayout() {
 
   return (
     <RootSiblingParent>
-      <Stack screenOptions={{ navigationBarColor: colors.light[100] }}>
+      <Stack screenOptions={{ navigationBarColor: colors.light[50] }}>
         <Stack.Screen name="(stack)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>

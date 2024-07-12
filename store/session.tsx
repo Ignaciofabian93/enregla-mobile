@@ -6,21 +6,14 @@ export const defaultUser: User = {
   name: "",
   email: "",
   rut: "",
-  branch: {
-    id: 0,
-    location: "",
-    municipality: "",
-    address: "",
-    telephone: "",
-    agency: {
-      id: 0,
-      name: "",
-    },
-  },
-  role: {
-    id: 0,
-    name: "",
-  },
+  branch_id: 0,
+  location: "",
+  municipality: "",
+  address: "",
+  agency: "",
+  agency_id: 0,
+  role: "",
+  role_id: 0,
 };
 
 type sessionStore = {

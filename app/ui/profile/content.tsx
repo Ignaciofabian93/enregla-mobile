@@ -17,13 +17,12 @@ export default function Content() {
     <>
       <View style={styles.content}>
         <View style={styles.info}>
-          <Row field="Nombre:" value={user.name} />
-          <Row field="Email:" value={user.email} />
-          <Row field="Cargo:" value={user.role.name} />
-          <Row field="Agencia:" value={user.branch.agency.name} />
-          <Row field="Municipio:" value={user.branch.municipality} />
-          <Row field="Dirección:" value={user.branch.address} />
-          <Row field="Teléfono:" value={user.branch.telephone} />
+          <Row field="Nombre:" value={user?.name} />
+          <Row field="Email:" value={user?.email} />
+          <Row field="Cargo:" value={user?.role} />
+          <Row field="Agencia:" value={user?.agency} />
+          <Row field="Municipio:" value={user?.municipality} />
+          <Row field="Dirección:" value={user?.address} />
         </View>
       </View>
     </>

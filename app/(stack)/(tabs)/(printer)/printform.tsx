@@ -1,15 +1,15 @@
 import Container from "@/app/ui/container";
 import Layout from "@/app/ui/layout";
+import Form from "@/app/ui/print/form";
 import Header from "@/app/ui/print/header";
-import TemplateMenu from "@/app/ui/print/tempmenu";
 
-export default function Printer() {
+export default function PrintForm() {
   return (
     <>
       <Layout>
         <Container>
-          <Header title="Seleccionar plantilla" />
-          <TemplateMenu />
+          <Header title="Datos" canGoBack />
+          <Form />
         </Container>
       </Layout>
     </>
