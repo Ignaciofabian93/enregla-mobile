@@ -21,11 +21,7 @@
         "foregroundImage": "./assets/icons/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.BLUETOOTH",
-        "android.permission.BLUETOOTH_ADMIN",
-        "android.permission.BLUETOOTH_CONNECT"
-      ],
+      "permissions": ["android.permission.BLUETOOTH", "android.permission.BLUETOOTH_ADMIN", "android.permission.BLUETOOTH_CONNECT"],
       "package": "com.ignaciofabian93.enreglamobile"
     },
     "plugins": [
@@ -48,9 +44,7 @@
     "experiments": {
       "typedRoutes": true
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+    "runtimeVersion": "1.0.1",
     "sdkVersion": "51.0.0",
     "extra": {
       "router": {

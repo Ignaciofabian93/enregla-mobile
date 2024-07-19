@@ -1,6 +1,6 @@
 import { API_URL } from "./endpoint";
 
-export const authUser = async ({ email, password }: { email: string; password: string }) => {
+export const AuthUser = async ({ email, password }: { email: string; password: string }) => {
   console.log(email, password);
 
   try {

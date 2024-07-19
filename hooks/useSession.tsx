@@ -1,4 +1,4 @@
-import { authUser } from "@/api/session";
+import { AuthUser } from "@/api/session";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import useSessionStore, { defaultUser } from "@/store/session";
@@ -13,6 +13,7 @@ export default function useSession() {
   const { setToken, setUser } = useSessionStore();
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<Message>({
     content: "",
     type: "error",
@@ -41,7 +42,8 @@ export default function useSession() {
       handleMessageShow();
       return;
     }
-    const response = await authUser({ email, password });
+    const response = await AuthUser({ email, password });
+    setLoading(true);
     if (response.error) {
       setMessage({
         content: response.error,
@@ -49,6 +51,7 @@ export default function useSession() {
       });
       setShowMessage(true);
       handleMessageShow();
+      setLoading(false);
       return;
     }
     console.log(response);
@@ -61,6 +64,7 @@ export default function useSession() {
     setShowMessage(true);
     handleMessageShow();
     setTimeout(() => {
+      setLoading(false);
       router.replace("(tabs)");
     }, 2000);
   };
@@ -71,5 +75,5 @@ export default function useSession() {
     router.replace("(stack)/login");
   };
 
-  return { login, closeSession, handleForm, form, isPasswordVisible, togglePasswordVisibility, showMessage, message };
+  return { login, closeSession, handleForm, form, isPasswordVisible, togglePasswordVisibility, showMessage, message, loading };
 }

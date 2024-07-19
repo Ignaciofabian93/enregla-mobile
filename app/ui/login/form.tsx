@@ -6,7 +6,7 @@ import { validate_email, validate_password } from "@/utils/regexvalidations";
 import Notification from "@/components/toast";
 
 export default function Form() {
-  const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility, message, showMessage } = useSession();
+  const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility, message, showMessage, loading } = useSession();
   return (
     <>
       <View style={styles.form}>
@@ -35,7 +35,7 @@ export default function Form() {
           onIconPress={togglePasswordVisibility}
           secureTextEntry={!isPasswordVisible}
         />
-        <MainButton style={{ marginTop: 16 }} text="Iniciar sesión" onPress={login} type="primary" size="lg" />
+        <MainButton style={{ marginTop: 16 }} text="Iniciar sesión" onPress={login} type="primary" size="lg" isLoading={loading} />
       </View>
     </>
   );
