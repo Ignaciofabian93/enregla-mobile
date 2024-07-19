@@ -49,7 +49,8 @@
     "react-native-thermal-printer": "^2.3.6",
     "react-native-web": "~0.19.10",
     "zustand": "^4.5.4",
-    "expo-checkbox": "~3.0.0"
+    "expo-checkbox": "~3.0.0",
+    "react-native-rawbt-api": "./components/react-native-rawbt-api"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
