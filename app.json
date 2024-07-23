@@ -39,6 +39,14 @@
             "usesClearTextTraffic": true
           }
         }
+      ],
+      [
+        "react-native-ble-plx",
+        {
+          "isBackgroundEnabled": true,
+          "modes": ["peripheral", "central"],
+          "bluetoothAlwaysPermission": "Permita a EnRegla acceder al Bluetooth para usar impresora integrada"
+        }
       ]
     ],
     "experiments": {

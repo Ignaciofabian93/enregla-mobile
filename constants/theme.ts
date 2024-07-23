@@ -4,8 +4,8 @@ export const colors = {
     black: "222",
     placeholder: "a1a1a1",
   },
+  white: "#fefefe",
   secondary: {
-    default: "#ac6aff",
     "50": "#f9f5ff",
     "100": "#f2e7ff",
     "200": "#e7d4ff",
@@ -19,7 +19,6 @@ export const colors = {
     "950": "#350566",
   },
   dark: {
-    default: "#0e0c15",
     "50": "#f6f5fa",
     "100": "#eceaf4",
     "200": "#d4d0e7",
@@ -33,7 +32,6 @@ export const colors = {
     "950": "#0e0c15",
   },
   light: {
-    default: "#edf1f3",
     "50": "#f6f8f9",
     "100": "#edf1f3",
     "200": "#d4dfe3",
@@ -47,7 +45,6 @@ export const colors = {
     "950": "#222b2f",
   },
   tertiary: {
-    default: "#FFC876",
     "50": "#fff9ed",
     "100": "#fff1d4",
     "200": "#ffdfa9",
@@ -61,7 +58,6 @@ export const colors = {
     "950": "#441906",
   },
   primary: {
-    default: "#7adb78",
     "50": "#f2fbf2",
     "100": "#e1f8e0",
     "200": "#c4f0c2",
@@ -75,7 +71,6 @@ export const colors = {
     "950": "#0a290b",
   },
   warning: {
-    default: "#FF776F",
     "50": "#fff2f1",
     "100": "#ffe3e1",
     "200": "#ffcac7",
@@ -88,48 +83,4 @@ export const colors = {
     "900": "#841e18",
     "950": "#480b07",
   },
-};
-
-export const fontStyles = {
-  title: {
-    fontFamily: "Sora_Bold",
-    fontSize: 32,
-  },
-  bodysemibold: {
-    fontFamily: "Sora_Semi_Bold",
-    fontSize: 16,
-  },
-  body: {
-    fontFamily: "Sora_Regular",
-    fontSize: 16,
-  },
-  link: {
-    fontFamily: "Sora_Light",
-    fontSize: 14,
-  },
-  detail: {
-    fontFamily: "Sora_Semi_Bold",
-    fontSize: 14,
-  },
-  mark: {
-    fontFamily: "Sora_Semi_Bold",
-    fontSize: 12,
-  },
-};
-
-export const radius = {
-  sm: 8,
-  md: 12,
-  lg: 16,
-  xl: 20,
-  full: 9999,
-};
-
-export const shadows = {};
-
-export const spacing = {
-  sm: 4,
-  md: 8,
-  lg: 12,
-  xl: 16,
 };

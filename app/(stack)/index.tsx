@@ -1,8 +1,8 @@
-import { View, ActivityIndicator } from "react-native";
-import Layout from "../ui/layout";
+import { ActivityIndicator } from "react-native";
 import { useEffect } from "react";
 import { useRouter } from "expo-router";
 import { colors } from "@/constants/theme";
+import Layout from "../ui/layout";
 import useSessionStore from "@/store/session";
 
 export default function Auth() {
@@ -14,16 +14,14 @@ export default function Auth() {
   };
 
   useEffect(() => {
-    if (!token) navigateTo("login");
+    if (!token) navigateTo("(tabs)");
     else navigateTo("(tabs)");
   }, [token]);
 
   return (
     <>
       <Layout>
-        <View>
-          <ActivityIndicator size={"large"} color={colors.primary.default} />
-        </View>
+        <ActivityIndicator size={"large"} color={colors.primary[500]} />
       </Layout>
     </>
   );

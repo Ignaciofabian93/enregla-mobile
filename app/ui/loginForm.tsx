@@ -1,16 +1,16 @@
-import { View, StyleSheet } from "react-native";
-import CustomTextInput from "@/components/inputs/textinput";
-import MainButton from "@/components/buttons/mainbutton";
-import useSession from "@/hooks/useSession";
 import { validate_email, validate_password } from "@/utils/regexvalidations";
+import useSession from "@/hooks/useSession";
 import Notification from "@/components/toast";
+import CustomTextInput from "@/components/textinput";
+import CustomButton from "@/components/button";
+import { View } from "react-native";
 
-export default function Form() {
+export default function LoginForm() {
   const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility, message, showMessage, loading } = useSession();
   return (
-    <>
-      <View style={styles.form}>
-        <Notification visible={showMessage} message={message.content} type={message.type} />
+    <View style={{ width: "100%", height: "50%", justifyContent: "flex-start" }}>
+      <Notification visible={showMessage} message={message.content} type={message.type} />
+      <View style={{ marginBottom: 20 }}>
         <CustomTextInput
           value={form.email}
           onChangeText={(e) => handleForm("email", e)}
@@ -35,16 +35,10 @@ export default function Form() {
           onIconPress={togglePasswordVisibility}
           secureTextEntry={!isPasswordVisible}
         />
-        <MainButton style={{ marginTop: 16 }} text="Iniciar sesión" onPress={login} type="primary" size="lg" isLoading={loading} />
       </View>
-    </>
+      <View>
+        <CustomButton text="Iniciar sesión" onPress={login} type="primary" size="lg" isLoading={loading} />
+      </View>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  form: {
-    width: "100%",
-    height: "50%",
-    justifyContent: "flex-start",
-  },
-});

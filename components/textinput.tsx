@@ -1,4 +1,4 @@
-import { colors, fontStyles, radius, spacing } from "@/constants/theme";
+import { colors } from "@/constants/theme";
 import { TextInput, type TextInputProps, StyleSheet, View, Text } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -35,7 +35,7 @@ export default function CustomTextInput({
     <>
       <View style={styles.container}>
         <TextInput
-          style={[styles.input, styles[size], fontStyles.link, { borderColor: checkBorderColor() }]}
+          style={[styles.input, styles[size], { borderColor: checkBorderColor() }]}
           {...rest}
           value={value}
           secureTextEntry={secureTextEntry}
@@ -55,7 +55,7 @@ export default function CustomTextInput({
         )}
         {errorMessage && isInvalid ? (
           <View>
-            <Text style={[fontStyles.mark, styles.error]}>{errorMessage}</Text>
+            <Text style={[styles.error]}>{errorMessage}</Text>
           </View>
         ) : null}
       </View>
@@ -67,15 +67,16 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: 56,
-    marginVertical: spacing.md,
+    marginVertical: 10,
     position: "relative",
   },
   input: {
+    fontFamily: "Sora_Regular",
     borderWidth: 1,
     height: 56,
-    borderRadius: radius.md,
+    borderRadius: 12,
     paddingHorizontal: 16,
-    backgroundColor: colors.light[100],
+    backgroundColor: colors.white,
     elevation: 2,
   },
   error: {
@@ -83,6 +84,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: -16,
     left: 6,
+    fontFamily: "Sora_Regular",
+    fontSize: 12,
   },
   sm: {
     width: "60%",

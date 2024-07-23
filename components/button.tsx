@@ -1,43 +1,52 @@
-import { StyleSheet, Text, TouchableOpacity, type TouchableOpacityProps } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, type TouchableOpacityProps, StyleSheet } from "react-native";
 import { colors } from "@/constants/theme";
 
-type ButtonProps = TouchableOpacityProps & {
+type Button = TouchableOpacityProps & {
   text: string;
-  onPress: () => void;
-  type: "primary" | "secondary" | "warning";
+  type?: "primary" | "secondary" | "warning";
+  isLoading?: boolean;
   size?: "sm" | "md" | "lg";
 };
 
-export default function MainButton({ text, onPress, type, size = "md", style, ...rest }: ButtonProps) {
+export default function CustomButton({ text, type = "primary", onPress, isLoading, size = "lg", ...rest }: Button) {
   return (
     <>
-      <TouchableOpacity onPress={onPress} {...rest} style={[buttonStyles.button, buttonStyles[type], buttonStyles[size], style]}>
-        <Text style={[textStyles.text, textStyles[type]]}>{text}</Text>
+      <TouchableOpacity onPress={onPress} {...rest} style={[styles.button, styles[type], styles[size]]}>
+        {isLoading ? <ActivityIndicator size="small" color="#fff" /> : <Text style={[styles.text, styles[type]]}>{text}</Text>}
       </TouchableOpacity>
     </>
   );
 }
 
-const buttonStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   button: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     height: 56,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 1,
-    elevation: 3,
+    elevation: 2,
+    borderWidth: 2,
+  },
+  text: {
+    fontSize: 16,
+    fontFamily: "Sora_Regular",
   },
   primary: {
-    backgroundColor: colors.primary[500],
     borderColor: colors.primary[500],
+    backgroundColor: colors.primary[500],
+    color: "white",
   },
   secondary: {
-    backgroundColor: colors.light[50],
     borderColor: colors.primary[500],
+    backgroundColor: "#fff",
+    color: colors.primary[500],
   },
   warning: {
-    backgroundColor: colors.warning[50],
     borderColor: colors.warning[500],
+    backgroundColor: "#fff",
+    color: colors.warning[500],
   },
   sm: {
     width: "60%",
@@ -47,22 +56,5 @@ const buttonStyles = StyleSheet.create({
   },
   lg: {
     width: "100%",
-  },
-});
-
-const textStyles = StyleSheet.create({
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    letterSpacing: 0.25,
-  },
-  primary: {
-    color: colors.light[50],
-  },
-  secondary: {
-    color: colors.primary[500],
-  },
-  warning: {
-    color: colors.warning[500],
   },
 });

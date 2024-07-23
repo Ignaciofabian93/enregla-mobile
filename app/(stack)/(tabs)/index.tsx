@@ -1,13 +1,14 @@
-import Layout from "@/app/ui/layout";
 import { useEffect, useState } from "react";
-import { Alert, Button, Text, View } from "react-native";
+import { Alert, Image, Text, View, StyleSheet } from "react-native";
 import { GetBluetoothDevices, PrintLabelBluetooth } from "@/app/printer/printer";
-import LabelTemplate from "@/app/printer/template";
-import Container from "@/app/ui/container";
-import Header from "@/app/ui/home/header";
-import Content from "@/app/ui/home/content";
-import Footer from "@/app/ui/home/footer";
 import { NissanBase64_1, NissanBase64_2 } from "@/assets/icons/icon";
+import Layout from "@/app/ui/layout";
+import Container from "@/app/ui/container";
+import LabelTemplate from "@/app/printer/template";
+import EscPosPrinter from "react-native-esc-pos-printer";
+import CustomButton from "@/components/button";
+
+const enregla = require("@/assets/icons/splash.png");
 
 type Devices = {
   deviceName: string;
@@ -20,9 +21,40 @@ export default function Home() {
   const [vin, setVin] = useState("ABCDEFGHIJKLM123");
   const [carPlate, setCarPlate] = useState("AB-CD-12");
 
+  // const printer = new EscPosPrinter.
+
   useEffect(() => {
-    handleGetDevices();
+    // handleGetDevices();
   }, []);
+
+  useEffect(() => {
+    initializePrinter();
+  }, []);
+
+  async function initializePrinter() {
+    try {
+      const seriesName = "TM_T20"; // Replace with your printer's series name
+      const language = "EPOS2_LANG_EN"; // Language for the printer
+
+      const initResult = await EscPosPrinter.init({ target: targetMacAddress, seriesName: "EPOS2_TM_T88", language });
+      console.log("Printer initialized:", initResult);
+    } catch (error) {
+      console.error("Initialization failed:", error);
+    }
+  }
+
+  async function connectToPrinter() {
+    try {
+      const connectResult = await EscPosPrinter.connect(targetMacAddress);
+      console.log("Printer connected:", connectResult);
+    } catch (error) {
+      console.error("Connection failed:", error);
+    }
+  }
+
+  async function printLabel() {
+    const labelContent = `VIN LABEL\n================================\nVIN: ${vin}\nPlate: ${carPlate}\n================================`;
+  }
 
   const handleGetDevices = async () => {
     const devices = await GetBluetoothDevices();
@@ -55,8 +87,9 @@ export default function Home() {
     <>
       <Layout>
         <Container>
-          <Header />
-          {/* <Content /> */}
+          <View style={styles.header}>
+            <Image source={enregla} resizeMode="contain" style={{ width: "50%" }} />
+          </View>
           <View>
             {devices.map((device) => (
               <Text key={device.deviceName}>
@@ -64,13 +97,27 @@ export default function Home() {
               </Text>
             ))}
           </View>
-          <View style={{ width: "100%", height: "20%", justifyContent: "space-evenly" }}>
-            <Button title="Imprimir Etiqueta 1" onPress={handlePrintLabel_1} />
-            <Button title="Imprimir Etiqueta 2" onPress={handlePrintLabel_2} />
+          <View style={styles.footer}>
+            <CustomButton text="Enviar datos" onPress={printLabel} type="primary" isLoading={false} />
+            <CustomButton text="Cargar datos" onPress={printLabel} type="secondary" isLoading={false} />
           </View>
-          <Footer />
         </Container>
       </Layout>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    width: "100%",
+    height: "10%",
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+  footer: {
+    width: "100%",
+    height: "20%",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});

@@ -54,11 +54,11 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: colors.light[50],
+    backgroundColor: colors.white,
     borderWidth: 0,
     borderTopWidth: 0,
     height: 64,
-    shadowColor: colors.light.default,
+    shadowColor: colors.light[100],
   },
   icon: {
     width: 50,
@@ -70,12 +70,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   focused: {
-    backgroundColor: colors.primary[300],
-    borderColor: colors.primary[300],
+    backgroundColor: colors.primary[400],
+    borderColor: colors.primary[400],
     elevation: 1,
   },
   default: {
-    backgroundColor: colors.light[100],
+    backgroundColor: colors.light[50],
     borderColor: colors.light[300],
     elevation: 1,
   },
