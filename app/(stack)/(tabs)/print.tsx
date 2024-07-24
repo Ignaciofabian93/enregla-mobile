@@ -4,6 +4,8 @@ import Layout from "@/app/ui/layout";
 import { BleManager, BleError, Device } from "react-native-ble-plx";
 import { Buffer } from "buffer";
 import { useEffect, useState } from "react";
+import CustomCheckBox from "@/components/checkbox";
+import PlateInput from "@/components/plateInput";
 
 const manager = new BleManager();
 
@@ -11,9 +13,12 @@ const targetMacAddress = "00:11:22:33:44:55"; // ESC/POS device bluetooth MAC ad
 
 export default function Printer() {
   const [vin, setVin] = useState<string>("ABCDEFGHIJKLM123");
-  const [carPlate, setCarPlate] = useState<string>("AB-CD-12");
+  const [carPlate, setCarPlate] = useState<string[]>([]);
   const [logo, setLogo] = useState<string>("");
   const [device, setDevice] = useState<Device>();
+  const [hasVin, setHasVin] = useState<boolean>(false);
+  const [hasPlate, setHasPlate] = useState<boolean>(false);
+  const [hasLogo, setHasLogo] = useState<boolean>(false);
 
   const labelContent = `VIN LABEL\n================================\nVIN: ${vin}\nPlate: ${carPlate}\n================================`;
 
@@ -28,7 +33,7 @@ export default function Printer() {
       });
 
     return () => {
-      manager.destroy();
+      // manager.destroy();
     };
   }, []);
 
@@ -71,26 +76,38 @@ export default function Printer() {
     }
   }
 
+  const handlePlate = (position: number, value: string) => {
+    if (position === 1) setCarPlate({ ...carPlate, [0]: value.toUpperCase() });
+    else if (position === 2) setCarPlate({ ...carPlate, [1]: value.toUpperCase() });
+    else if (position === 3) setCarPlate({ ...carPlate, [2]: value.toUpperCase() });
+  };
+
   return (
     <>
       <Layout>
         <Container>
           <View style={styles.header}>
-            <Text style={{ fontSize: 24 }}>Formulario</Text>
+            <Text style={{ fontSize: 24 }}>Editar etiqueta</Text>
           </View>
           <View style={styles.content}>
-            <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly", marginBottom: 24 }}>
-              <Text>Patente</Text>
-              <Text>Logo</Text>
-              <Text>VIN</Text>
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                marginBottom: "10%",
+              }}
+            >
+              <CustomCheckBox title="VIN" checked={hasVin} onChange={() => setHasVin(!hasVin)} />
+              <CustomCheckBox title="Patente" checked={hasPlate} onChange={() => setHasPlate(!hasPlate)} />
+              <CustomCheckBox title="Logo" checked={hasLogo} onChange={() => setHasLogo(!hasLogo)} />
             </View>
-            <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly" }}>
-              <View style={{ width: 50, height: 30, borderWidth: 2 }}></View>
-              <Text>-</Text>
-              <View style={{ width: 50, height: 30, borderWidth: 2 }}></View>
-              <Text>-</Text>
-              <View style={{ width: 50, height: 30, borderWidth: 2 }}></View>
-            </View>
+            {hasPlate && (
+              <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly" }}>
+                <PlateInput plate={carPlate} handlePlate={handlePlate} />
+              </View>
+            )}
           </View>
         </Container>
       </Layout>

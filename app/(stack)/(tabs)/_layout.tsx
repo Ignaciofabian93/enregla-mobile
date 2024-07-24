@@ -27,7 +27,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="(printer)"
+        name="print"
         options={{
           title: "Imprimir",
           tabBarIcon: ({ focused }) => (
