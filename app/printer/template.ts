@@ -1,14 +1,14 @@
-export default function LabelTemplate(vin: string, logo: string, carPlate: string) {
+type PrintTemplate = {
+  vin: string;
+  logo: string;
+  carPlate: string;
+};
+
+export default function LabelTemplate({ vin, logo, carPlate }: PrintTemplate) {
   return (
-    `[C]<u><font size='big'>VIN LABEL</font></u>\n` +
-    `[L]\n` +
-    `[C]================================\n` +
-    `[L]\n` +
-    `[L]<b>VIN:</b>[R]${vin}\n` +
-    `[L]<b>Plate:</b>[R]${carPlate}\n` +
-    `[L]\n` +
-    `[C]${logo}\n` +
-    `[L]\n` +
+    `[L]${vin}\n` +
+    `[L]${carPlate}\n` +
+    `[R]<img>${logo}</img>\n` +
     `[C]================================\n`
   );
 }

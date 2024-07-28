@@ -14,12 +14,14 @@ export default function Login() {
           <Layout>
             <View style={styles.container}>
               <View style={styles.header}>
-                <Image source={enregla} resizeMode="contain" style={{ width: "70%", height: "80%" }} />
+                <Image
+                  source={enregla}
+                  resizeMode="contain"
+                  style={{ width: "70%", height: "80%" }}
+                />
                 <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 18 }}>Etiquetadora VIN</Text>
               </View>
-              {/* <View style={styles.form}> */}
               <LoginForm />
-              {/* </View> */}
               <View style={styles.footer}>
                 <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 12 }}>enregla&copy;</Text>
               </View>

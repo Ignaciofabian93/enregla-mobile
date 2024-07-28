@@ -8,9 +8,11 @@ export async function GetBluetoothDevices() {
 export async function PrintLabelBluetooth(label: string, macAddress: string) {
   try {
     console.log("ejecutando funcion para imprimir etiqueta");
-    console.log("default config: ", ThermalPrinterModule.defaultConfig);
-
-    const result = await ThermalPrinterModule.printBluetooth({ payload: label, macAddress: macAddress });
+    const result = await ThermalPrinterModule.printBluetooth({
+      payload: label,
+      macAddress: macAddress,
+      autoCut: true,
+    });
     console.log("resultado de la impresion: ", result);
   } catch (error) {
     throw new Error(`Error al intentar imprimir etiqueta: ${error}`);

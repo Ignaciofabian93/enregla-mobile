@@ -1,86 +1,27 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { colors } from "@/constants/theme";
 import Container from "@/app/ui/container";
 import Layout from "@/app/ui/layout";
-import { BleManager, BleError, Device } from "react-native-ble-plx";
-import { Buffer } from "buffer";
-import { useEffect, useState } from "react";
 import CustomCheckBox from "@/components/checkbox";
 import PlateInput from "@/components/plateInput";
-
-const manager = new BleManager();
-
-const targetMacAddress = "00:11:22:33:44:55"; // ESC/POS device bluetooth MAC address
+import Ionicons from "@expo/vector-icons/Ionicons";
+import usePrint from "@/hooks/usePrint";
+import CustomButton from "@/components/button";
 
 export default function Printer() {
-  const [vin, setVin] = useState<string>("ABCDEFGHIJKLM123");
-  const [carPlate, setCarPlate] = useState<string[]>([]);
-  const [logo, setLogo] = useState<string>("");
-  const [device, setDevice] = useState<Device>();
-  const [hasVin, setHasVin] = useState<boolean>(false);
-  const [hasPlate, setHasPlate] = useState<boolean>(false);
-  const [hasLogo, setHasLogo] = useState<boolean>(false);
-
-  const labelContent = `VIN LABEL\n================================\nVIN: ${vin}\nPlate: ${carPlate}\n================================`;
-
-  useEffect(() => {
-    connectToPrinter()
-      .then((connectedDevice) => {
-        setDevice(connectedDevice as Device);
-        console.log("Connected to printer: ", connectedDevice);
-      })
-      .catch((error) => {
-        console.log("Error connecting to printer: ", error);
-      });
-
-    return () => {
-      // manager.destroy();
-    };
-  }, []);
-
-  async function connectToPrinter() {
-    return new Promise((resolve, reject) => {
-      manager.startDeviceScan(null, null, (error, device) => {
-        if (error) {
-          console.log("Device scan error: ", error);
-          return;
-        }
-
-        if ((device as Device).id === targetMacAddress) {
-          manager.stopDeviceScan();
-          device
-            ?.connect()
-            .then((device) => device.discoverAllServicesAndCharacteristics())
-            .then((device) => resolve(device))
-            .catch((error) => reject(error));
-        }
-      });
-    });
-  }
-
-  async function printLabel() {
-    if (!device) {
-      Alert.alert("Printer not connected");
-      return;
-    }
-
-    const serviceUUID = "YOUR_PRINTER_SERVICE_UUID"; // Replace with your printer's service UUID
-    const characteristicUUID = "YOUR_PRINTER_CHARACTERISTIC_UUID"; // Replace with your printer's characteristic UUID
-
-    const command = Buffer.from(labelContent, "utf8");
-
-    try {
-      await device.writeCharacteristicWithoutResponseForService(serviceUUID, characteristicUUID, command.toString("base64"));
-      console.log("Label printed successfully");
-    } catch (error) {
-      console.error("Printing failed:", error);
-    }
-  }
-
-  const handlePlate = (position: number, value: string) => {
-    if (position === 1) setCarPlate({ ...carPlate, [0]: value.toUpperCase() });
-    else if (position === 2) setCarPlate({ ...carPlate, [1]: value.toUpperCase() });
-    else if (position === 3) setCarPlate({ ...carPlate, [2]: value.toUpperCase() });
-  };
+  const {
+    vin,
+    hasVin,
+    carPlate,
+    hasPlate,
+    logo,
+    hasLogo,
+    handlePlate,
+    handleChecks,
+    takePhoto,
+    base64,
+    handlePrintLabel,
+  } = usePrint();
 
   return (
     <>
@@ -90,24 +31,170 @@ export default function Printer() {
             <Text style={{ fontSize: 24 }}>Editar etiqueta</Text>
           </View>
           <View style={styles.content}>
-            <View
-              style={{
-                width: "100%",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                marginBottom: "10%",
-              }}
-            >
-              <CustomCheckBox title="VIN" checked={hasVin} onChange={() => setHasVin(!hasVin)} />
-              <CustomCheckBox title="Patente" checked={hasPlate} onChange={() => setHasPlate(!hasPlate)} />
-              <CustomCheckBox title="Logo" checked={hasLogo} onChange={() => setHasLogo(!hasLogo)} />
-            </View>
-            {hasPlate && (
-              <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-evenly" }}>
-                <PlateInput plate={carPlate} handlePlate={handlePlate} />
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 24,
+                  borderBottomWidth: 1,
+                  paddingBottom: 24,
+                }}
+              >
+                <Text
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    fontFamily: "Sora_SemiBold",
+                    fontSize: 16,
+                    marginBottom: 16,
+                  }}
+                >
+                  Ingrese la patente del vehículo:
+                </Text>
+                <View
+                  style={{
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <PlateInput plate={carPlate} handlePlate={handlePlate} />
+                </View>
+                <View
+                  style={{
+                    width: "100%",
+                    marginTop: 24,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      width: "100%",
+                      textAlign: "left",
+                      fontFamily: "Sora_SemiBold",
+                      fontSize: 16,
+                      marginBottom: 16,
+                    }}
+                  >
+                    Tome foto de patente:
+                  </Text>
+                  <View
+                    style={{
+                      width: "90%",
+                      height: 200,
+                      borderRadius: 8,
+                      borderWidth: 0.5,
+                      borderColor: colors.light[800],
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {base64 ? (
+                      <Image
+                        source={{ uri: `data:image/jpeg;base64,${base64}` }}
+                        style={{ width: "100%", height: "100%" }}
+                      />
+                    ) : (
+                      <TouchableOpacity onPress={takePhoto} activeOpacity={0.8}>
+                        <Ionicons name="camera-sharp" size={36} color={colors.light[800]} />
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                </View>
               </View>
-            )}
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 24,
+                  borderBottomWidth: 1,
+                  paddingBottom: 24,
+                }}
+              >
+                <Text
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    fontFamily: "Sora_SemiBold",
+                    fontSize: 16,
+                    marginBottom: 16,
+                  }}
+                >
+                  Elementos para la etiqueta:
+                </Text>
+                <View
+                  style={{
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                    marginBottom: "10%",
+                  }}
+                >
+                  <CustomCheckBox
+                    title="VIN"
+                    checked={hasVin}
+                    onChange={() => handleChecks("hasVin")}
+                  />
+                  <CustomCheckBox
+                    title="Patente"
+                    checked={hasPlate}
+                    onChange={() => handleChecks("hasPlate")}
+                  />
+                  <CustomCheckBox
+                    title="Logo"
+                    checked={hasLogo}
+                    onChange={() => handleChecks("hasLogo")}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 24,
+                  borderBottomWidth: 1,
+                  paddingBottom: 24,
+                }}
+              >
+                <Text
+                  style={{
+                    width: "100%",
+                    textAlign: "center",
+                    fontFamily: "Sora_SemiBold",
+                    fontSize: 16,
+                    marginBottom: 16,
+                  }}
+                >
+                  Previsualizar etiqueta
+                </Text>
+                <View>
+                  <CustomButton text="Ver etiqueta" size="sm" />
+                </View>
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  height: 140,
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <CustomButton
+                  text="Imprimir etiqueta"
+                  size="lg"
+                  type="primary"
+                  onPress={handlePrintLabel}
+                />
+                <CustomButton text="Finalizar y guardar" size="lg" type="secondary" />
+              </View>
+            </ScrollView>
           </View>
         </Container>
       </Layout>
@@ -118,11 +205,11 @@ export default function Printer() {
 const styles = StyleSheet.create({
   header: {
     width: "100%",
-    height: "10%",
+    height: "6%",
   },
   content: {
     width: "100%",
-    height: "85%",
+    height: "90%",
     alignItems: "center",
     justifyContent: "flex-start",
   },
