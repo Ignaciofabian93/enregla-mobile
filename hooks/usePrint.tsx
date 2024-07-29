@@ -37,10 +37,10 @@ export default function usePrint() {
     } else {
       Alert.alert("Impresora ESC/POS no detectada");
     }
-    // await PrintLabelBluetooth(
-    //   LabelTemplate({ vin, logo: NissanHEX_1, carPlate: carPlate.join("-") }),
-    //   targetMacAddress
-    // );
+    await PrintLabelBluetooth(
+      LabelTemplate({ vin, logo: NissanHEX_1, carPlate: "AB-CD-12" }),
+      targetMacAddress
+    );
   };
 
   const handlePlate = (position: number, value: string) => {
