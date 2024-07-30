@@ -22,6 +22,8 @@ export default function Printer() {
     takePhoto,
     base64,
     handlePrintLabel,
+    handlePrintLabel_2,
+    handlePrintLabel_3,
   } = usePrint();
 
   const Title = () => {
@@ -125,16 +127,28 @@ export default function Printer() {
                 <View
                   style={{
                     width: "100%",
-                    height: 140,
+                    height: 200,
                     alignItems: "center",
                     justifyContent: "space-between",
                   }}
                 >
                   <CustomButton
-                    text="Imprimir etiqueta"
+                    text="Imprimir etiqueta base64"
                     size="lg"
                     type="primary"
                     onPress={handlePrintLabel}
+                  />
+                  <CustomButton
+                    text="Imprimir etiqueta hex"
+                    size="lg"
+                    type="primary"
+                    onPress={handlePrintLabel_2}
+                  />
+                  <CustomButton
+                    text="Imprimir etiqueta sin logo"
+                    size="lg"
+                    type="primary"
+                    onPress={handlePrintLabel_3}
                   />
                   <CustomButton text="Finalizar y guardar" size="lg" type="secondary" />
                 </View>
@@ -150,7 +164,7 @@ export default function Printer() {
 const styles = StyleSheet.create({
   header: {
     width: "100%",
-    height: "6%",
+    height: "10%",
   },
   content: {
     width: "100%",

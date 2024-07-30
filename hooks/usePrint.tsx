@@ -3,7 +3,7 @@ import useImagePicker from "./useImagePicker";
 import { GetBluetoothDevices, PrintLabelBluetooth } from "@/app/printer/printer";
 import { NissanBase64_1, NissanHEX_1 } from "@/assets/icons/icon";
 import { Alert } from "react-native";
-import LabelTemplate from "@/app/printer/template";
+import { FullLabelTemplate, VINPlateLabelTemplate } from "@/app/printer/template";
 
 type Devices = {
   deviceName: string;
@@ -38,7 +38,33 @@ export default function usePrint() {
       Alert.alert("Impresora ESC/POS no detectada");
     }
     await PrintLabelBluetooth(
-      LabelTemplate({ vin, logo: NissanHEX_1, carPlate: "AB-CD-12" }),
+      FullLabelTemplate({ vin, logo: NissanBase64_1, carPlate: "AB-CD-12" }),
+      targetMacAddress
+    );
+  };
+
+  const handlePrintLabel_2 = async () => {
+    const targetDevice = devices.find((device) => device.macAddress === targetMacAddress);
+    if (targetDevice) {
+      Alert.alert("Impresora ESC/POS detectada");
+    } else {
+      Alert.alert("Impresora ESC/POS no detectada");
+    }
+    await PrintLabelBluetooth(
+      FullLabelTemplate({ vin, logo: NissanHEX_1, carPlate: "AB-CD-12" }),
+      targetMacAddress
+    );
+  };
+
+  const handlePrintLabel_3 = async () => {
+    const targetDevice = devices.find((device) => device.macAddress === targetMacAddress);
+    if (targetDevice) {
+      Alert.alert("Impresora ESC/POS detectada");
+    } else {
+      Alert.alert("Impresora ESC/POS no detectada");
+    }
+    await PrintLabelBluetooth(
+      VINPlateLabelTemplate({ vin, carPlate: "AB-CD-12" }),
       targetMacAddress
     );
   };
@@ -67,5 +93,7 @@ export default function usePrint() {
     takePhoto,
     base64,
     handlePrintLabel,
+    handlePrintLabel_2,
+    handlePrintLabel_3,
   };
 }
