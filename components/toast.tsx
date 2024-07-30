@@ -21,6 +21,9 @@ export default function Notification({ visible, message, type }: Notification) {
         position={50}
         shadow={true}
         animation={true}
+        textStyle={{ fontFamily: "Sora_Regular" }}
+        duration={2000}
+        delay={0.5}
         hideOnPress={true}
         containerStyle={{ borderRadius: 8 }}
       >

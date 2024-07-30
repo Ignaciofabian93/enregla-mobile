@@ -65,15 +65,25 @@ export default function useSession() {
     handleMessageShow();
     setTimeout(() => {
       setLoading(false);
-      router.replace("(tabs)");
+      router.replace("/(tabs)");
     }, 2000);
   };
 
   const closeSession = () => {
     setToken("");
     setUser(defaultUser);
-    router.replace("(stack)/login");
+    router.replace("/login");
   };
 
-  return { login, closeSession, handleForm, form, isPasswordVisible, togglePasswordVisibility, showMessage, message, loading };
+  return {
+    login,
+    closeSession,
+    handleForm,
+    form,
+    isPasswordVisible,
+    togglePasswordVisibility,
+    showMessage,
+    message,
+    loading,
+  };
 }

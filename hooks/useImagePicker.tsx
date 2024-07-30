@@ -6,9 +6,10 @@ import {
 } from "expo-image-picker";
 
 export default function useImagePicker() {
-  const [base64, setBase64] = useState<string>("");
+  const [plate, setPlate] = useState<string>("");
+  const [chasis, setChasis] = useState<string>("");
 
-  const takePhoto = async () => {
+  const takePlatePhoto = async () => {
     const { status } = await requestCameraPermissionsAsync();
     if (status === "granted") {
       const image = await launchCameraAsync({
@@ -20,10 +21,27 @@ export default function useImagePicker() {
       });
 
       if (image.assets) {
-        setBase64(image.assets[0].base64 as string);
+        setPlate(image.assets[0].base64 as string);
       }
     }
   };
 
-  return { base64, takePhoto };
+  const takeChasisPhoto = async () => {
+    const { status } = await requestCameraPermissionsAsync();
+    if (status === "granted") {
+      const image = await launchCameraAsync({
+        mediaTypes: MediaTypeOptions.Images,
+        quality: 0.9,
+        allowsEditing: true,
+        aspect: [4, 3],
+        base64: true,
+      });
+
+      if (image.assets) {
+        setChasis(image.assets[0].base64 as string);
+      }
+    }
+  };
+
+  return { plate, takePlatePhoto, chasis, takeChasisPhoto };
 }

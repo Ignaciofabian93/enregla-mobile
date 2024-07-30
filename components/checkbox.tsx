@@ -4,7 +4,7 @@ import { Checkbox } from "expo-checkbox";
 
 type Checkbox = {
   checked: boolean;
-  onChange: () => void;
+  onChange: (value: boolean) => void;
   title: string;
 };
 
@@ -13,7 +13,12 @@ export default function CustomCheckBox({ checked = false, onChange, title }: Che
     <>
       <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
-        <Checkbox value={checked} onValueChange={onChange} color={colors.light[700]} style={[styles.check]} />
+        <Checkbox
+          value={checked}
+          onValueChange={onChange}
+          color={colors.light[700]}
+          style={[styles.check]}
+        />
       </View>
     </>
   );

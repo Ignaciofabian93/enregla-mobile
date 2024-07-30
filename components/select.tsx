@@ -24,13 +24,14 @@ export default function CustomPicker({ data, value, onChange }: CustomPicker) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 52,
+    height: 56,
     borderWidth: 1,
-    borderColor: colors.light[800],
-    borderRadius: 8,
+    borderColor: colors.light[400],
+    borderRadius: 12,
     overflow: "hidden",
     backgroundColor: "#fff",
-    elevation: 3,
+    marginVertical: 10,
+    elevation: 2,
   },
   picker: {
     width: "100%",

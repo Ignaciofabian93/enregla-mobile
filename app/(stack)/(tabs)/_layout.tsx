@@ -13,6 +13,7 @@ export default function TabLayout() {
         tabBarStyle: styles.tabBar,
         tabBarShowLabel: false,
         headerShown: false,
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen
@@ -21,7 +22,10 @@ export default function TabLayout() {
           title: "Inicio",
           tabBarIcon: ({ focused }) => (
             <Animated.View style={[styles.icon, focused ? styles.focused : styles.default]}>
-              <TabBarIcon name={focused ? "home" : "home-outline"} color={focused ? colors.primary[100] : colors.light[400]} />
+              <TabBarIcon
+                name={focused ? "home" : "home-outline"}
+                color={focused ? colors.primary[100] : colors.light[400]}
+              />
             </Animated.View>
           ),
         }}
@@ -32,7 +36,10 @@ export default function TabLayout() {
           title: "Imprimir",
           tabBarIcon: ({ focused }) => (
             <View style={[styles.icon, focused ? styles.focused : styles.default]}>
-              <TabBarIcon name={focused ? "print" : "print-outline"} color={focused ? colors.primary[100] : colors.light[400]} />
+              <TabBarIcon
+                name={focused ? "print" : "print-outline"}
+                color={focused ? colors.primary[100] : colors.light[400]}
+              />
             </View>
           ),
         }}
@@ -43,7 +50,10 @@ export default function TabLayout() {
           title: "Perfil",
           tabBarIcon: ({ focused }) => (
             <View style={[styles.icon, focused ? styles.focused : styles.default]}>
-              <TabBarIcon name={focused ? "person-sharp" : "person-outline"} color={focused ? colors.primary[100] : colors.light[400]} />
+              <TabBarIcon
+                name={focused ? "person-sharp" : "person-outline"}
+                color={focused ? colors.primary[100] : colors.light[400]}
+              />
             </View>
           ),
         }}

@@ -11,6 +11,7 @@ export async function PrintLabelBluetooth(label: string, macAddress: string) {
     const result = await ThermalPrinterModule.printBluetooth({
       payload: label,
       macAddress: macAddress,
+      autoCut: true,
     });
     console.log("resultado de la impresion: ", result);
   } catch (error) {

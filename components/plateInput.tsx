@@ -10,11 +10,29 @@ export default function PlateInput({ plate, handlePlate }: PlateInput) {
   return (
     <>
       <View style={styles.container}>
-        <TextInput maxLength={2} autoCapitalize="sentences" style={styles.input} onChangeText={(e) => handlePlate(1, e)} value={plate[0]} />
+        <TextInput
+          maxLength={2}
+          autoCapitalize="characters"
+          style={styles.input}
+          onChangeText={(e) => handlePlate(0, e)}
+          value={plate[0]}
+        />
         <Text style={styles.dash}>-</Text>
-        <TextInput maxLength={2} autoCapitalize="sentences" style={styles.input} onChangeText={(e) => handlePlate(2, e)} value={plate[1]} />
+        <TextInput
+          maxLength={2}
+          autoCapitalize="characters"
+          style={styles.input}
+          onChangeText={(e) => handlePlate(1, e)}
+          value={plate[1]}
+        />
         <Text style={styles.dash}>-</Text>
-        <TextInput maxLength={2} autoCapitalize="sentences" style={styles.input} onChangeText={(e) => handlePlate(3, e)} value={plate[2]} />
+        <TextInput
+          maxLength={2}
+          autoCapitalize="characters"
+          style={styles.input}
+          onChangeText={(e) => handlePlate(2, e)}
+          value={plate[2]}
+        />
       </View>
     </>
   );
@@ -26,6 +44,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginHorizontal: "auto",
+    marginVertical: 10,
   },
   input: {
     width: 64,

@@ -6,7 +6,16 @@ import CustomButton from "@/components/button";
 import { View } from "react-native";
 
 export default function LoginForm() {
-  const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility, message, showMessage, loading } = useSession();
+  const {
+    login,
+    form,
+    handleForm,
+    isPasswordVisible,
+    togglePasswordVisibility,
+    message,
+    showMessage,
+    loading,
+  } = useSession();
   return (
     <View style={{ width: "100%", height: "50%", justifyContent: "flex-start" }}>
       <Notification visible={showMessage} message={message.content} type={message.type} />
@@ -37,7 +46,13 @@ export default function LoginForm() {
         />
       </View>
       <View>
-        <CustomButton text="Iniciar sesión" onPress={login} type="primary" size="lg" isLoading={loading} />
+        <CustomButton
+          text="Iniciar sesión"
+          onPress={login}
+          type="primary"
+          size="lg"
+          isLoading={loading}
+        />
       </View>
     </View>
   );
