@@ -68,7 +68,7 @@ export default function PrintForm() {
           <Text style={styles.field}>Ingrese número de chasis del vehículo:</Text>
           <CustomTextInput autoCapitalize="characters" size="lg" />
         </View>
-        <View style={{ width: "90%", marginBottom: 24 }}>
+        <View style={{ width: "100%", marginBottom: 24 }}>
           <Text style={styles.field}>Tome foto del chasis:</Text>
           <View
             style={{
@@ -80,6 +80,7 @@ export default function PrintForm() {
               alignItems: "center",
               justifyContent: "center",
               overflow: "hidden",
+              marginVertical: 10,
             }}
           >
             {labelInformation.chasis_img ? (
@@ -98,7 +99,7 @@ export default function PrintForm() {
           <Text style={styles.field}>Ingrese la patente del vehículo:</Text>
           <PlateInput plate={labelInformation.car_plate} handlePlate={handleCarPlate} />
         </View>
-        <View style={{ width: "90%", marginBottom: 24 }}>
+        <View style={{ width: "100%", marginBottom: 24 }}>
           <Text style={styles.field}>Tome foto de patente:</Text>
           <View
             style={{
@@ -110,6 +111,7 @@ export default function PrintForm() {
               alignItems: "center",
               justifyContent: "center",
               overflow: "hidden",
+              marginVertical: 10,
             }}
           >
             {labelInformation.plate_img ? (
@@ -124,7 +126,7 @@ export default function PrintForm() {
             )}
           </View>
         </View>
-        <View style={{ width: "90%", marginBottom: 24 }}>
+        <View style={{ width: "100%", marginBottom: 24 }}>
           <Text style={styles.field}>Elementos para la etiqueta:</Text>
           <View style={styles.checkboxList}>
             <CustomCheckBox
@@ -144,7 +146,20 @@ export default function PrintForm() {
             />
           </View>
         </View>
-        <TouchableOpacity style={{ alignItems: "center" }}>
+        <View style={{ width: "100%", marginBottom: 24 }}>
+          <Text style={styles.field}>Ingrese VIN:</Text>
+          <CustomTextInput autoCapitalize="characters" maxLength={17} size="lg" />
+        </View>
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            borderWidth: 1,
+            borderColor: colors.light[400],
+            padding: 10,
+            borderRadius: 8,
+            width: "100%",
+          }}
+        >
           <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 16 }}>Previsualizar etiqueta</Text>
           <Ionicons name="eye-sharp" size={24} color={colors.light[800]} />
         </TouchableOpacity>

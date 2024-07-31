@@ -2,7 +2,7 @@ import { colors } from "@/constants/theme";
 import { View, StyleSheet, Dimensions, StatusBar } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const { width, height } = Dimensions.get("screen");
+const { width, height } = Dimensions.get("window");
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { top } = useSafeAreaInsets();
@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.white,
-    paddingBottom: 50,
   },
 });
