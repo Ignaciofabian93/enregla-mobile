@@ -50,6 +50,7 @@ export default function useImagePicker() {
       if (image.assets) {
         setVin(image.assets[0].base64 as string);
         const text = await processImage(image.assets[0].uri);
+        console.log("TEXT: ", text);
         setVinText(text as string);
       }
     }

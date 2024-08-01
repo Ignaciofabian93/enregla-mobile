@@ -1,14 +1,14 @@
+import { colors } from "@/constants/theme";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/button";
 import CustomCheckBox from "@/components/checkbox";
-import PlateInput from "@/components/plateInput";
-import Scanner from "@/components/scanner";
 import CustomPicker from "@/components/select";
 import CustomTextInput from "@/components/textinput";
 import Notification from "@/components/toast";
-import { colors } from "@/constants/theme";
 import usePrint from "@/hooks/usePrint";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Image, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
+import ScannField from "@/components/scannfield";
+import PreviewModal from "@/components/previewmodal";
 
 const carBrands = ["Toyota", "Ford", "Chevrolet", "Honda", "Nissan"];
 const nissanCarModels = ["Sentra", "Altima", "Pathfinder", "Titan"];
@@ -17,7 +17,6 @@ const generateYearsRange = () => {
   return Array.from({ length: 30 }, (_, i) => String(currentYear - i));
 };
 const years = generateYearsRange();
-console.log(years);
 
 export default function PrintForm() {
   const {
@@ -33,12 +32,15 @@ export default function PrintForm() {
     handlePrintLabel_3,
     handlePrintLabel_4,
     handlePrintLabel_5,
+    openPreview,
+    closePreview,
+    showPreview,
   } = usePrint();
   return (
     <View style={{ width: "100%", paddingBottom: "10%" }}>
       <Notification visible={showMessage} message={message.content} type={message.type} />
       <View style={{ marginBottom: 20, alignItems: "center" }}>
-        <View style={{ width: "100%", marginBottom: 24 }}>
+        <View style={{ width: "100%", marginBottom: 16 }}>
           <Text style={styles.field}>Elija marca del vehículo:</Text>
           <CustomPicker
             data={carBrands}
@@ -46,7 +48,7 @@ export default function PrintForm() {
             onChange={(e) => handleLabelInformation("car_brand", e)}
           />
         </View>
-        <View style={{ width: "100%", marginBottom: 24 }}>
+        <View style={{ width: "100%", marginBottom: 16 }}>
           <Text style={styles.field}>Elija modelo del vehículo:</Text>
           <CustomPicker
             data={nissanCarModels}
@@ -62,58 +64,13 @@ export default function PrintForm() {
             onChange={(e) => handleLabelInformation("car_year", e)}
           />
         </View>
-        <View
-          style={{
-            width: "100%",
-            marginBottom: 24,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <View style={{ width: "60%" }}>
-            <CustomTextInput
-              value={labelInformation.car_plate}
-              autoCapitalize="characters"
-              maxLength={8}
-              size="lg"
-            />
-          </View>
-          <TouchableOpacity
-            onPress={takePlatePhoto}
-            activeOpacity={0.9}
-            style={{ width: "30%", alignItems: "center" }}
-          >
-            <Text style={[styles.field, { textAlign: "center" }]}>Patente</Text>
-            <Ionicons name="camera" size={24} />
-          </TouchableOpacity>
+
+        <View style={{ width: "100%", marginBottom: 24 }}>
+          <Text style={styles.field}>Escanear:</Text>
+          <ScannField value={labelInformation.car_plate} scan={takePlatePhoto} name="Patente" />
+          <ScannField value={labelInformation.car_vin} scan={takeVINPhoto} name="VIN" />
         </View>
-        <View
-          style={{
-            width: "100%",
-            marginBottom: 24,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <View style={{ width: "60%" }}>
-            <CustomTextInput
-              value={labelInformation.car_vin}
-              autoCapitalize="characters"
-              maxLength={17}
-              size="lg"
-            />
-          </View>
-          <TouchableOpacity
-            onPress={takeVINPhoto}
-            activeOpacity={0.9}
-            style={{ width: "30%", alignItems: "center" }}
-          >
-            <Text style={[styles.field, { textAlign: "center" }]}>VIN</Text>
-            <Ionicons name="camera" size={24} />
-          </TouchableOpacity>
-        </View>
+
         <View style={{ width: "100%", marginBottom: 24 }}>
           <Text style={styles.field}>Elementos para la etiqueta:</Text>
           <View style={styles.checkboxList}>
@@ -134,16 +91,7 @@ export default function PrintForm() {
             />
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            borderWidth: 1,
-            borderColor: colors.light[400],
-            padding: 10,
-            borderRadius: 8,
-            width: "100%",
-          }}
-        >
+        <TouchableOpacity style={styles.preview} onPress={openPreview}>
           <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 16 }}>Previsualizar etiqueta</Text>
           <Ionicons name="eye-sharp" size={24} color={colors.light[800]} />
         </TouchableOpacity>
@@ -190,6 +138,15 @@ export default function PrintForm() {
           isLoading={loading}
         />
       </View>
+      {showPreview && (
+        <PreviewModal
+          visible={showPreview}
+          close={closePreview}
+          vin={labelInformation.show_vin ? labelInformation.car_vin : undefined}
+          plate={labelInformation.show_plate ? labelInformation.car_plate : undefined}
+          logo={labelInformation.show_logo ? labelInformation.car_logo : undefined}
+        />
+      )}
     </View>
   );
 }
@@ -217,5 +174,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     marginVertical: 10,
+  },
+  preview: {
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.light[400],
+    padding: 10,
+    borderRadius: 8,
+    width: "100%",
   },
 });

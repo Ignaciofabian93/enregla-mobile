@@ -30,6 +30,7 @@ export default function usePrint() {
   const [devices, setDevices] = useState<Devices[]>([]);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showPreview, setShowPreview] = useState<boolean>(false);
   const [message, setMessage] = useState<Message>({
     content: "",
     type: "error",
@@ -55,9 +56,10 @@ export default function usePrint() {
   useEffect(() => {
     if (plateText) {
       console.log("PLATE TEXT: ", plateText);
-
       setLabelInformation({ ...labelInformation, car_plate: plateText });
-    } else if (vinText) {
+    }
+    if (vinText) {
+      console.log("VIN TEXT: ", vinText);
       setLabelInformation({ ...labelInformation, car_vin: vinText });
     }
   }, [plateText, vinText]);
@@ -141,6 +143,9 @@ export default function usePrint() {
     }
   };
 
+  const openPreview = () => setShowPreview(true);
+  const closePreview = () => setShowPreview(false);
+
   return {
     takePlatePhoto,
     takeVINPhoto,
@@ -154,5 +159,8 @@ export default function usePrint() {
     handlePrintLabel_3,
     handlePrintLabel_4,
     handlePrintLabel_5,
+    openPreview,
+    closePreview,
+    showPreview,
   };
 }
