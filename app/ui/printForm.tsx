@@ -1,13 +1,14 @@
 import CustomButton from "@/components/button";
 import CustomCheckBox from "@/components/checkbox";
 import PlateInput from "@/components/plateInput";
+import Scanner from "@/components/scanner";
 import CustomPicker from "@/components/select";
 import CustomTextInput from "@/components/textinput";
 import Notification from "@/components/toast";
 import { colors } from "@/constants/theme";
 import usePrint from "@/hooks/usePrint";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
 
 const carBrands = ["Toyota", "Ford", "Chevrolet", "Honda", "Nissan"];
 const nissanCarModels = ["Sentra", "Altima", "Pathfinder", "Titan"];
@@ -21,15 +22,12 @@ console.log(years);
 export default function PrintForm() {
   const {
     takePlatePhoto,
-    takeChasisPhoto,
-    plate,
-    chasis,
+    takeVINPhoto,
     handlePrintLabel,
     handleLabelInformation,
     labelInformation,
     message,
     loading,
-    handleCarPlate,
     showMessage,
     handlePrintLabel_2,
     handlePrintLabel_3,
@@ -64,67 +62,57 @@ export default function PrintForm() {
             onChange={(e) => handleLabelInformation("car_year", e)}
           />
         </View>
-        <View style={{ width: "100%", marginBottom: 24 }}>
-          <Text style={styles.field}>Ingrese número de chasis del vehículo:</Text>
-          <CustomTextInput autoCapitalize="characters" size="lg" />
-        </View>
-        <View style={{ width: "100%", marginBottom: 24 }}>
-          <Text style={styles.field}>Tome foto del chasis:</Text>
-          <View
-            style={{
-              width: "100%",
-              height: 200,
-              borderRadius: 8,
-              borderWidth: 0.5,
-              borderColor: colors.light[800],
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              marginVertical: 10,
-            }}
-          >
-            {labelInformation.chasis_img ? (
-              <Image
-                source={{ uri: `data:image/jpeg;base64,${labelInformation.chasis_img}` }}
-                style={{ width: "100%", height: "100%" }}
-              />
-            ) : (
-              <TouchableOpacity onPress={takeChasisPhoto} activeOpacity={0.8}>
-                <Ionicons name="camera-sharp" size={36} color={colors.light[800]} />
-              </TouchableOpacity>
-            )}
+        <View
+          style={{
+            width: "100%",
+            marginBottom: 24,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ width: "60%" }}>
+            <CustomTextInput
+              value={labelInformation.car_plate}
+              autoCapitalize="characters"
+              maxLength={8}
+              size="lg"
+            />
           </View>
-        </View>
-        <View style={{ width: "100%", marginBottom: 24 }}>
-          <Text style={styles.field}>Ingrese la patente del vehículo:</Text>
-          <PlateInput plate={labelInformation.car_plate} handlePlate={handleCarPlate} />
-        </View>
-        <View style={{ width: "100%", marginBottom: 24 }}>
-          <Text style={styles.field}>Tome foto de patente:</Text>
-          <View
-            style={{
-              width: "100%",
-              height: 200,
-              borderRadius: 8,
-              borderWidth: 0.5,
-              borderColor: colors.light[800],
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              marginVertical: 10,
-            }}
+          <TouchableOpacity
+            onPress={takePlatePhoto}
+            activeOpacity={0.9}
+            style={{ width: "30%", alignItems: "center" }}
           >
-            {labelInformation.plate_img ? (
-              <Image
-                source={{ uri: `data:image/jpeg;base64,${labelInformation.plate_img}` }}
-                style={{ width: "100%", height: "100%" }}
-              />
-            ) : (
-              <TouchableOpacity onPress={takePlatePhoto} activeOpacity={0.8}>
-                <Ionicons name="camera-sharp" size={36} color={colors.light[800]} />
-              </TouchableOpacity>
-            )}
+            <Text style={[styles.field, { textAlign: "center" }]}>Patente</Text>
+            <Ionicons name="camera" size={24} />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            width: "100%",
+            marginBottom: 24,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ width: "60%" }}>
+            <CustomTextInput
+              value={labelInformation.car_vin}
+              autoCapitalize="characters"
+              maxLength={17}
+              size="lg"
+            />
           </View>
+          <TouchableOpacity
+            onPress={takeVINPhoto}
+            activeOpacity={0.9}
+            style={{ width: "30%", alignItems: "center" }}
+          >
+            <Text style={[styles.field, { textAlign: "center" }]}>VIN</Text>
+            <Ionicons name="camera" size={24} />
+          </TouchableOpacity>
         </View>
         <View style={{ width: "100%", marginBottom: 24 }}>
           <Text style={styles.field}>Elementos para la etiqueta:</Text>
@@ -146,10 +134,6 @@ export default function PrintForm() {
             />
           </View>
         </View>
-        <View style={{ width: "100%", marginBottom: 24 }}>
-          <Text style={styles.field}>Ingrese VIN:</Text>
-          <CustomTextInput autoCapitalize="characters" maxLength={17} size="lg" />
-        </View>
         <TouchableOpacity
           style={{
             alignItems: "center",
@@ -170,35 +154,40 @@ export default function PrintForm() {
           onPress={handlePrintLabel}
           type="primary"
           size="lg"
-          isLoading={false}
+          activeOpacity={0.8}
+          isLoading={loading}
         />
         <CustomButton
           text="VIN Plate"
           onPress={handlePrintLabel_2}
           type="primary"
+          activeOpacity={0.8}
           size="lg"
-          isLoading={false}
+          isLoading={loading}
         />
         <CustomButton
           text="Logo base64"
           onPress={handlePrintLabel_3}
           type="primary"
+          activeOpacity={0.8}
           size="lg"
-          isLoading={false}
+          isLoading={loading}
         />
         <CustomButton
           text="Logo PNG"
           onPress={handlePrintLabel_4}
           type="primary"
+          activeOpacity={0.8}
           size="lg"
-          isLoading={false}
+          isLoading={loading}
         />
         <CustomButton
           text="Logo URL"
           onPress={handlePrintLabel_5}
           type="primary"
+          activeOpacity={0.8}
           size="lg"
-          isLoading={false}
+          isLoading={loading}
         />
       </View>
     </View>

@@ -2,37 +2,21 @@ import { Text, View, StyleSheet, TextInput } from "react-native";
 import { colors } from "@/constants/theme";
 
 type PlateInput = {
-  plate: string[];
-  handlePlate: (position: number, value: string) => void;
+  plate: string;
 };
 
-export default function PlateInput({ plate, handlePlate }: PlateInput) {
+export default function PlateInput({ plate }: PlateInput) {
+  const plateValue = plate.split("-");
+  console.log(plateValue);
+
   return (
     <>
       <View style={styles.container}>
-        <TextInput
-          maxLength={2}
-          autoCapitalize="characters"
-          style={styles.input}
-          onChangeText={(e) => handlePlate(0, e)}
-          value={plate[0]}
-        />
+        <TextInput maxLength={2} autoCapitalize="characters" style={styles.input} value={plateValue[0]} />
         <Text style={styles.dash}>-</Text>
-        <TextInput
-          maxLength={2}
-          autoCapitalize="characters"
-          style={styles.input}
-          onChangeText={(e) => handlePlate(1, e)}
-          value={plate[1]}
-        />
+        <TextInput maxLength={2} autoCapitalize="characters" style={styles.input} value={plateValue[1]} />
         <Text style={styles.dash}>-</Text>
-        <TextInput
-          maxLength={2}
-          autoCapitalize="characters"
-          style={styles.input}
-          onChangeText={(e) => handlePlate(2, e)}
-          value={plate[2]}
-        />
+        <TextInput maxLength={2} autoCapitalize="characters" style={styles.input} value={plateValue[2]} />
       </View>
     </>
   );

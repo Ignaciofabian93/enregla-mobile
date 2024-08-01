@@ -10,6 +10,7 @@ import {
   PNGLabelTemplate,
   URLLabelTemplate,
 } from "@/app/printer/template";
+import { LabelForm } from "@/types/label";
 
 type Devices = {
   deviceName: string;
@@ -25,7 +26,7 @@ const pnglogo = require("@/assets/icons/CbiNissan.png");
 
 export default function usePrint() {
   const targetMacAddress = "00:11:22:33:44:55"; // ESC/POS device bluetooth MAC address
-  const { takePlatePhoto, plate, chasis, takeChasisPhoto } = useImagePicker();
+  const { takePlatePhoto, plate, vin, plateText, vinText, takeVINPhoto } = useImagePicker();
   const [devices, setDevices] = useState<Devices[]>([]);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,16 +34,15 @@ export default function usePrint() {
     content: "",
     type: "error",
   });
-  const [labelInformation, setLabelInformation] = useState({
+  const [labelInformation, setLabelInformation] = useState<LabelForm>({
     car_brand: "",
     car_model: "",
     car_year: "",
-    car_chasisnumber: "",
-    chasis_img: "",
     show_vin: false,
-    car_vin: "JDSJDUWEYUWEJ8237",
+    car_vin: "",
+    vin_img: "",
     show_plate: false,
-    car_plate: ["", "", ""],
+    car_plate: "",
     plate_img: "",
     show_logo: false,
     car_logo: "",
@@ -53,12 +53,14 @@ export default function usePrint() {
   }, []);
 
   useEffect(() => {
-    if (plate) {
-      setLabelInformation({ ...labelInformation, plate_img: plate });
-    } else if (chasis) {
-      setLabelInformation({ ...labelInformation, chasis_img: chasis });
+    if (plateText) {
+      console.log("PLATE TEXT: ", plateText);
+
+      setLabelInformation({ ...labelInformation, car_plate: plateText });
+    } else if (vinText) {
+      setLabelInformation({ ...labelInformation, car_vin: vinText });
     }
-  }, [plate, chasis]);
+  }, [plateText, vinText]);
 
   const handleGetDevices = async () => {
     const devices = await GetBluetoothDevices();
@@ -71,25 +73,6 @@ export default function usePrint() {
     setLabelInformation({ ...labelInformation, [field]: value });
   };
 
-  const handleCarPlate = (section: number, value: string) => {
-    if (section === 0) {
-      setLabelInformation({
-        ...labelInformation,
-        car_plate: [value, labelInformation.car_plate[1], labelInformation.car_plate[2]],
-      });
-    } else if (section === 1) {
-      setLabelInformation({
-        ...labelInformation,
-        car_plate: [labelInformation.car_plate[0], value, labelInformation.car_plate[2]],
-      });
-    } else if (section === 2) {
-      setLabelInformation({
-        ...labelInformation,
-        car_plate: [labelInformation.car_plate[0], labelInformation.car_plate[1], value],
-      });
-    }
-  };
-
   const handlePrintLabel = async () => {
     const targetDevice = devices.find((device) => device.macAddress === targetMacAddress);
     if (targetDevice) {
@@ -99,7 +82,7 @@ export default function usePrint() {
         FullLabelTemplate({
           vin: labelInformation.car_vin,
           logo: NissanBase64_1,
-          carPlate: labelInformation.car_plate.join("-"),
+          carPlate: labelInformation.car_plate,
         }),
         targetMacAddress
       );
@@ -114,7 +97,7 @@ export default function usePrint() {
       await PrintLabelBluetooth(
         VINPlateLabelTemplate({
           vin: labelInformation.car_vin,
-          carPlate: labelInformation.car_plate.join("-"),
+          carPlate: labelInformation.car_plate,
         }),
         targetMacAddress
       );
@@ -160,12 +143,9 @@ export default function usePrint() {
 
   return {
     takePlatePhoto,
-    takeChasisPhoto,
-    plate,
-    chasis,
+    takeVINPhoto,
     handlePrintLabel,
     handleLabelInformation,
-    handleCarPlate,
     labelInformation,
     message,
     loading,
