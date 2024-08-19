@@ -1,19 +1,20 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import "react-native-reanimated";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Sora_Bold: require("../assets/fonts/Sora-Bold.ttf"),
+    Sora_SemiBold: require("../assets/fonts/Sora-SemiBold.ttf"),
+    Sora_Regular: require("../assets/fonts/Sora-Regular.ttf"),
+    Sora_Light: require("../assets/fonts/Sora-Light.ttf"),
+    Sora_ExtraLight: require("../assets/fonts/Sora-ExtraLight.ttf"),
   });
 
   useEffect(() => {
@@ -27,11 +28,11 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <RootSiblingParent>
+      <Stack screenOptions={{ navigationBarColor: "#2f2f2f" }}>
+        <Stack.Screen name="(stack)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-    </ThemeProvider>
+    </RootSiblingParent>
   );
 }
