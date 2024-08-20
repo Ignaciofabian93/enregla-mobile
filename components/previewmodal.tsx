@@ -16,9 +16,9 @@ const LabelPreview = ({ vin, plate, logo }: { vin?: string; plate?: string; logo
   return (
     <>
       <View style={styles.label}>
-        <Text style={styles.labeltext}>{vin}</Text>
-        <Text style={styles.labeltext}>{plate}</Text>
-        <Image source={car_icon} style={{ width: 56, height: 56 }} />
+        <Image source={car_icon} style={{ width: 70, height: 70 }} />
+        <Text style={styles.vin}>{vin}</Text>
+        <Text style={styles.plate}>{plate}</Text>
       </View>
     </>
   );
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     height: "64%",
-    backgroundColor: colors.white,
+    backgroundColor: "#fff",
     marginHorizontal: "auto",
     marginVertical: "auto",
     borderWidth: 2,
@@ -73,8 +73,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
   },
-  labeltext: {
+  vin: {
     fontFamily: "Sora_SemiBold",
-    fontSize: 24,
+    fontSize: 14,
+  },
+  plate: {
+    fontFamily: "Sora_SemiBold",
+    fontSize: 26,
   },
 });

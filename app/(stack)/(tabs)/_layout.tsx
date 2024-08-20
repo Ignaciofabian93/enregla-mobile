@@ -20,10 +20,7 @@ export default function TabLayout() {
           title: "Inicio",
           tabBarIcon: ({ focused }) => (
             <Animated.View style={[styles.icon, focused ? styles.focused : styles.default]}>
-              <TabBarIcon
-                name={focused ? "home" : "home-outline"}
-                color={focused ? colors.primary[100] : colors.light[400]}
-              />
+              <TabBarIcon name={focused ? "home" : "home-outline"} color={focused ? colors.primary[100] : colors.light[400]} />
             </Animated.View>
           ),
         }}
@@ -34,10 +31,7 @@ export default function TabLayout() {
           title: "Imprimir",
           tabBarIcon: ({ focused }) => (
             <View style={[styles.icon, focused ? styles.focused : styles.default]}>
-              <TabBarIcon
-                name={focused ? "print" : "print-outline"}
-                color={focused ? colors.primary[100] : colors.light[400]}
-              />
+              <TabBarIcon name={focused ? "print" : "print-outline"} color={focused ? colors.primary[100] : colors.light[400]} />
             </View>
           ),
         }}
@@ -78,8 +72,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   focused: {
-    backgroundColor: colors.primary[400],
-    borderColor: colors.primary[400],
+    backgroundColor: colors.primary[600],
+    borderColor: colors.primary[600],
     elevation: 1,
   },
   default: {

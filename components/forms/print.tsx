@@ -10,8 +10,6 @@ import ScannField from "@/components/scannfield";
 import PreviewModal from "@/components/previewmodal";
 import usePrinter from "@/hooks/usePrinter";
 
-const carBrands = ["Toyota", "Ford", "Chevrolet", "Honda", "Nissan"];
-const nissanCarModels = ["Sentra", "Altima", "Pathfinder", "Titan"];
 const generateYearsRange = () => {
   const currentYear = new Date().getFullYear();
   return Array.from({ length: 30 }, (_, i) => String(currentYear - i));
@@ -28,13 +26,11 @@ export default function PrintForm() {
     handleForm,
     takePlatePhoto,
     takeVINPhoto,
-    vinImage,
-    vinText,
-    plateImage,
-    plateText,
     showPreview,
     openPreview,
     closePreview,
+    vehicleBrands,
+    vehicleModels,
   } = usePrinter();
   return (
     <View style={{ width: "100%", paddingBottom: "10%" }}>
@@ -42,26 +38,53 @@ export default function PrintForm() {
       <ScrollView contentContainerStyle={{ width: "100%", paddingTop: 32 }}>
         <View style={{ marginBottom: 20, alignItems: "center" }}>
           <View style={{ width: "100%", marginBottom: 16 }}>
+            <Text style={styles.field}>Ingrese la orden de compra:</Text>
+            <CustomTextInput
+              value={form.purchase_number}
+              isInvalid={form.purchase_number.length < 6 && form.purchase_number.length > 0}
+              errorMessage="Orden de compra inválida"
+              onChangeText={(e) => handleForm("purchase_number", e)}
+              autoCapitalize="characters"
+              size="lg"
+            />
+          </View>
+          <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Elija marca del vehículo:</Text>
-            <CustomPicker data={carBrands} value={form.vehicle_brand} onChange={(e) => handleForm("car_brand", e)} />
+            <CustomPicker
+              data={vehicleBrands.map((el) => el.brand)}
+              value={form.vehicle_brand}
+              onChange={(e) => handleForm("vehicle_brand", e)}
+              disabled={!form.purchase_number}
+            />
           </View>
           <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Elija modelo del vehículo:</Text>
             <CustomPicker
-              data={nissanCarModels}
+              data={vehicleModels.filter((el) => el.brand_id === form.vehicle_brand_id).map((item) => item.model)}
               value={form.vehicle_model}
-              onChange={(e) => handleForm("car_model", e)}
+              onChange={(e) => handleForm("vehicle_model", e)}
+              disabled={!form.vehicle_brand_id}
             />
           </View>
           <View style={{ width: "100%", marginBottom: 24 }}>
             <Text style={styles.field}>Elija año del vehículo:</Text>
-            <CustomPicker data={years} value={form.vehicle_year} onChange={(e) => handleForm("car_year", e)} />
+            <CustomPicker
+              data={years}
+              disabled={!form.vehicle_model}
+              value={form.vehicle_year}
+              onChange={(e) => handleForm("vehicle_year", e)}
+            />
           </View>
 
           <View style={{ width: "100%", marginBottom: 24 }}>
             <Text style={styles.field}>Escanear:</Text>
-            <ScannField value={form.vehicle_plate} scan={takePlatePhoto} name="Patente" />
-            <ScannField value={form.vehicle_vin} scan={takeVINPhoto} name="VIN" />
+            <ScannField
+              onChange={(e) => handleForm("vehicle_plate", e)}
+              value={form.vehicle_plate}
+              scan={takePlatePhoto}
+              name="Patente"
+            />
+            <ScannField onChange={(e) => handleForm("vehicle_vin", e)} value={form.vehicle_vin} scan={takeVINPhoto} name="VIN" />
           </View>
 
           <View style={{ width: "100%", marginBottom: 24 }}>

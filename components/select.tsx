@@ -6,12 +6,18 @@ type CustomPicker = {
   data: string[];
   value: string;
   onChange: (value: string) => void;
+  disabled?: boolean;
 };
 
-export default function CustomPicker({ data, value, onChange }: CustomPicker) {
+export default function CustomPicker({ data, value, onChange, disabled }: CustomPicker) {
   return (
     <View style={styles.container}>
-      <Picker selectedValue={value} onValueChange={onChange} style={styles.picker}>
+      <Picker
+        selectedValue={value}
+        enabled={!disabled}
+        onValueChange={onChange}
+        style={[styles.picker, disabled && styles.disabled]}
+      >
         <Picker.Item label="Seleccione..." value="Seleccione..." />
         {data.map((item, index) => (
           <Picker.Item key={index} label={item} value={item} />
@@ -36,5 +42,8 @@ const styles = StyleSheet.create({
   picker: {
     width: "100%",
     height: 50,
+  },
+  disabled: {
+    backgroundColor: colors.light[300],
   },
 });

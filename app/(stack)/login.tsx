@@ -1,7 +1,9 @@
+import { Image, StyleSheet, Text, View, Dimensions } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LoginForm from "@/components/forms/login";
 import KeyBoardDismiss from "@/components/keyboardDismiss";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+const { width, height } = Dimensions.get("window");
 
 const enregla = require("@/assets/icons/splash.png");
 
@@ -10,7 +12,6 @@ export default function Login() {
     <>
       <KeyBoardDismiss>
         <KeyboardAwareScrollView contentContainerStyle={styles.scrollView} scrollEnabled>
-          {/* <Layout> */}
           <View style={styles.container}>
             <View style={styles.header}>
               <Image source={enregla} resizeMode="contain" style={{ width: "70%", height: "80%" }} />
@@ -21,7 +22,6 @@ export default function Login() {
               <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 12 }}>enregla&copy;</Text>
             </View>
           </View>
-          {/* </Layout> */}
         </KeyboardAwareScrollView>
       </KeyBoardDismiss>
     </>
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   container: {
-    width: "100%",
-    height: "100%",
+    width,
+    height,
     alignItems: "center",
     justifyContent: "space-between",
     paddingBottom: 30,

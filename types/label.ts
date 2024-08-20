@@ -9,6 +9,8 @@ export type Label = {
   coordinates: string;
   vehicle_brand: string;
   vehicle_model: string;
+  vehicle_brand_id: number;
+  vehicle_model_id: number;
   vehicle_year: string;
   show_vin: boolean;
   vehicle_vin: string;

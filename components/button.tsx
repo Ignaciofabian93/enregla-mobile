@@ -1,10 +1,4 @@
-import {
-  ActivityIndicator,
-  Text,
-  TouchableOpacity,
-  type TouchableOpacityProps,
-  StyleSheet,
-} from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, type TouchableOpacityProps, StyleSheet } from "react-native";
 import { colors } from "@/constants/theme";
 
 type Button = TouchableOpacityProps & {
@@ -14,14 +8,7 @@ type Button = TouchableOpacityProps & {
   size?: "sm" | "md" | "lg";
 };
 
-export default function CustomButton({
-  text,
-  type = "primary",
-  onPress,
-  isLoading,
-  size = "lg",
-  ...rest
-}: Button) {
+export default function CustomButton({ text, type = "primary", onPress, isLoading, size = "lg", ...rest }: Button) {
   return (
     <>
       <TouchableOpacity onPress={onPress} {...rest} style={[styles.button, styles[type], styles[size]]}>
@@ -52,8 +39,8 @@ const styles = StyleSheet.create({
     fontFamily: "Sora_Regular",
   },
   primary: {
-    borderColor: colors.primary[500],
-    backgroundColor: colors.primary[500],
+    borderColor: colors.primary[600],
+    backgroundColor: colors.primary[600],
     color: "white",
   },
   secondary: {

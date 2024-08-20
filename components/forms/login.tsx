@@ -3,7 +3,7 @@ import Notification from "@/components/toast";
 import CustomTextInput from "@/components/textinput";
 import CustomButton from "@/components/button";
 import { View } from "react-native";
-import { validate_email, validate_password } from "@/utils/regex";
+import { validate_rut, validate_password } from "@/utils/regex";
 
 export default function LoginForm() {
   const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility, message, showMessage, loading } =
@@ -14,14 +14,14 @@ export default function LoginForm() {
       <View style={{ marginBottom: 20 }}>
         <CustomTextInput
           value={form.rut}
-          onChangeText={(e) => handleForm("email", e)}
+          onChangeText={(e) => handleForm("rut", e)}
           size="lg"
-          placeholder="Correo"
-          isInvalid={validate_email(form.rut)}
-          errorMessage="Correo inválido"
+          placeholder="RUT"
+          isInvalid={validate_rut(form.rut)}
+          errorMessage="Rut inválido"
           icon={true}
-          iconName="mail"
-          keyboardType="email-address"
+          iconName="person"
+          keyboardType="default"
           autoCapitalize="none"
         />
         <CustomTextInput

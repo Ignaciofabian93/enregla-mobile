@@ -4,6 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { RootSiblingParent } from "react-native-root-siblings";
+import Providers from "./providers";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,10 +30,12 @@ export default function RootLayout() {
 
   return (
     <RootSiblingParent>
-      <Stack screenOptions={{ navigationBarColor: "#2f2f2f" }}>
-        <Stack.Screen name="(stack)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <Providers>
+        <Stack screenOptions={{ navigationBarColor: "#2f2f2f" }}>
+          <Stack.Screen name="(stack)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </Providers>
     </RootSiblingParent>
   );
 }

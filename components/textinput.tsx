@@ -7,7 +7,7 @@ type InputProps = TextInputProps & {
   errorMessage?: string;
   isInvalid?: boolean;
   icon?: boolean;
-  iconName?: "eye" | "eye-off" | "mail";
+  iconName?: "eye" | "eye-off" | "mail" | "person";
   onIconPress?: () => void;
 };
 
@@ -27,7 +27,7 @@ export default function CustomTextInput({
 }: InputProps) {
   const checkBorderColor = () => {
     if (!value?.length) return colors.light[400];
-    else if (isInvalid) return colors.warning[600];
+    else if (isInvalid) return colors.danger[600];
     else return colors.primary[600];
   };
 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   error: {
-    color: colors.warning[600],
+    color: colors.danger[600],
     position: "absolute",
     bottom: -16,
     left: 6,

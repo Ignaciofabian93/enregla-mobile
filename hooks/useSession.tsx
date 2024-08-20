@@ -2,6 +2,9 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import useSessionStore, { defaultSession } from "@/store/session";
 import { Auth } from "@/services/auth";
+import { Session } from "@/types/session";
+import useSync from "./useSync";
+import { DeleteLocalSession, SaveLocalSession } from "@/sqlite/session";
 
 type Message = {
   content: string;
@@ -10,7 +13,8 @@ type Message = {
 
 export default function useSession() {
   const router = useRouter();
-  const { setToken, setSession } = useSessionStore();
+  const { loadData } = useSync();
+  const { setSession } = useSessionStore();
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -54,23 +58,35 @@ export default function useSession() {
       setLoading(false);
       return;
     }
-    console.log(response);
-    setToken(response.token);
     setMessage({
       content: "Iniciando sesión",
       type: "success",
     });
+    const result: Session = {
+      token: response.token,
+      id: response.user.id,
+      name: response.user.name,
+      rut: response.user.rut,
+      email: response.user.email,
+    };
     setShowMessage(true);
     handleMessageShow();
+    setSession(result);
+    await SaveLocalSession({ session: result });
+    loadData({ token: response.token });
     setTimeout(() => {
       setLoading(false);
       router.replace("/(tabs)");
     }, 2000);
   };
 
-  const closeSession = () => {
-    setToken("");
-    router.replace("/login");
+  const closeSession = async () => {
+    setSession(defaultSession);
+    await DeleteLocalSession();
+    setTimeout(() => {
+      setLoading(false);
+      router.replace("/login");
+    }, 2000);
   };
 
   return {
