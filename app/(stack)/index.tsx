@@ -2,14 +2,12 @@ import { ActivityIndicator, View } from "react-native";
 import { useEffect } from "react";
 import { Href, useRouter } from "expo-router";
 import { colors } from "@/constants/theme";
-import useSessionStore from "@/store/session";
-import useSync from "@/hooks/useSync";
 import { GetLocalSession } from "@/sqlite/session";
+import useSessionStore from "@/store/session";
 
 export default function Auth() {
-  const { session } = useSessionStore();
-  const { loadData } = useSync();
   const router = useRouter();
+  const { setSession } = useSessionStore();
 
   const navigateTo = (path: Href<string | object>) => {
     setTimeout(() => router.replace(path), 1000);
@@ -18,14 +16,15 @@ export default function Auth() {
   useEffect(() => {
     const getLocalSession = async () => {
       const response = await GetLocalSession();
-      console.log("SESSION. ", response);
-      if (response === null) navigateTo("/(stack)/login");
-      if (response.token) navigateTo("/(tabs)");
-      else navigateTo("/(stack)/login");
+      if (!response) navigateTo("/(stack)/login");
+      else if (response.token) {
+        setSession(response);
+        navigateTo("/(tabs)");
+      }
     };
 
     getLocalSession();
-  }, [session]);
+  }, []);
 
   return (
     <>

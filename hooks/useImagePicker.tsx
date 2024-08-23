@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { launchCameraAsync, requestCameraPermissionsAsync, MediaTypeOptions } from "expo-image-picker";
+import { Alert } from "react-native";
 import MlKitOcr from "react-native-mlkit-ocr";
 
 export default function useImagePicker() {
@@ -11,10 +12,16 @@ export default function useImagePicker() {
   const processImage = async (image: string) => {
     try {
       const text = await MlKitOcr.detectFromUri(image);
-      console.log(text.map((t) => t.text));
-      return text[0].text;
+      console.log("TEXT: ", text);
+      let formattedPlate = text[0].text.replace(/[^A-Z0-9]/gi, "-");
+
+      if (formattedPlate.length > 4 && formattedPlate[4] !== "-") {
+        formattedPlate = formattedPlate.slice(0, 4) + "-" + formattedPlate.slice(4);
+      }
+
+      return formattedPlate;
     } catch (error) {
-      console.log("ERROR: ", error);
+      Alert.alert("Error", "No se pudo procesar la imagen");
     }
   };
 

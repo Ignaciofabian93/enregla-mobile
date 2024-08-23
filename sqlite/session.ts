@@ -4,11 +4,11 @@ import { openDatabaseAsync } from "expo-sqlite";
 export async function SaveLocalSession({ session }: { session: Session }) {
   const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`
-    INSERT INTO session (token, user_id, name, email, rut)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO session (token, user_id, name, email, rut, branch_id)
+    VALUES (?, ?, ?, ?, ?, ?)
   `);
   try {
-    await statement.executeAsync([session.token, session.id, session.name, session.email, session.rut]);
+    await statement.executeAsync([session.token, session.id, session.name, session.email, session.rut, session.branch_id]);
   } catch (error) {
     throw new Error(`Error al intentar guardar la sesión: ${error}`);
   } finally {
@@ -32,7 +32,7 @@ export async function GetLocalSession() {
 
 export async function DeleteLocalSession() {
   const db = await openDatabaseAsync("enregla.db");
-  const tables = ["session", "vehicle_brands", "vehicle_models", "supplies"];
+  const tables = ["session", "vehicle_brands", "vehicle_models", "supplies", "labels"];
   tables.map(async (table) => {
     const statement = await db.prepareAsync(`DELETE FROM ${table}`);
     try {

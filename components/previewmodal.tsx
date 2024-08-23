@@ -2,8 +2,6 @@ import { Modal, Text, View, StyleSheet, Image } from "react-native";
 import { colors } from "@/constants/theme";
 import CustomButton from "./button";
 
-const car_icon = require("@/assets/icons/nissan.png");
-
 type Preview = {
   visible: boolean;
   close: () => void;
@@ -16,9 +14,9 @@ const LabelPreview = ({ vin, plate, logo }: { vin?: string; plate?: string; logo
   return (
     <>
       <View style={styles.label}>
-        <Image source={car_icon} style={{ width: 70, height: 70 }} />
-        <Text style={styles.vin}>{vin}</Text>
-        <Text style={styles.plate}>{plate}</Text>
+        {logo && <Image source={{ uri: logo }} style={{ width: 64, height: 64, marginBottom: 2 }} />}
+        {vin && <Text style={styles.vin}>{vin}</Text>}
+        {plate && <Text style={styles.plate}>{plate}</Text>}
       </View>
     </>
   );
@@ -31,7 +29,7 @@ export default function PreviewModal({ visible, close, vin, plate, logo }: Previ
         <View style={styles.container}>
           <Text style={styles.title}>Vista previa</Text>
           <LabelPreview vin={vin} plate={plate} logo={logo} />
-          <CustomButton text="Cerrar" onPress={close} type="secondary" />
+          <CustomButton text="Cerrar" onPress={close} type="primary" />
         </View>
       </Modal>
     </>
@@ -46,8 +44,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container: {
-    width: "90%",
-    height: "64%",
+    width: "100%",
+    height: "90%",
     backgroundColor: "#fff",
     marginHorizontal: "auto",
     marginVertical: "auto",
@@ -65,9 +63,9 @@ const styles = StyleSheet.create({
   },
   label: {
     width: "100%",
-    height: "40%",
+    height: "50%",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     borderWidth: 1,
     borderColor: colors.light[400],
     padding: 10,
@@ -76,9 +74,11 @@ const styles = StyleSheet.create({
   vin: {
     fontFamily: "Sora_SemiBold",
     fontSize: 14,
+    marginBottom: 2,
   },
   plate: {
     fontFamily: "Sora_SemiBold",
     fontSize: 26,
+    marginBottom: 2,
   },
 });

@@ -1,10 +1,10 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import useSessionStore, { defaultSession } from "@/store/session";
 import { Auth } from "@/services/auth";
 import { Session } from "@/types/session";
-import useSync from "./useSync";
 import { DeleteLocalSession, SaveLocalSession } from "@/sqlite/session";
+import useSessionStore, { defaultSession } from "@/store/session";
+import useSync from "./useSync";
 
 type Message = {
   content: string;
@@ -68,12 +68,13 @@ export default function useSession() {
       name: response.user.name,
       rut: response.user.rut,
       email: response.user.email,
+      branch_id: response.user.branch_id,
     };
     setShowMessage(true);
     handleMessageShow();
     setSession(result);
     await SaveLocalSession({ session: result });
-    loadData({ token: response.token });
+    loadData({ token: response.token, branch_id: response.user.branch_id });
     setTimeout(() => {
       setLoading(false);
       router.replace("/(tabs)");

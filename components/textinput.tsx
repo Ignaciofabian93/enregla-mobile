@@ -9,6 +9,7 @@ type InputProps = TextInputProps & {
   icon?: boolean;
   iconName?: "eye" | "eye-off" | "mail" | "person";
   onIconPress?: () => void;
+  disabled?: boolean;
 };
 
 export default function CustomTextInput({
@@ -23,6 +24,7 @@ export default function CustomTextInput({
   onIconPress,
   secureTextEntry = false,
   keyboardType = "default",
+  disabled = false,
   ...rest
 }: InputProps) {
   const checkBorderColor = () => {
@@ -35,7 +37,7 @@ export default function CustomTextInput({
     <>
       <View style={styles.container}>
         <TextInput
-          style={[styles.input, styles[size], { borderColor: checkBorderColor() }]}
+          style={[styles.input, styles[size], disabled && styles.disabled, { borderColor: checkBorderColor() }]}
           {...rest}
           value={value}
           secureTextEntry={secureTextEntry}
@@ -43,6 +45,7 @@ export default function CustomTextInput({
           keyboardType={keyboardType}
           placeholder={placeholder}
           placeholderTextColor={"#aaa"}
+          editable={!disabled}
         />
         {icon && iconName && (
           <Ionicons
@@ -78,6 +81,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: "#fff",
     elevation: 2,
+  },
+  disabled: {
+    backgroundColor: colors.light[200],
   },
   error: {
     color: colors.danger[600],

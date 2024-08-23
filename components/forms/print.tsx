@@ -8,7 +8,9 @@ import Notification from "@/components/toast";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ScannField from "@/components/scannfield";
 import PreviewModal from "@/components/previewmodal";
+import CustomModal from "@/components/modal";
 import usePrinter from "@/hooks/usePrinter";
+import { validate_plate, validate_vin } from "@/utils/regex";
 
 const generateYearsRange = () => {
   const currentYear = new Date().getFullYear();
@@ -31,6 +33,10 @@ export default function PrintForm() {
     closePreview,
     vehicleBrands,
     vehicleModels,
+    confirm,
+    labelIsOk,
+    labelIsNotOk,
+    saveLabelData,
   } = usePrinter();
   return (
     <View style={{ width: "100%", paddingBottom: "10%" }}>
@@ -83,8 +89,17 @@ export default function PrintForm() {
               value={form.vehicle_plate}
               scan={takePlatePhoto}
               name="Patente"
+              isInvalid={validate_plate(form.vehicle_plate)}
+              errorMessage="Formato de patente inválido."
             />
-            <ScannField onChange={(e) => handleForm("vehicle_vin", e)} value={form.vehicle_vin} scan={takeVINPhoto} name="VIN" />
+            <ScannField
+              onChange={(e) => handleForm("vehicle_vin", e)}
+              value={form.vehicle_vin}
+              scan={takeVINPhoto}
+              name="VIN"
+              isInvalid={validate_vin(form.vehicle_vin)}
+              errorMessage="VIN inválido."
+            />
           </View>
 
           <View style={{ width: "100%", marginBottom: 24 }}>
@@ -95,6 +110,16 @@ export default function PrintForm() {
               <CustomCheckBox title="Logo" checked={form.show_logo} onChange={(e) => handleForm("show_logo", e)} />
             </View>
           </View>
+          <View style={{ width: "100%", marginBottom: 16 }}>
+            <Text style={styles.field}>Precio:</Text>
+            <CustomTextInput
+              value={form.price}
+              onChangeText={(e) => handleForm("price", e)}
+              size="lg"
+              keyboardType="decimal-pad"
+              disabled={!form.show_vin && !form.show_plate && !form.show_logo}
+            />
+          </View>
           <TouchableOpacity style={styles.preview} onPress={openPreview}>
             <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 16 }}>Previsualizar etiqueta</Text>
             <Ionicons name="eye-sharp" size={24} color={colors.light[800]} />
@@ -102,17 +127,42 @@ export default function PrintForm() {
         </View>
         <View>
           <CustomButton text="Imprimir" onPress={print} type="primary" isLoading={loading} />
-          <CustomButton text="Finalizar" onPress={() => {}} type="secondary" isLoading={loading} />
+          <CustomButton text="Finalizar" onPress={saveLabelData} type="secondary" isLoading={loading} />
         </View>
-        {showPreview && (
-          <PreviewModal
-            visible={showPreview}
-            close={closePreview}
-            vin={form.show_vin ? form.vehicle_vin : undefined}
-            plate={form.show_plate ? form.vehicle_plate : undefined}
-            logo={form.show_logo ? form.vehicle_logo : undefined}
-          />
-        )}
+        <PreviewModal
+          visible={showPreview}
+          close={closePreview}
+          vin={form.show_vin ? form.vehicle_vin : undefined}
+          plate={form.show_plate ? form.vehicle_plate : undefined}
+          logo={form.show_logo ? form.vehicle_logo : undefined}
+        />
+        <CustomModal visible={confirm}>
+          <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
+            <Text
+              style={{
+                width: "100%",
+                textAlign: "center",
+                fontFamily: "Sora_SemiBold",
+                fontSize: 24,
+              }}
+            >
+              Confirmar
+            </Text>
+            <Text
+              style={{
+                width: "100%",
+                textAlign: "center",
+                fontFamily: "Sora_SemiBold",
+                fontSize: 16,
+                marginBottom: 22,
+              }}
+            >
+              ¿La etiqueta fue impresa correctamente?
+            </Text>
+            <CustomButton text="Sí" onPress={labelIsOk} type="primary" />
+            <CustomButton text="No" onPress={labelIsNotOk} type="primary" />
+          </View>
+        </CustomModal>
       </ScrollView>
     </View>
   );

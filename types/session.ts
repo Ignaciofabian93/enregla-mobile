@@ -4,4 +4,5 @@ export type Session = {
   name: string;
   email: string;
   rut: string;
+  branch_id: number;
 };

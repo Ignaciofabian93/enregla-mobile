@@ -8,6 +8,8 @@ type ScannField = {
   scan: () => void;
   name: string;
   onChange: (value: string) => void;
+  isInvalid?: boolean;
+  errorMessage?: string;
 };
 
 const ScannButton = ({ onPress, name, disabled }: { onPress: () => void; name: string; disabled: boolean }) => {
@@ -23,9 +25,7 @@ const ScannButton = ({ onPress, name, disabled }: { onPress: () => void; name: s
   );
 };
 
-export default function ScannField({ value, scan, name, onChange }: ScannField) {
-  console.log("VALUE: ", value);
-
+export default function ScannField({ value, scan, name, onChange, isInvalid, errorMessage }: ScannField) {
   return (
     <View style={styles.container}>
       <View style={{ width: "60%" }}>
@@ -34,7 +34,9 @@ export default function ScannField({ value, scan, name, onChange }: ScannField) 
           placeholder={name}
           value={value}
           autoCapitalize="characters"
-          maxLength={17}
+          isInvalid={isInvalid}
+          errorMessage={errorMessage}
+          maxLength={name === "Patente" ? 8 : 17}
           size="lg"
         />
       </View>

@@ -1,3 +1,4 @@
+import { addEventListener } from "@react-native-community/netinfo";
 import { GetSupplyList } from "@/services/supplies";
 import { GetVehicleBrands, GetVehicleModels } from "@/services/vehicles";
 import { CleanLocalBrands, SaveLocalBrands } from "@/sqlite/brands";
@@ -5,9 +6,26 @@ import { CleanLocalModels, SaveLocalModels } from "@/sqlite/models";
 import { CleanLocalSupplies, SaveLocalSupplies } from "@/sqlite/supplies";
 import { Supply } from "@/types/supply";
 import { VehicleBrand, VehicleModel } from "@/types/vehicle";
+import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 export default function useSync() {
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [connectionType, setConnectionType] = useState<string>("");
+
+  useEffect(() => {
+    // Subscription to network status changes
+    const unsubscribe = addEventListener((state) => {
+      setIsConnected(state.isConnected || false);
+      setConnectionType(state.type || null);
+    });
+
+    // Clean up the subscription on unmount
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const fetchVehicleBrands = async ({ token }: { token: string }) => {
     const response = await GetVehicleBrands({ token });
     if (response.error) {
@@ -40,8 +58,8 @@ export default function useSync() {
     }
   };
 
-  const fetchSupplyList = async ({ token }: { token: string }) => {
-    const response = await GetSupplyList({ token });
+  const fetchSupplyList = async ({ token, branch_id }: { token: string; branch_id: number }) => {
+    const response = await GetSupplyList({ token, branch_id });
     if (response.error) {
       return Alert.alert("Error", response.error);
     }
@@ -60,11 +78,11 @@ export default function useSync() {
     }
   };
 
-  const loadData = ({ token }: { token: string }) => {
+  const loadData = ({ token, branch_id }: { token: string; branch_id: number }) => {
     fetchVehicleBrands({ token });
     fetchVehicleModels({ token });
-    fetchSupplyList({ token });
+    fetchSupplyList({ token, branch_id });
   };
 
-  return { loadData };
+  return { loadData, isConnected, connectionType };
 }

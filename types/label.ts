@@ -4,6 +4,7 @@ export type Label = {
   date: string;
   branch_id: number;
   label_quantity: number;
+  wrong_labels: number;
   purchase_number: string;
   price: string;
   coordinates: string;
@@ -18,4 +19,24 @@ export type Label = {
   vehicle_plate: string;
   show_logo: boolean;
   vehicle_logo: string;
+};
+
+export type LocalLabel = {
+  id: number;
+  user_id: number;
+  date: string;
+  branch_id: number;
+  label_quantity: number;
+  wrong_labels: number;
+  purchase_number: string;
+  price: string;
+  coordinates: string;
+  vehicle_brand_id: number;
+  vehicle_model_id: number;
+  vehicle_year: string;
+  vehicle_vin: string;
+  show_vin: number;
+  show_plate: number;
+  show_logo: number;
+  vehicle_plate: string;
 };

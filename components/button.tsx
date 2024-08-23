@@ -11,12 +11,8 @@ type Button = TouchableOpacityProps & {
 export default function CustomButton({ text, type = "primary", onPress, isLoading, size = "lg", ...rest }: Button) {
   return (
     <>
-      <TouchableOpacity onPress={onPress} {...rest} style={[styles.button, styles[type], styles[size]]}>
-        {isLoading ? (
-          <ActivityIndicator size="small" color="#fff" />
-        ) : (
-          <Text style={[styles.text, styles[type]]}>{text}</Text>
-        )}
+      <TouchableOpacity activeOpacity={0.9} onPress={onPress} {...rest} style={[styles.button, styles[type], styles[size]]}>
+        {isLoading ? <ActivityIndicator size="small" color="#fff" /> : <Text style={[styles.text, styles[type]]}>{text}</Text>}
       </TouchableOpacity>
     </>
   );
