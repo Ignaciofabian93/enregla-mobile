@@ -29,6 +29,15 @@ export const initDatabase = async (db: SQLiteDatabase) => {
     )  
   `);
   await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS branch (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      branch_id INTEGER NOT NULL,
+      address TEXT NOT NULL,
+      location TEXT NOT NULL,
+      telephone TEXT NOT NULL
+    )  
+  `);
+  await db.execAsync(`
     CREATE TABLE IF NOT EXISTS supplies (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       supply_id INTEGER NOT NULL,
@@ -58,7 +67,9 @@ export const initDatabase = async (db: SQLiteDatabase) => {
       show_plate INTEGER NOT NULL,
       show_logo INTEGER NOT NULL,
       vehicle_vin TEXT NOT NULL,
-      vehicle_plate TEXT NOT NULL
+      vehicle_plate TEXT NOT NULL,
+      print_type TEXT NOT NULL,
+      description TEXT
     )  
   `);
 };

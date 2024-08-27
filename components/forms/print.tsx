@@ -111,6 +111,24 @@ export default function PrintForm() {
             </View>
           </View>
           <View style={{ width: "100%", marginBottom: 16 }}>
+            <Text style={styles.field}>Tipo de grabado:</Text>
+            <CustomPicker
+              data={["Normal", "Especial"].map((el) => el)}
+              value={form.print_type}
+              onChange={(e) => handleForm("print_type", e)}
+            />
+          </View>
+          <View style={{ width: "100%", marginBottom: 16 }}>
+            <Text style={styles.field}>Comentarios:</Text>
+            <CustomTextInput
+              value={form.description}
+              multiline={true}
+              verticalAlign="top"
+              size="lg"
+              onChangeText={(e) => handleForm("description", e)}
+            />
+          </View>
+          <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Precio:</Text>
             <CustomTextInput
               value={form.price}

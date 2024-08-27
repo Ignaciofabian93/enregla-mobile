@@ -4,10 +4,12 @@ import { Href, useRouter } from "expo-router";
 import { colors } from "@/constants/theme";
 import { GetLocalSession } from "@/sqlite/session";
 import useSessionStore from "@/store/session";
+import useSync from "@/hooks/useSync";
 
 export default function Auth() {
   const router = useRouter();
   const { setSession } = useSessionStore();
+  const { loadData } = useSync();
 
   const navigateTo = (path: Href<string | object>) => {
     setTimeout(() => router.replace(path), 1000);
@@ -18,6 +20,7 @@ export default function Auth() {
       const response = await GetLocalSession();
       if (!response) navigateTo("/(stack)/login");
       else if (response.token) {
+        loadData({ token: response.token, branch_id: response.branch_id });
         setSession(response);
         navigateTo("/(tabs)");
       }

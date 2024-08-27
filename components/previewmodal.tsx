@@ -15,8 +15,8 @@ const LabelPreview = ({ vin, plate, logo }: { vin?: string; plate?: string; logo
     <>
       <View style={styles.label}>
         {logo && <Image source={{ uri: logo }} style={{ width: 64, height: 64, marginBottom: 2 }} />}
-        {vin && <Text style={styles.vin}>{vin}</Text>}
-        {plate && <Text style={styles.plate}>{plate}</Text>}
+        {vin && <Text style={styles.vin}>{vin.toUpperCase()}</Text>}
+        {plate && <Text style={styles.plate}>{plate.toUpperCase()}</Text>}
       </View>
     </>
   );

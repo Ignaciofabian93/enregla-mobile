@@ -7,8 +7,8 @@ export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id">
     INSERT INTO labels 
       (user_id, date, branch_id, label_quantity, wrong_labels, purchase_number, 
       price, coordinates, vehicle_brand_id, vehicle_model_id, vehicle_year, show_vin, show_plate,
-      show_logo, vehicle_vin, vehicle_plate)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      show_logo, vehicle_vin, vehicle_plate, print_type, description)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   try {
     const response = await statement.executeAsync([
@@ -28,6 +28,8 @@ export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id">
       label.show_logo,
       label.vehicle_vin,
       label.vehicle_plate,
+      label.print_type,
+      label.description,
     ]);
     return response.changes;
   } catch (error) {

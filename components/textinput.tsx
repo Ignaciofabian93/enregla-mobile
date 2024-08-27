@@ -25,6 +25,7 @@ export default function CustomTextInput({
   secureTextEntry = false,
   keyboardType = "default",
   disabled = false,
+  multiline = false,
   ...rest
 }: InputProps) {
   const checkBorderColor = () => {

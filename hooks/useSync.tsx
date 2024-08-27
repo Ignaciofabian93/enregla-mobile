@@ -8,6 +8,9 @@ import { Supply } from "@/types/supply";
 import { VehicleBrand, VehicleModel } from "@/types/vehicle";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
+import { GetBranchData } from "@/services/branch";
+import { CleanLocalBranch, SaveLocalBranch } from "@/sqlite/branch";
+import { Branch } from "@/types/branch";
 
 export default function useSync() {
   const [isConnected, setIsConnected] = useState<boolean>(false);
@@ -60,6 +63,7 @@ export default function useSync() {
 
   const fetchSupplyList = async ({ token, branch_id }: { token: string; branch_id: number }) => {
     const response = await GetSupplyList({ token, branch_id });
+
     if (response.error) {
       return Alert.alert("Error", response.error);
     }
@@ -78,10 +82,26 @@ export default function useSync() {
     }
   };
 
+  const fetchBranchData = async ({ token, branch_id }: { token: string; branch_id: number }) => {
+    const response = await GetBranchData({ token, branch_id });
+    if (response.error) {
+      return Alert.alert("Error", response.error);
+    }
+    await CleanLocalBranch();
+    const branchObject: Omit<Branch, "id"> = {
+      branch_id: response.branch.id,
+      address: response.branch.address,
+      location: response.branch.location,
+      telephone: response.branch.telephone,
+    };
+    await SaveLocalBranch({ branch: branchObject });
+  };
+
   const loadData = ({ token, branch_id }: { token: string; branch_id: number }) => {
     fetchVehicleBrands({ token });
     fetchVehicleModels({ token });
     fetchSupplyList({ token, branch_id });
+    fetchBranchData({ token, branch_id });
   };
 
   return { loadData, isConnected, connectionType };

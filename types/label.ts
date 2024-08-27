@@ -19,6 +19,8 @@ export type Label = {
   vehicle_plate: string;
   show_logo: boolean;
   vehicle_logo: string;
+  print_type: string;
+  description: string;
 };
 
 export type LocalLabel = {
@@ -39,4 +41,6 @@ export type LocalLabel = {
   show_plate: number;
   show_logo: number;
   vehicle_plate: string;
+  print_type: string;
+  description: string;
 };

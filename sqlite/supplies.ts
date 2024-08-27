@@ -8,7 +8,7 @@ export async function SaveLocalSupplies({ supply }: { supply: Omit<Supply, "id">
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `);
   try {
-    await statement.executeAsync([
+    const response = await statement.executeAsync([
       supply.supply_id,
       supply.name,
       supply.category,
@@ -17,6 +17,7 @@ export async function SaveLocalSupplies({ supply }: { supply: Omit<Supply, "id">
       supply.branch,
       supply.agency,
     ]);
+    return response.changes;
   } catch (error) {
     throw new Error(`Error al intentar guardar insumos: ${error}`);
   } finally {

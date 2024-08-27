@@ -16,6 +16,31 @@ type Message = {
   type: "error" | "success" | "info";
 };
 
+const defaultLabel: Label = {
+  id: 0,
+  user_id: 0,
+  date: moment().format("DD-MM-YYYY"),
+  branch_id: 0,
+  label_quantity: 0,
+  wrong_labels: 0,
+  purchase_number: "",
+  price: "",
+  coordinates: "",
+  vehicle_brand: "",
+  vehicle_brand_id: 0,
+  vehicle_model: "",
+  vehicle_model_id: 0,
+  vehicle_year: "",
+  show_vin: false,
+  vehicle_vin: "",
+  show_plate: false,
+  vehicle_plate: "",
+  show_logo: false,
+  vehicle_logo: "",
+  print_type: "",
+  description: "",
+};
+
 export default function usePrinter() {
   const { session } = useSessionStore();
   const { coordinates } = useLocation();
@@ -30,28 +55,7 @@ export default function usePrinter() {
     content: "",
     type: "error",
   });
-  const [form, setForm] = useState<Label>({
-    id: 0,
-    user_id: 0,
-    date: moment().format("DD-MM-YYYY"),
-    branch_id: 0,
-    label_quantity: 0,
-    wrong_labels: 0,
-    purchase_number: "",
-    price: "",
-    coordinates: "",
-    vehicle_brand: "",
-    vehicle_brand_id: 0,
-    vehicle_model: "",
-    vehicle_model_id: 0,
-    vehicle_year: "",
-    show_vin: false,
-    vehicle_vin: "",
-    show_plate: false,
-    vehicle_plate: "",
-    show_logo: false,
-    vehicle_logo: "",
-  });
+  const [form, setForm] = useState<Label>(defaultLabel);
 
   const handleMessageShow = () => setTimeout(() => setShowMessage(false), 2000);
 
@@ -127,6 +131,7 @@ export default function usePrinter() {
   };
 
   const saveLabelData = async () => {
+    setLoading(true);
     const localLabel = {
       id: form.id,
       user_id: form.user_id,
@@ -141,13 +146,25 @@ export default function usePrinter() {
       vehicle_model_id: form.vehicle_model_id,
       vehicle_year: form.vehicle_year,
       show_vin: form.show_vin ? 1 : 0,
-      vehicle_vin: form.vehicle_vin,
+      vehicle_vin: form.vehicle_vin.toUpperCase(),
       show_plate: form.show_plate ? 1 : 0,
-      vehicle_plate: form.vehicle_plate,
+      vehicle_plate: form.vehicle_plate.toUpperCase(),
       show_logo: form.show_logo ? 1 : 0,
+      print_type: form.print_type,
+      description: form.description,
     };
     const response = await SaveLocalLabels({ label: localLabel });
-    console.log("RES: ", response);
+    if (response > 0) {
+      setMessage({ content: "Etiqueta guardada correctamente", type: "success" });
+      setShowMessage(true);
+      handleMessageShow();
+      setLoading(false);
+    } else {
+      setMessage({ content: "Error al guardar la etiqueta", type: "error" });
+      setShowMessage(true);
+      handleMessageShow();
+      setLoading(false);
+    }
   };
 
   return {

@@ -55,3 +55,59 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
         </body>
       </html>`;
 }
+
+type SupplyRequest = {
+  acid: number;
+  paper: number;
+  yellowCatalyzer: number;
+  blueCatalyzer: number;
+  woodSticks: number;
+  pen: number;
+  penBattery: number;
+};
+
+export function SupplyRequest({ acid, paper, yellowCatalyzer, blueCatalyzer, woodSticks, pen, penBattery }: SupplyRequest) {
+  return `
+      <html>
+        <head>
+          <style>
+            body {
+              margin: 0;
+              padding: 20px;
+              font-family: Arial, sans-serif;
+              font-size: 14px;
+              line-height: 1.6;
+              width: 100%;
+              height: 100%;
+              box-sizing: border-box;
+            }
+            .label-container {
+              width: 100%;
+              max-width: 210mm; /* A4 width */
+              margin: 0 auto;
+              padding: 20px;
+              border: 1px solid #000;
+              box-sizing: border-box;
+            }
+            .item {
+              margin-bottom: 12px;
+            }
+            .item span.label {
+              font-weight: bold;
+              margin-right: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="label-container">
+            <div class="item"><span class="label">Ácido:</span> ${acid}</div>
+            <div class="item"><span class="label">Rollos de papel:</span> ${paper}</div>
+            <div class="item"><span class="label">Catalizador amarillo:</span> ${yellowCatalyzer}</div>
+            <div class="item"><span class="label">Catalizador azul:</span> ${blueCatalyzer}</div>
+            <div class="item"><span class="label">Paletas de madera:</span> ${woodSticks}</div>
+            <div class="item"><span class="label">Lápiz:</span> ${pen}</div>
+            <div class="item"><span class="label">Batería lápiz:</span> ${penBattery}</div>
+          </div>
+        </body>
+      </html>`;
+}

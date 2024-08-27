@@ -82,11 +82,13 @@ export default function useSession() {
   };
 
   const closeSession = async () => {
+    setLoading(true);
     setSession(defaultSession);
     await DeleteLocalSession();
     setTimeout(() => {
       setLoading(false);
       router.replace("/login");
+      setLoading(false);
     }, 2000);
   };
 
