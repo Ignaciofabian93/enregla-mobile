@@ -62,6 +62,8 @@ export default function useProfile() {
       woodSticks: form.wood_sticks,
       pen: form.pen,
       penBattery: form.pen_battery,
+      branch: branch?.address as string,
+      operator: user?.name as string,
     });
     const result = await printToFileAsync({ html, height: 297, width: 210 });
     console.log("result: ", result);

@@ -2,16 +2,19 @@
   "expo": {
     "name": "enregla",
     "slug": "enregla-mobile",
+    "scheme": "enregla",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
-    "scheme": "enregla",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
+    "privacy": "public",
+    "platforms": ["ios", "android"],
     "splash": {
       "image": "./assets/icons/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetsBundlePattern": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ignaciofabian93.enreglamobile"
@@ -43,12 +46,25 @@
             "usesClearTextTraffic": true
           }
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permita a enregla utilizar su ubicación."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permita a enregla acceder a sus fotos."
+        }
       ]
     ],
     "experiments": {
+      "tsconfigPaths": true,
       "typedRoutes": true
     },
-    "runtimeVersion": "1.0.2",
+    "runtimeVersion": "1.0.3",
     "sdkVersion": "51.0.0",
     "extra": {
       "router": {

@@ -37,15 +37,27 @@ export default function Profile() {
               <Text style={styles.info}>{branch?.telephone}</Text>
             </View>
           </View>
-          <View style={{ width: "100%", height: 50, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-            <Link href={"https://www.youtube.com/@console.coding"} style={{ height: 100, marginHorizontal: 16 }}>
-              <Image source={youtube_logo} style={{ width: 50, height: 50 }} />
-            </Link>
-            <Link href={"https://www.youtube.com/@console.coding"} style={{ height: 100, marginHorizontal: 16 }}>
-              <Image source={instagram_logo} style={{ width: 50, height: 50 }} />
-            </Link>
-          </View>
-          <View>
+          <View style={{ width: "100%" }}>
+            <Text style={{ fontFamily: "Sora_Regular", fontSize: 16, textAlign: "center", marginBottom: 14 }}>
+              Link a redes para más información
+            </Text>
+            <View
+              style={{
+                width: "100%",
+                height: 50,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 8,
+              }}
+            >
+              <Link href={"https://www.youtube.com/@console.coding"} style={{ height: 100, marginHorizontal: 16 }}>
+                <Image source={youtube_logo} style={{ width: 50, height: 50 }} />
+              </Link>
+              <Link href={"https://www.youtube.com/@console.coding"} style={{ height: 100, marginHorizontal: 16 }}>
+                <Image source={instagram_logo} style={{ width: 50, height: 50 }} />
+              </Link>
+            </View>
             <CustomButton text="Solicitar insumos" onPress={handleShowModal} type="primary" isLoading={false} />
             <CustomButton text="Cerrar sesión" onPress={closeSession} type="warning" isLoading={loading} />
           </View>

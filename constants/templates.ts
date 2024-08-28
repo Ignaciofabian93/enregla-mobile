@@ -1,3 +1,5 @@
+import moment from "moment";
+
 type Template = {
   vin: string;
   plate: string;
@@ -64,49 +66,87 @@ type SupplyRequest = {
   woodSticks: number;
   pen: number;
   penBattery: number;
+  branch: string;
+  operator: string;
 };
 
-export function SupplyRequest({ acid, paper, yellowCatalyzer, blueCatalyzer, woodSticks, pen, penBattery }: SupplyRequest) {
+export function SupplyRequest({
+  acid,
+  paper,
+  yellowCatalyzer,
+  blueCatalyzer,
+  woodSticks,
+  pen,
+  penBattery,
+  branch,
+  operator,
+}: SupplyRequest) {
   return `
       <html>
         <head>
           <style>
             body {
               margin: 0;
-              padding: 20px;
-              font-family: Arial, sans-serif;
-              font-size: 14px;
-              line-height: 1.6;
+              padding: 30px;
+              font-family: 'Helvetica Neue', Arial, sans-serif;
+              font-size: 12px;
+              line-height: 1.4;
               width: 100%;
               height: 100%;
               box-sizing: border-box;
+              color: #333;
+            }
+            .header {
+              margin-bottom: 20px;
+              font-size: 18px;
+              font-weight: 600;
+              text-align: center;
+              color: #222;
             }
             .label-container {
               width: 100%;
               max-width: 210mm; /* A4 width */
               margin: 0 auto;
               padding: 20px;
-              border: 1px solid #000;
+              border: 1px solid #ccc;
               box-sizing: border-box;
+              border-radius: 8px;
+              background-color: #f9f9f9;
             }
             .item {
-              margin-bottom: 12px;
+              margin-bottom: 10px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 8px 0;
+              border-bottom: 1px solid #eee;
             }
-            .item span.label {
+            .item:last-child {
+              border-bottom: none;
+            }
+            .label {
               font-weight: bold;
-              margin-right: 10px;
+              color: #555;
+            }
+            .value {
+              color: #000;
+              font-weight: 500;
             }
           </style>
         </head>
         <body>
+          <div class="header">
+            Fecha: ${moment().format("DD-MM-YYYY")}<br />
+            Solicitud de insumos de sucursal ubicada en ${branch} por operador ${operator}.
+          </div>
           <div class="label-container">
-            <div class="item"><span class="label">Ácido:</span> ${acid}</div>
-            <div class="item"><span class="label">Rollos de papel:</span> ${paper}</div>
-            <div class="item"><span class="label">Catalizador amarillo:</span> ${yellowCatalyzer}</div>
-            <div class="item"><span class="label">Catalizador azul:</span> ${blueCatalyzer}</div>
-            <div class="item"><span class="label">Paletas de madera:</span> ${woodSticks}</div>
-            <div class="item"><span class="label">Lápiz:</span> ${pen}</div>
-            <div class="item"><span class="label">Batería lápiz:</span> ${penBattery}</div>
+            <div class="item"><span class="label">Ácido:</span> <span class="value">${acid}</span></div>
+            <div class="item"><span class="label">Rollos de papel:</span> <span class="value">${paper}</span></div>
+            <div class="item"><span class="label">Catalizador amarillo:</span> <span class="value">${yellowCatalyzer}</span></div>
+            <div class="item"><span class="label">Catalizador azul:</span> <span class="value">${blueCatalyzer}</span></div>
+            <div class="item"><span class="label">Paletas de madera:</span> <span class="value">${woodSticks}</span></div>
+            <div class="item"><span class="label">Lápiz:</span> <span class="value">${pen}</span></div>
+            <div class="item"><span class="label">Batería lápiz:</span> <span class="value">${penBattery}</span></div>
           </div>
         </body>
       </html>`;

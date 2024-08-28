@@ -10,6 +10,7 @@ import moment from "moment";
 import useImagePicker from "./useImagePicker";
 import useSessionStore from "@/store/session";
 import useLocation from "./useLocation";
+import { Alert } from "react-native";
 
 type Message = {
   content: string;
@@ -130,41 +131,52 @@ export default function usePrinter() {
     setConfirm(true);
   };
 
-  const saveLabelData = async () => {
-    setLoading(true);
-    const localLabel = {
-      id: form.id,
-      user_id: form.user_id,
-      date: form.date,
-      branch_id: form.branch_id,
-      label_quantity: form.label_quantity,
-      wrong_labels: form.wrong_labels,
-      purchase_number: form.purchase_number,
-      price: form.price,
-      coordinates: form.coordinates,
-      vehicle_brand_id: form.vehicle_brand_id,
-      vehicle_model_id: form.vehicle_model_id,
-      vehicle_year: form.vehicle_year,
-      show_vin: form.show_vin ? 1 : 0,
-      vehicle_vin: form.vehicle_vin.toUpperCase(),
-      show_plate: form.show_plate ? 1 : 0,
-      vehicle_plate: form.vehicle_plate.toUpperCase(),
-      show_logo: form.show_logo ? 1 : 0,
-      print_type: form.print_type,
-      description: form.description,
-    };
-    const response = await SaveLocalLabels({ label: localLabel });
-    if (response > 0) {
-      setMessage({ content: "Etiqueta guardada correctamente", type: "success" });
-      setShowMessage(true);
-      handleMessageShow();
-      setLoading(false);
-    } else {
-      setMessage({ content: "Error al guardar la etiqueta", type: "error" });
-      setShowMessage(true);
-      handleMessageShow();
-      setLoading(false);
-    }
+  const saveLabelData = () => {
+    Alert.alert("Atención", "¿Está seguro de finalizar las impresiones de este registro?", [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "Aceptar",
+        onPress: async () => {
+          setLoading(true);
+          const localLabel = {
+            id: form.id,
+            user_id: form.user_id,
+            date: form.date,
+            branch_id: form.branch_id,
+            label_quantity: form.label_quantity,
+            wrong_labels: form.wrong_labels,
+            purchase_number: form.purchase_number,
+            price: form.price,
+            coordinates: form.coordinates,
+            vehicle_brand_id: form.vehicle_brand_id,
+            vehicle_model_id: form.vehicle_model_id,
+            vehicle_year: form.vehicle_year,
+            show_vin: form.show_vin ? 1 : 0,
+            vehicle_vin: form.vehicle_vin.toUpperCase(),
+            show_plate: form.show_plate ? 1 : 0,
+            vehicle_plate: form.vehicle_plate.toUpperCase(),
+            show_logo: form.show_logo ? 1 : 0,
+            print_type: form.print_type,
+            description: form.description,
+          };
+          const response = await SaveLocalLabels({ label: localLabel });
+          if (response > 0) {
+            setMessage({ content: "Etiqueta guardada correctamente", type: "success" });
+            setShowMessage(true);
+            handleMessageShow();
+            setLoading(false);
+          } else {
+            setMessage({ content: "Error al guardar la etiqueta", type: "error" });
+            setShowMessage(true);
+            handleMessageShow();
+            setLoading(false);
+          }
+        },
+      },
+    ]);
   };
 
   return {
