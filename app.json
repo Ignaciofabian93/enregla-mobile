@@ -3,7 +3,7 @@
     "name": "enregla",
     "slug": "enregla-mobile",
     "scheme": "enregla",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/icons/enregla-icon.png",
     "userInterfaceStyle": "light",
@@ -23,8 +23,16 @@
         "foregroundImage": "./assets/icons/enregla-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 3,
-      "package": "com.ignaciofabian93.enreglamobile"
+      "versionCode": 4,
+      "package": "com.ignaciofabian93.enreglamobile",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "INTERNET"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -59,7 +67,7 @@
       "tsconfigPaths": true,
       "typedRoutes": true
     },
-    "runtimeVersion": "2.0.1",
+    "runtimeVersion": "2.0.2",
     "sdkVersion": "51.0.0",
     "extra": {
       "router": {
