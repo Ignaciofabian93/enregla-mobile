@@ -52,6 +52,7 @@ export const initDatabase = async (db: SQLiteDatabase) => {
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS labels (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      label_id INTEGER,
       user_id INTEGER NOT NULL,
       date TEXT NOT NULL,
       branch_id INTEGER NOT NULL,

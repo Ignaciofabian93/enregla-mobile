@@ -1,5 +1,6 @@
 export type Label = {
   id: number;
+  label_id: number;
   user_id: number;
   date: string;
   branch_id: number;
@@ -25,6 +26,7 @@ export type Label = {
 
 export type LocalLabel = {
   id: number;
+  label_id: number;
   user_id: number;
   date: string;
   branch_id: number;

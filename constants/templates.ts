@@ -87,7 +87,7 @@ export function SupplyRequest({
           <style>
             body {
               margin: 0;
-              padding: 30px;
+              padding: 24px;
               font-family: 'Helvetica Neue', Arial, sans-serif;
               font-size: 12px;
               line-height: 1.4;
@@ -98,27 +98,33 @@ export function SupplyRequest({
             }
             .header {
               margin-bottom: 20px;
-              font-size: 18px;
-              font-weight: 600;
-              text-align: center;
-              color: #222;
+            }
+            .header span {
+              display: block;
+              margin-bottom: 5px;
+              font-size: 14px;
+              font-weight: 400;
+              color: #555;
+              line-height: 1.2;
+              text-align: left;
+              width: 100%;
             }
             .label-container {
               width: 100%;
               max-width: 210mm; /* A4 width */
               margin: 0 auto;
-              padding: 20px;
+              padding: 12px 16px;
               border: 1px solid #ccc;
               box-sizing: border-box;
               border-radius: 8px;
               background-color: #f9f9f9;
             }
             .item {
-              margin-bottom: 10px;
+              margin-bottom: 6px;
               display: flex;
               justify-content: space-between;
               align-items: center;
-              padding: 8px 0;
+              padding: 4px 0;
               border-bottom: 1px solid #eee;
             }
             .item:last-child {
@@ -136,8 +142,8 @@ export function SupplyRequest({
         </head>
         <body>
           <div class="header">
-            Fecha: ${moment().format("DD-MM-YYYY")}<br />
-            Solicitud de insumos de sucursal ubicada en ${branch} por operador ${operator}.
+            <span>Fecha: ${moment().format("DD-MM-YYYY")}</span>
+            <span>Solicitud de insumos de sucursal ubicada en ${branch} por operador ${operator}.</span>
           </div>
           <div class="label-container">
             <div class="item"><span class="label">Ácido:</span> <span class="value">${acid}</span></div>

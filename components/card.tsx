@@ -40,7 +40,7 @@ export default function Card({ plate, vin, price, print_type, date }: Card) {
 
 const styles = StyleSheet.create({
   card: {
-    width: "90%",
+    width: 350,
     height: "auto",
     borderWidth: 1,
     borderColor: colors.light[400],
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     elevation: 2,
     backgroundColor: "#fff",
-    marginHorizontal: "auto",
+    marginHorizontal: 8,
   },
   row: {
     width: "100%",

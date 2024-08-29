@@ -2,16 +2,17 @@ import { LocalLabel } from "@/types/label";
 import { openDatabaseAsync } from "expo-sqlite";
 
 export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id"> }) {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-mobile.db");
   const statement = await db.prepareAsync(`
     INSERT INTO labels 
-      (user_id, date, branch_id, label_quantity, wrong_labels, purchase_number, 
+      (label_id, user_id, date, branch_id, label_quantity, wrong_labels, purchase_number, 
       price, coordinates, vehicle_brand_id, vehicle_model_id, vehicle_year, show_vin, show_plate,
       show_logo, vehicle_vin, vehicle_plate, print_type, description)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   try {
     const response = await statement.executeAsync([
+      label.label_id,
       label.user_id,
       label.date,
       label.branch_id,
@@ -40,7 +41,7 @@ export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id">
 }
 
 export async function GetLocalLabels() {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-mobile.db");
   const statement = await db.prepareAsync(`SELECT * FROM labels`);
   try {
     const response = await statement.executeAsync();
@@ -54,7 +55,7 @@ export async function GetLocalLabels() {
 }
 
 export async function CleanLocalLabels() {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-mobile.db");
   const statement = await db.prepareAsync(`DELETE FROM labels`);
   try {
     await statement.executeAsync();

@@ -1,7 +1,7 @@
 import { Label } from "@/types/label";
 import { endpoint } from "./endpoint";
 
-export async function GetLabels({ token }: { token: string }) {
+export async function GetLabels({ token, branch_id }: { token: string; branch_id: number }) {
   try {
     const options: RequestInit = {
       method: "GET",
@@ -10,20 +10,21 @@ export async function GetLabels({ token }: { token: string }) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(`${endpoint}/label`, options);
+    const response = await fetch(`${endpoint}/all-labels?branch_id=${branch_id}`, options);
     const data = await response.json();
+    console.log("RES", data);
     return data;
   } catch (error) {
     throw new Error(`Error al intentar obtener etiquetas guardadas: ${error}`);
   }
 }
 
-export async function SaveLabel({ token, label }: { token: string; label: Label }) {
+export async function SaveLabel({ token, labels }: { token: string; labels: Label[] }) {
   try {
     const options: RequestInit = {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ label }),
+      body: JSON.stringify({ labels }),
     };
     const response = await fetch(`${endpoint}/label`, options);
     const data = await response.json();

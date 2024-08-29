@@ -8,14 +8,27 @@ type Button = TouchableOpacityProps & {
   size?: "sm" | "md" | "lg";
 };
 
-export default function CustomButton({ text, type = "primary", onPress, isLoading, size = "lg", ...rest }: Button) {
+export default function CustomButton({
+  text,
+  type = "primary",
+  onPress,
+  isLoading,
+  size = "lg",
+  disabled = false,
+  ...rest
+}: Button) {
   return (
     <>
-      <TouchableOpacity activeOpacity={0.9} onPress={onPress} {...rest} style={[styles.button, styles[type], styles[size]]}>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={onPress}
+        {...rest}
+        style={[styles.button, styles[type], styles[size], disabled && styles.disabled]}
+      >
         {isLoading ? (
           <ActivityIndicator size="small" color={type === "primary" ? "#fff" : "#f34"} />
         ) : (
-          <Text style={[styles.text, styles[type]]}>{text}</Text>
+          <Text style={[styles.text, styles[type], disabled && styles.disabled]}>{text}</Text>
         )}
       </TouchableOpacity>
     </>
@@ -42,6 +55,11 @@ const styles = StyleSheet.create({
     borderColor: colors.primary[600],
     backgroundColor: colors.primary[600],
     color: "white",
+  },
+  disabled: {
+    backgroundColor: colors.light[600],
+    color: colors.light[200],
+    borderColor: colors.light[300],
   },
   secondary: {
     borderColor: colors.primary[500],

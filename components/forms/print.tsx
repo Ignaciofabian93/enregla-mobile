@@ -144,8 +144,20 @@ export default function PrintForm() {
           </TouchableOpacity>
         </View>
         <View>
-          <CustomButton text="Imprimir" onPress={print} type="primary" isLoading={loading} />
-          <CustomButton text="Finalizar" onPress={saveLabelData} type="secondary" isLoading={loading} />
+          <CustomButton
+            text="Imprimir"
+            onPress={print}
+            type="primary"
+            isLoading={loading}
+            disabled={!form.price && !form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
+          />
+          <CustomButton
+            text="Finalizar"
+            onPress={saveLabelData}
+            type="secondary"
+            isLoading={loading}
+            disabled={!form.price && !form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
+          />
         </View>
         <PreviewModal
           visible={showPreview}

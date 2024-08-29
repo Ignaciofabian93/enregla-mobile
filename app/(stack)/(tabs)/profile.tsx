@@ -13,6 +13,7 @@ export default function Profile() {
 
   const youtube_logo = require("@/assets/icons/youtube.png");
   const instagram_logo = require("@/assets/icons/instagram.png");
+  const tiktok_logo = require("@/assets/icons/tiktok.png");
 
   return (
     <>
@@ -51,11 +52,20 @@ export default function Profile() {
                 marginBottom: 8,
               }}
             >
-              <Link href={"https://www.youtube.com/@console.coding"} style={{ height: 100, marginHorizontal: 16 }}>
+              <Link href={"https://www.youtube.com/watch?v=WJmduq-Aojg"} style={{ height: 100, marginHorizontal: 16 }}>
                 <Image source={youtube_logo} style={{ width: 50, height: 50 }} />
               </Link>
-              <Link href={"https://www.youtube.com/@console.coding"} style={{ height: 100, marginHorizontal: 16 }}>
+              <Link
+                href={"https://www.instagram.com/enregla_oficial/?igsh=MTl2a2R5dzFvaGR3NA%3D%3D"}
+                style={{ height: 100, marginHorizontal: 16 }}
+              >
                 <Image source={instagram_logo} style={{ width: 50, height: 50 }} />
+              </Link>
+              <Link
+                href={"https://www.tiktok.com/@enreglaoficial?_t=8iLHvxI40m5&_r=1"}
+                style={{ height: 100, marginHorizontal: 16 }}
+              >
+                <Image source={tiktok_logo} style={{ width: 50, height: 50 }} />
               </Link>
             </View>
             <CustomButton text="Solicitar insumos" onPress={handleShowModal} type="primary" isLoading={false} />

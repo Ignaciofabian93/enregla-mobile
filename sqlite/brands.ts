@@ -2,7 +2,7 @@ import { VehicleBrand } from "@/types/vehicle";
 import { openDatabaseAsync } from "expo-sqlite";
 
 export async function SaveLocalBrands({ vehicle_brand }: { vehicle_brand: Omit<VehicleBrand, "id"> }) {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-mobile.db");
   const statement = await db.prepareAsync(`
     INSERT INTO vehicle_brands (brand_id, brand, logo)
     VALUES (?, ?, ?)
@@ -17,7 +17,7 @@ export async function SaveLocalBrands({ vehicle_brand }: { vehicle_brand: Omit<V
 }
 
 export async function GetLocalBrands() {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-mobile.db");
   const statement = await db.prepareAsync(`SELECT * FROM vehicle_brands`);
   try {
     const response = await statement.executeAsync();
@@ -31,7 +31,7 @@ export async function GetLocalBrands() {
 }
 
 export async function CleanLocalBrands() {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-mobile.db");
   const statement = await db.prepareAsync(`DELETE FROM vehicle_brands`);
   try {
     await statement.executeAsync();

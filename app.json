@@ -3,9 +3,9 @@
     "name": "enregla",
     "slug": "enregla-mobile",
     "scheme": "enregla",
-    "version": "1.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icons/icon.png",
+    "icon": "./assets/icons/enregla-icon.png",
     "userInterfaceStyle": "light",
     "privacy": "public",
     "platforms": ["ios", "android"],
@@ -14,21 +14,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetsBundlePattern": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ignaciofabian93.enreglamobile"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/icon.png",
+        "foregroundImage": "./assets/icons/enregla-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.BLUETOOTH",
-        "android.permission.BLUETOOTH_ADMIN",
-        "android.permission.BLUETOOTH_CONNECT"
-      ],
+      "versionCode": 3,
       "package": "com.ignaciofabian93.enreglamobile"
     },
     "plugins": [
@@ -64,7 +59,7 @@
       "tsconfigPaths": true,
       "typedRoutes": true
     },
-    "runtimeVersion": "1.0.3",
+    "runtimeVersion": "2.0.1",
     "sdkVersion": "51.0.0",
     "extra": {
       "router": {

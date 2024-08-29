@@ -62,6 +62,8 @@ export default function useSession() {
       content: "Iniciando sesión",
       type: "success",
     });
+    console.log("USR ID: ", response.user.id);
+
     const result: Session = {
       token: response.token,
       id: response.user.id,

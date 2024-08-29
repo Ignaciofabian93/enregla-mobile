@@ -11,6 +11,7 @@ import useImagePicker from "./useImagePicker";
 import useSessionStore from "@/store/session";
 import useLocation from "./useLocation";
 import { Alert } from "react-native";
+import { useRouter } from "expo-router";
 
 type Message = {
   content: string;
@@ -19,6 +20,7 @@ type Message = {
 
 const defaultLabel: Label = {
   id: 0,
+  label_id: 0,
   user_id: 0,
   date: moment().format("DD-MM-YYYY"),
   branch_id: 0,
@@ -43,6 +45,7 @@ const defaultLabel: Label = {
 };
 
 export default function usePrinter() {
+  const router = useRouter();
   const { session } = useSessionStore();
   const { coordinates } = useLocation();
   const { takePlatePhoto, takeVINPhoto, vinText, plateText } = useImagePicker();
@@ -143,6 +146,7 @@ export default function usePrinter() {
           setLoading(true);
           const localLabel = {
             id: form.id,
+            label_id: form.label_id,
             user_id: form.user_id,
             date: form.date,
             branch_id: form.branch_id,
@@ -167,7 +171,11 @@ export default function usePrinter() {
             setMessage({ content: "Etiqueta guardada correctamente", type: "success" });
             setShowMessage(true);
             handleMessageShow();
-            setLoading(false);
+            setForm(defaultLabel);
+            setTimeout(() => {
+              setLoading(false);
+              router.replace("/(tabs)/");
+            }, 2000);
           } else {
             setMessage({ content: "Error al guardar la etiqueta", type: "error" });
             setShowMessage(true);
