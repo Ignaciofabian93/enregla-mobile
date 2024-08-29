@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from "react-native";
-import CustomButton from "@/components/button";
 import Layout from "@/components/layout";
 import PrintForm from "@/components/forms/print";
 

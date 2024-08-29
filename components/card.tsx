@@ -41,7 +41,7 @@ export default function Card({ plate, vin, price, print_type, date }: Card) {
 const styles = StyleSheet.create({
   card: {
     width: 350,
-    height: "auto",
+    height: "80%",
     borderWidth: 1,
     borderColor: colors.light[400],
     borderRadius: 12,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginBottom: 6,
+    marginBottom: 2,
   },
   field: {
     textAlign: "left",

@@ -7,6 +7,7 @@ export const defaultSession: Session = {
   email: "",
   name: "",
   rut: "",
+  branch_id: 0,
 };
 
 type sessionStore = {

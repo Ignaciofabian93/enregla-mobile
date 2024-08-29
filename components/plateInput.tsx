@@ -7,7 +7,6 @@ type PlateInput = {
 
 export default function PlateInput({ plate }: PlateInput) {
   const plateValue = plate.split("-");
-  console.log(plateValue);
 
   return (
     <>
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 42,
     borderWidth: 1,
-    backgroundColor: colors.white,
+    backgroundColor: "#fff",
     borderColor: colors.light[800],
     borderRadius: 5,
     alignItems: "center",

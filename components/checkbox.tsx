@@ -13,12 +13,7 @@ export default function CustomCheckBox({ checked = false, onChange, title }: Che
     <>
       <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
-        <Checkbox
-          value={checked}
-          onValueChange={onChange}
-          color={colors.light[700]}
-          style={[styles.check]}
-        />
+        <Checkbox value={checked} onValueChange={onChange} color={colors.light[700]} style={[styles.check]} />
       </View>
     </>
   );
@@ -37,7 +32,7 @@ const styles = StyleSheet.create({
   check: {
     width: 24,
     height: 24,
-    backgroundColor: colors.white,
+    backgroundColor: "#fff",
     borderRadius: 4,
   },
 });
