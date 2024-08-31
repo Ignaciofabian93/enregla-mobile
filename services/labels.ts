@@ -1,7 +1,7 @@
 import { Label } from "@/types/label";
 import { endpoint } from "./endpoint";
 
-export async function GetLabels({ token, branch_id }: { token: string; branch_id: number }) {
+export async function GetLabels({ token }: { token: string }) {
   try {
     const options: RequestInit = {
       method: "GET",
@@ -10,7 +10,7 @@ export async function GetLabels({ token, branch_id }: { token: string; branch_id
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(`${endpoint}/all-labels?branch_id=${branch_id}`, options);
+    const response = await fetch(`${endpoint}/label`, options);
     const data = await response.json();
     console.log("RES", data);
     return data;

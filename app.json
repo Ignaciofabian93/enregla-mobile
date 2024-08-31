@@ -3,35 +3,37 @@
     "name": "enregla",
     "slug": "enregla-mobile",
     "scheme": "enregla",
-    "version": "2.0.2",
+    "version": "2.0.5",
     "orientation": "portrait",
     "icon": "./assets/icons/enregla-icon.png",
     "userInterfaceStyle": "light",
     "privacy": "public",
-    "platforms": ["ios", "android"],
+    "platforms": ["android"],
     "splash": {
       "image": "./assets/icons/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.ignaciofabian93.enreglamobile"
+    "assetBundlePatterns": ["**/*"],
+    "updates": {
+      "url": "https://u.expo.dev/0acd45a2-3ca4-44b6-a8fb-b638981b9acb"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/enregla-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 4,
+      "versionCode": 7,
       "package": "com.ignaciofabian93.enreglamobile",
       "permissions": [
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "INTERNET"
+        "android.permission.CAMERA",
+        "android.permission.READ_INTERNAL_STORAGE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "plugins": [
@@ -67,8 +69,6 @@
       "tsconfigPaths": true,
       "typedRoutes": true
     },
-    "runtimeVersion": "2.0.2",
-    "sdkVersion": "51.0.0",
     "extra": {
       "router": {
         "origin": false
@@ -77,8 +77,12 @@
         "projectId": "0acd45a2-3ca4-44b6-a8fb-b638981b9acb"
       }
     },
-    "updates": {
-      "url": "https://u.expo.dev/0acd45a2-3ca4-44b6-a8fb-b638981b9acb"
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "sdkVersion": "51.0.0",
+    "ios": {
+      "bundleIdentifier": "com.ignaciofabian93.enreglamobile"
     }
   }
 }

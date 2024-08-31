@@ -6,8 +6,6 @@ export type Label = {
   branch_id: number;
   label_quantity: number;
   wrong_labels: number;
-  purchase_number: string;
-  price: string;
   coordinates: string;
   vehicle_brand: string;
   vehicle_model: string;
@@ -32,8 +30,6 @@ export type LocalLabel = {
   branch_id: number;
   label_quantity: number;
   wrong_labels: number;
-  purchase_number: string;
-  price: string;
   coordinates: string;
   vehicle_brand_id: number;
   vehicle_model_id: number;

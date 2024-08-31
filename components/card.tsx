@@ -4,12 +4,11 @@ import { colors } from "@/constants/theme";
 type Card = {
   plate: string;
   vin: string;
-  price: number;
   print_type: string;
   date: string;
 };
 
-export default function Card({ plate, vin, price, print_type, date }: Card) {
+export default function Card({ plate, vin, print_type, date }: Card) {
   return (
     <>
       <TouchableOpacity style={styles.card} activeOpacity={0.9}>
@@ -24,10 +23,6 @@ export default function Card({ plate, vin, price, print_type, date }: Card) {
         <View style={styles.row}>
           <Text style={styles.field}>Tipo de grabado:</Text>
           <Text style={styles.value}>{print_type}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.field}>Precio:</Text>
-          <Text style={styles.value}>{price}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.field}>Fecha:</Text>

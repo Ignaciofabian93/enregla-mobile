@@ -54,7 +54,6 @@ export default function Home() {
                     key={label.id}
                     plate={label.vehicle_plate}
                     vin={label.vehicle_vin}
-                    price={Number(label.price)}
                     print_type={label.print_type}
                     date={label.date}
                   />
@@ -75,7 +74,7 @@ export default function Home() {
             />
             <CustomButton
               text="Cargar datos"
-              onPress={() => refreshData({ token: session.token, branch_id: session.branch_id })}
+              onPress={() => refreshData({ token: session.token })}
               type="secondary"
               isLoading={loading}
             />

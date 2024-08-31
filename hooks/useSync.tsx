@@ -14,6 +14,9 @@ import { Branch } from "@/types/branch";
 import { CleanLocalLabels, GetLocalLabels, SaveLocalLabels } from "@/sqlite/labels";
 import { GetLabels, SaveLabel } from "@/services/labels";
 import { Label, LocalLabel } from "@/types/label";
+import { GetAllOperators } from "@/services/operators";
+import { CleanLocalOperators, SaveLocalOperators } from "@/sqlite/operators";
+import { User } from "@/types/user";
 import useSessionStore from "@/store/session";
 
 export default function useSync() {
@@ -67,8 +70,8 @@ export default function useSync() {
     }
   };
 
-  const fetchSupplyList = async ({ token, branch_id }: { token: string; branch_id: number }) => {
-    const response = await GetSupplyList({ token, branch_id });
+  const fetchSupplyList = async ({ token }: { token: string }) => {
+    const response = await GetSupplyList({ token });
 
     if (response.error) {
       return Alert.alert("Error", response.error);
@@ -88,8 +91,28 @@ export default function useSync() {
     }
   };
 
-  const fetchBranchData = async ({ token, branch_id }: { token: string; branch_id: number }) => {
-    const response = await GetBranchData({ token, branch_id });
+  const fetchOperatorsList = async ({ token }: { token: string }) => {
+    const response = await GetAllOperators({ token });
+
+    if (response.error) {
+      return Alert.alert("Error", response.error);
+    }
+    await CleanLocalOperators();
+    for (const operator of response.operators) {
+      const operatorObject: User = {
+        id: operator.id,
+        user_id: operator.id,
+        name: operator.name,
+        email: operator.email,
+        role_id: operator.role_id,
+        branch_id: operator.branch_id,
+      };
+      await SaveLocalOperators({ user: operatorObject });
+    }
+  };
+
+  const fetchBranchData = async ({ token }: { token: string }) => {
+    const response = await GetBranchData({ token });
     if (response.error) {
       return Alert.alert("Error", response.error);
     }
@@ -103,8 +126,8 @@ export default function useSync() {
     await SaveLocalBranch({ branch: branchObject });
   };
 
-  const fetchLabelsData = async ({ token, branch_id }: { token: string; branch_id: number }) => {
-    const response = await GetLabels({ token, branch_id });
+  const fetchLabelsData = async ({ token }: { token: string }) => {
+    const response = await GetLabels({ token });
     if (response.error) {
       Alert.alert("Error", response.error);
       return;
@@ -113,13 +136,11 @@ export default function useSync() {
     for (const label of response.labels) {
       const labelObject: Omit<LocalLabel, "id"> = {
         label_id: label.id,
-        user_id: session.id,
+        user_id: label.user_id,
         date: label.date,
         branch_id: label.branch_id,
         label_quantity: label.label_quantity,
         wrong_labels: label.wrong_labels,
-        purchase_number: label.purchase_number,
-        price: label.price,
         coordinates: label.coordinates,
         // vehicle_brand: label.vehicle_brand,
         vehicle_brand_id: label.vehicle_brand_id,
@@ -141,13 +162,14 @@ export default function useSync() {
     }
   };
 
-  const loadData = ({ token, branch_id }: { token: string; branch_id: number }) => {
+  const loadData = ({ token }: { token: string }) => {
     setLoading(true);
+    fetchOperatorsList({ token });
     fetchVehicleBrands({ token });
     fetchVehicleModels({ token });
-    fetchSupplyList({ token, branch_id });
-    fetchBranchData({ token, branch_id });
-    fetchLabelsData({ token, branch_id });
+    fetchSupplyList({ token });
+    fetchBranchData({ token });
+    fetchLabelsData({ token });
     setLoading(false);
   };
 
@@ -165,8 +187,6 @@ export default function useSync() {
           branch_id: label.branch_id,
           label_quantity: label.label_quantity,
           wrong_labels: label.wrong_labels,
-          purchase_number: label.purchase_number,
-          price: label.price,
           coordinates: label.coordinates,
           vehicle_brand: "",
           vehicle_brand_id: label.vehicle_brand_id,
@@ -182,8 +202,6 @@ export default function useSync() {
           print_type: label.print_type,
           description: label.description,
         }));
-      console.log("FOR LAB: ", formattedLabels);
-
       const response = await SaveLabel({ token, labels: formattedLabels });
       if (response.error) {
         Alert.alert("Error", response.error);
@@ -217,7 +235,7 @@ export default function useSync() {
     }
   };
 
-  const refreshData = ({ token, branch_id }: { token: string; branch_id: number }) => {
+  const refreshData = ({ token }: { token: string }) => {
     if (!isConnected) {
       Alert.alert("Error", "No hay conexión a internet");
       return;
@@ -232,12 +250,12 @@ export default function useSync() {
           },
           {
             text: "Aceptar",
-            onPress: () => loadData({ token, branch_id }),
+            onPress: () => loadData({ token }),
           },
         ]
       );
     } else {
-      loadData({ token, branch_id });
+      loadData({ token });
     }
   };
 

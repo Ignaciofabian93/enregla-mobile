@@ -44,14 +44,11 @@ export default function PrintForm() {
       <ScrollView contentContainerStyle={{ width: "100%", paddingTop: 32 }}>
         <View style={{ marginBottom: 20, alignItems: "center" }}>
           <View style={{ width: "100%", marginBottom: 16 }}>
-            <Text style={styles.field}>Ingrese la orden de compra:</Text>
-            <CustomTextInput
-              value={form.purchase_number}
-              isInvalid={form.purchase_number.length < 6 && form.purchase_number.length > 0}
-              errorMessage="Orden de compra inválida"
-              onChangeText={(e) => handleForm("purchase_number", e)}
-              autoCapitalize="characters"
-              size="lg"
+            <Text style={styles.field}>Elija operador:</Text>
+            <CustomPicker
+              data={vehicleBrands.map((el) => el.brand)}
+              value={form.vehicle_brand}
+              onChange={(e) => handleForm("vehicle_brand", e)}
             />
           </View>
           <View style={{ width: "100%", marginBottom: 16 }}>
@@ -60,7 +57,6 @@ export default function PrintForm() {
               data={vehicleBrands.map((el) => el.brand)}
               value={form.vehicle_brand}
               onChange={(e) => handleForm("vehicle_brand", e)}
-              disabled={!form.purchase_number}
             />
           </View>
           <View style={{ width: "100%", marginBottom: 16 }}>
@@ -128,16 +124,6 @@ export default function PrintForm() {
               onChangeText={(e) => handleForm("description", e)}
             />
           </View>
-          <View style={{ width: "100%", marginBottom: 16 }}>
-            <Text style={styles.field}>Precio:</Text>
-            <CustomTextInput
-              value={form.price}
-              onChangeText={(e) => handleForm("price", e)}
-              size="lg"
-              keyboardType="decimal-pad"
-              disabled={!form.show_vin && !form.show_plate && !form.show_logo}
-            />
-          </View>
           <TouchableOpacity style={styles.preview} onPress={openPreview}>
             <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 16 }}>Previsualizar etiqueta</Text>
             <Ionicons name="eye-sharp" size={24} color={colors.light[800]} />
@@ -149,14 +135,14 @@ export default function PrintForm() {
             onPress={print}
             type="primary"
             isLoading={loading}
-            disabled={!form.price && !form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
+            disabled={!form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
           />
           <CustomButton
             text="Finalizar"
             onPress={saveLabelData}
             type="secondary"
             isLoading={loading}
-            disabled={!form.price && !form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
+            disabled={!form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
           />
         </View>
         <PreviewModal

@@ -1,6 +1,6 @@
 import { endpoint } from "@/services/endpoint";
 
-export async function GetBranchData({ token, branch_id }: { token: string; branch_id: number }) {
+export async function GetBranchData({ token }: { token: string }) {
   try {
     const options: RequestInit = {
       method: "GET",
@@ -9,7 +9,7 @@ export async function GetBranchData({ token, branch_id }: { token: string; branc
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(`${endpoint}/branch/${branch_id}`, options);
+    const response = await fetch(`${endpoint}/branches`, options);
     const data = await response.json();
     return data;
   } catch (error) {

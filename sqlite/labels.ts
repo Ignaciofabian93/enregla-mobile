@@ -2,13 +2,13 @@ import { LocalLabel } from "@/types/label";
 import { openDatabaseAsync } from "expo-sqlite";
 
 export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id"> }) {
-  const db = await openDatabaseAsync("enregla-mobile.db");
+  const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`
     INSERT INTO labels 
-      (label_id, user_id, date, branch_id, label_quantity, wrong_labels, purchase_number, 
-      price, coordinates, vehicle_brand_id, vehicle_model_id, vehicle_year, show_vin, show_plate,
-      show_logo, vehicle_vin, vehicle_plate, print_type, description)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (label_id, user_id, date, branch_id, label_quantity, wrong_labels, 
+      coordinates, vehicle_brand_id, vehicle_model_id, vehicle_year, show_vin, 
+      show_plate, show_logo, vehicle_vin, vehicle_plate, print_type, description)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   try {
     const response = await statement.executeAsync([
@@ -18,8 +18,6 @@ export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id">
       label.branch_id,
       label.label_quantity,
       label.wrong_labels,
-      label.purchase_number,
-      label.price,
       label.coordinates,
       label.vehicle_brand_id,
       label.vehicle_model_id,
@@ -41,7 +39,7 @@ export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id">
 }
 
 export async function GetLocalLabels() {
-  const db = await openDatabaseAsync("enregla-mobile.db");
+  const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`SELECT * FROM labels`);
   try {
     const response = await statement.executeAsync();
@@ -55,7 +53,7 @@ export async function GetLocalLabels() {
 }
 
 export async function CleanLocalLabels() {
-  const db = await openDatabaseAsync("enregla-mobile.db");
+  const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`DELETE FROM labels`);
   try {
     await statement.executeAsync();

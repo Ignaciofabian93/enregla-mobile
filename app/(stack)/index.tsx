@@ -20,7 +20,7 @@ export default function Auth() {
       const response = await GetLocalSession();
       if (!response) navigateTo("/(stack)/login");
       else if (response.token) {
-        loadData({ token: response.token, branch_id: response.branch_id });
+        loadData({ token: response.token });
         setSession(response);
         navigateTo("/(tabs)");
       }

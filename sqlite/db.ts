@@ -8,8 +8,18 @@ export const initDatabase = async (db: SQLiteDatabase) => {
       user_id INTEGER NOT NULL,
       name TEXT NOT NULL,
       email TEXT NOT NULL,
-      rut TEXT NOT NULL,
-      branch_id INTEGER NOT NULL
+      branch_id INTEGER NOT NULL,
+      role_id INTEGER NOT NULL
+    );  
+  `);
+  await db.execAsync(`
+    CREATE TABLE IF NOT EXISTS operators (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      branch_id INTEGER NOT NULL,
+      role_id INTEGER NOT NULL
     );  
   `);
   await db.execAsync(`
@@ -58,8 +68,6 @@ export const initDatabase = async (db: SQLiteDatabase) => {
       branch_id INTEGER NOT NULL,
       label_quantity INTEGER NOT NULL,
       wrong_labels INTEGER NOT NULL,
-      purchase_number TEXT NOT NULL,
-      price INTEGER NOT NULL,
       coordinates TEXT NOT NULL,
       vehicle_brand_id INTEGER NOT NULL,
       vehicle_model_id INTEGER NOT NULL,

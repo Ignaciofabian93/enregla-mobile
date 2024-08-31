@@ -12,6 +12,7 @@ import useSessionStore from "@/store/session";
 import useLocation from "./useLocation";
 import { Alert } from "react-native";
 import { useRouter } from "expo-router";
+import { User } from "@/types/user";
 
 type Message = {
   content: string;
@@ -26,8 +27,6 @@ const defaultLabel: Label = {
   branch_id: 0,
   label_quantity: 0,
   wrong_labels: 0,
-  purchase_number: "",
-  price: "",
   coordinates: "",
   vehicle_brand: "",
   vehicle_brand_id: 0,
@@ -49,6 +48,7 @@ export default function usePrinter() {
   const { session } = useSessionStore();
   const { coordinates } = useLocation();
   const { takePlatePhoto, takeVINPhoto, vinText, plateText } = useImagePicker();
+  const [operators, setOperators] = useState<User[]>([]);
   const [vehicleBrands, setVehicleBrands] = useState<VehicleBrand[]>([]);
   const [vehicleModels, setVehicleModels] = useState<VehicleModel[]>([]);
   const [showMessage, setShowMessage] = useState<boolean>(false);
@@ -70,7 +70,7 @@ export default function usePrinter() {
 
   useEffect(() => {
     if (session) {
-      setForm({ ...form, user_id: session.id, branch_id: session.branch_id });
+      setForm({ ...form, branch_id: session.branch_id });
     }
   }, [session]);
 
@@ -152,8 +152,6 @@ export default function usePrinter() {
             branch_id: form.branch_id,
             label_quantity: form.label_quantity,
             wrong_labels: form.wrong_labels,
-            purchase_number: form.purchase_number,
-            price: form.price,
             coordinates: form.coordinates,
             vehicle_brand_id: form.vehicle_brand_id,
             vehicle_model_id: form.vehicle_model_id,

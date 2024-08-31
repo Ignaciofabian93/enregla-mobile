@@ -2,7 +2,7 @@ import { Supply } from "@/types/supply";
 import { openDatabaseAsync } from "expo-sqlite";
 
 export async function SaveLocalSupplies({ supply }: { supply: Omit<Supply, "id"> }) {
-  const db = await openDatabaseAsync("enregla-mobile.db");
+  const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`
     INSERT INTO supplies (supply_id, name, category, price, quantity, branch, agency)
     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -26,7 +26,7 @@ export async function SaveLocalSupplies({ supply }: { supply: Omit<Supply, "id">
 }
 
 export async function GetLocalSupplies() {
-  const db = await openDatabaseAsync("enregla-mobile.db");
+  const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`SELECT * FROM supplies`);
   try {
     const response = await statement.executeAsync();
@@ -40,7 +40,7 @@ export async function GetLocalSupplies() {
 }
 
 export async function CleanLocalSupplies() {
-  const db = await openDatabaseAsync("enregla-mobile.db");
+  const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`DELETE FROM supplies`);
   try {
     await statement.executeAsync();

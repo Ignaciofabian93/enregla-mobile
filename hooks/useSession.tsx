@@ -23,7 +23,7 @@ export default function useSession() {
     type: "error",
   });
   const [form, setForm] = useState({
-    rut: "",
+    email: "",
     password: "",
   });
 
@@ -36,8 +36,8 @@ export default function useSession() {
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
   const login = async () => {
-    const { rut, password } = form;
-    if (!rut || !password) {
+    const { email, password } = form;
+    if (!email || !password) {
       setMessage({
         content: "Todos los campos son obligatorios",
         type: "error",
@@ -46,7 +46,7 @@ export default function useSession() {
       handleMessageShow();
       return;
     }
-    const response = await Auth({ rut, password });
+    const response = await Auth({ email, password });
     setLoading(true);
     if (response.error) {
       setMessage({
@@ -62,21 +62,19 @@ export default function useSession() {
       content: "Iniciando sesión",
       type: "success",
     });
-    console.log("USR ID: ", response.user.id);
-
     const result: Session = {
       token: response.token,
       id: response.user.id,
       name: response.user.name,
-      rut: response.user.rut,
       email: response.user.email,
       branch_id: response.user.branch_id,
+      role_id: response.user.role_id,
     };
     setShowMessage(true);
     handleMessageShow();
     setSession(result);
     await SaveLocalSession({ session: result });
-    loadData({ token: response.token, branch_id: response.user.branch_id });
+    loadData({ token: response.token });
     setTimeout(() => {
       setLoading(false);
       router.replace("/(tabs)");
