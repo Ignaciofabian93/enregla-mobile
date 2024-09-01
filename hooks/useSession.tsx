@@ -46,39 +46,48 @@ export default function useSession() {
       handleMessageShow();
       return;
     }
-    const response = await Auth({ email, password });
     setLoading(true);
-    if (response.error) {
+    try {
+      const response = await Auth({ email, password });
+      if (response.error) {
+        setMessage({
+          content: response.error,
+          type: "error",
+        });
+        setShowMessage(true);
+        handleMessageShow();
+        setLoading(false);
+        return;
+      }
       setMessage({
-        content: response.error,
+        content: "Iniciando sesión",
+        type: "success",
+      });
+      const result: Session = {
+        token: response.token,
+        id: response.user.id,
+        name: response.user.name,
+        email: response.user.email,
+        branch_id: response.user.branch_id,
+        role_id: response.user.role_id,
+      };
+      setShowMessage(true);
+      handleMessageShow();
+      setSession(result);
+      await SaveLocalSession({ session: result });
+      loadData({ token: response.token });
+      router.replace("/(tabs)");
+    } catch (error) {
+      setMessage({
+        content: "Error al iniciar sesión",
         type: "error",
       });
       setShowMessage(true);
       handleMessageShow();
+      console.error("Login error: ", error);
+    } finally {
       setLoading(false);
-      return;
     }
-    setMessage({
-      content: "Iniciando sesión",
-      type: "success",
-    });
-    const result: Session = {
-      token: response.token,
-      id: response.user.id,
-      name: response.user.name,
-      email: response.user.email,
-      branch_id: response.user.branch_id,
-      role_id: response.user.role_id,
-    };
-    setShowMessage(true);
-    handleMessageShow();
-    setSession(result);
-    await SaveLocalSession({ session: result });
-    loadData({ token: response.token });
-    setTimeout(() => {
-      setLoading(false);
-      router.replace("/(tabs)");
-    }, 2000);
   };
 
   const closeSession = async () => {

@@ -2,8 +2,8 @@
   "expo": {
     "name": "enregla",
     "slug": "enregla-mobile",
-    "scheme": "enregla",
-    "version": "2.0.5",
+    "scheme": "enregla-mobile",
+    "version": "2.0.6",
     "orientation": "portrait",
     "icon": "./assets/icons/enregla-icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +23,7 @@
         "foregroundImage": "./assets/icons/enregla-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 7,
+      "versionCode": 8,
       "package": "com.ignaciofabian93.enreglamobile",
       "permissions": [
         "android.permission.CAMERA",
