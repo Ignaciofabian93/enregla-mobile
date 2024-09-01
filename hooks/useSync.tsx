@@ -98,7 +98,7 @@ export default function useSync() {
       return Alert.alert("Error", response.error);
     }
     await CleanLocalOperators();
-    for (const operator of response.operators) {
+    for (const operator of response.users) {
       const operatorObject: User = {
         id: operator.id,
         user_id: operator.id,
@@ -113,15 +113,16 @@ export default function useSync() {
 
   const fetchBranchData = async ({ token }: { token: string }) => {
     const response = await GetBranchData({ token });
+
     if (response.error) {
       return Alert.alert("Error", response.error);
     }
     await CleanLocalBranch();
     const branchObject: Omit<Branch, "id"> = {
-      branch_id: response.branch.id,
-      address: response.branch.address,
-      location: response.branch.location,
-      telephone: response.branch.telephone,
+      branch_id: response.branches[0].id,
+      address: response.branches[0].address,
+      location: response.branches[0].location,
+      telephone: response.branches[0].telephone,
     };
     await SaveLocalBranch({ branch: branchObject });
   };
@@ -136,7 +137,8 @@ export default function useSync() {
     for (const label of response.labels) {
       const labelObject: Omit<LocalLabel, "id"> = {
         label_id: label.id,
-        user_id: label.user_id,
+        operator: label.operator,
+        operator_id: label.user_id,
         date: label.date,
         branch_id: label.branch_id,
         label_quantity: label.label_quantity,
@@ -156,8 +158,6 @@ export default function useSync() {
         print_type: label.print_type,
         description: label.description,
       };
-      console.log("local label generated: ", labelObject);
-
       await SaveLocalLabels({ label: labelObject });
     }
   };
@@ -182,7 +182,8 @@ export default function useSync() {
         .map((label) => ({
           id: label.id,
           label_id: label.label_id,
-          user_id: label.user_id,
+          operator: label.operator,
+          operator_id: label.operator_id,
           date: label.date,
           branch_id: label.branch_id,
           label_quantity: label.label_quantity,

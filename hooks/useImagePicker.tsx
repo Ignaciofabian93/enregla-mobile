@@ -12,7 +12,6 @@ export default function useImagePicker() {
   const processImage = async (image: string) => {
     try {
       const text = await MlKitOcr.detectFromUri(image);
-      console.log("TEXT: ", text);
       let formattedPlate = text[0].text.replace(/[^A-Z0-9]/gi, "-");
 
       if (formattedPlate.length > 4 && formattedPlate[4] !== "-") {
@@ -38,7 +37,6 @@ export default function useImagePicker() {
       if (image.assets) {
         setPlateImage(image.assets[0].base64 as string);
         const text = await processImage(image.assets[0].uri);
-        console.log("TEXT: ", text);
         setPlateText(text as string);
       }
     }
@@ -57,7 +55,6 @@ export default function useImagePicker() {
       if (image.assets) {
         setVinImage(image.assets[0].base64 as string);
         const text = await processImage(image.assets[0].uri);
-        console.log("TEXT: ", text);
         setVinText(text as string);
       }
     }

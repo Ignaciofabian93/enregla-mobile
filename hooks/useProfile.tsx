@@ -66,7 +66,6 @@ export default function useProfile() {
       operator: user?.name as string,
     });
     const result = await printToFileAsync({ html, height: 297, width: 210 });
-    console.log("result: ", result);
     await shareAsync(result.uri);
   };
 

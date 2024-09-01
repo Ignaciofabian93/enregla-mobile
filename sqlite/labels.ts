@@ -5,15 +5,16 @@ export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id">
   const db = await openDatabaseAsync("enregla.db");
   const statement = await db.prepareAsync(`
     INSERT INTO labels 
-      (label_id, user_id, date, branch_id, label_quantity, wrong_labels, 
+      (label_id, operator, operator_id, date, branch_id, label_quantity, wrong_labels, 
       coordinates, vehicle_brand_id, vehicle_model_id, vehicle_year, show_vin, 
       show_plate, show_logo, vehicle_vin, vehicle_plate, print_type, description)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   try {
     const response = await statement.executeAsync([
       label.label_id,
-      label.user_id,
+      label.operator,
+      label.operator_id,
       label.date,
       label.branch_id,
       label.label_quantity,

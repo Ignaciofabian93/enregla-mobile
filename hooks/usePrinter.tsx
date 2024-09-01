@@ -13,6 +13,7 @@ import useLocation from "./useLocation";
 import { Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { User } from "@/types/user";
+import { GetLocalOperators } from "@/sqlite/operators";
 
 type Message = {
   content: string;
@@ -22,7 +23,8 @@ type Message = {
 const defaultLabel: Label = {
   id: 0,
   label_id: 0,
-  user_id: 0,
+  operator: "",
+  operator_id: 0,
   date: moment().format("DD-MM-YYYY"),
   branch_id: 0,
   label_quantity: 0,
@@ -66,6 +68,7 @@ export default function usePrinter() {
   useEffect(() => {
     getLocalBrands();
     getLocalModels();
+    getLocalOperators();
   }, []);
 
   useEffect(() => {
@@ -98,8 +101,16 @@ export default function usePrinter() {
     setVehicleModels(response);
   };
 
+  const getLocalOperators = async () => {
+    const response = await GetLocalOperators();
+    setOperators(response as User[]);
+  };
+
   const handleForm = (field: string, value: string | boolean) => {
-    if (field === "vehicle_brand") {
+    if (field === "operator") {
+      const operator = operators.find((operator) => operator.name === value);
+      setForm({ ...form, operator_id: Number(operator?.id), operator: value as string });
+    } else if (field === "vehicle_brand") {
       const brand = vehicleBrands.find((brand) => brand.brand === value);
       setForm({
         ...form,
@@ -147,7 +158,8 @@ export default function usePrinter() {
           const localLabel = {
             id: form.id,
             label_id: form.label_id,
-            user_id: form.user_id,
+            operator: form.operator,
+            operator_id: form.operator_id,
             date: form.date,
             branch_id: form.branch_id,
             label_quantity: form.label_quantity,
@@ -205,5 +217,6 @@ export default function usePrinter() {
     labelIsOk,
     labelIsNotOk,
     saveLabelData,
+    operators,
   };
 }

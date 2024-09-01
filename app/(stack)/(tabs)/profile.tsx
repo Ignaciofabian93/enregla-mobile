@@ -168,7 +168,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 4,
+    marginBottom: 12,
+    flexWrap: "wrap",
   },
   field: {
     fontFamily: "Sora_SemiBold",

@@ -37,6 +37,7 @@ export default function PrintForm() {
     labelIsOk,
     labelIsNotOk,
     saveLabelData,
+    operators,
   } = usePrinter();
   return (
     <View style={{ width: "100%", paddingBottom: "10%" }}>
@@ -46,9 +47,9 @@ export default function PrintForm() {
           <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Elija operador:</Text>
             <CustomPicker
-              data={vehicleBrands.map((el) => el.brand)}
-              value={form.vehicle_brand}
-              onChange={(e) => handleForm("vehicle_brand", e)}
+              data={operators.map((el) => el.name)}
+              value={form.operator}
+              onChange={(e) => handleForm("operator", e)}
             />
           </View>
           <View style={{ width: "100%", marginBottom: 16 }}>

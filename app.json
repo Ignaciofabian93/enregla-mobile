@@ -2,7 +2,7 @@
   "expo": {
     "name": "enregla",
     "slug": "enregla-mobile",
-    "scheme": "enregla-mobile",
+    "scheme": "enregla",
     "version": "2.0.6",
     "orientation": "portrait",
     "icon": "./assets/icons/enregla-icon.png",

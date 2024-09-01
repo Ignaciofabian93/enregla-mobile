@@ -12,7 +12,6 @@ export async function GetLabels({ token }: { token: string }) {
     };
     const response = await fetch(`${endpoint}/label`, options);
     const data = await response.json();
-    console.log("RES", data);
     return data;
   } catch (error) {
     throw new Error(`Error al intentar obtener etiquetas guardadas: ${error}`);
