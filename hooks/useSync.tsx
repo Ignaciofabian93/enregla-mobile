@@ -138,7 +138,7 @@ export default function useSync() {
       const labelObject: Omit<LocalLabel, "id"> = {
         label_id: label.id,
         operator: label.operator,
-        operator_id: label.user_id,
+        operator_id: label.operator_id,
         date: label.date,
         branch_id: label.branch_id,
         label_quantity: label.label_quantity,

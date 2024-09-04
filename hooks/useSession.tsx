@@ -49,6 +49,7 @@ export default function useSession() {
     setLoading(true);
     try {
       const response = await Auth({ email, password });
+      console.error("Respuesta en login: ", response);
       if (response.error) {
         setMessage({
           content: response.error,
