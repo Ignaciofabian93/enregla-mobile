@@ -18,60 +18,64 @@ export default function Profile() {
   return (
     <>
       <Layout>
-        <View style={styles.view}>
-          <Text style={styles.title}>Información</Text>
-          <View style={styles.infoContainer}>
-            <View style={styles.row}>
-              <Text style={styles.field}>Operador: </Text>
-              <Text style={styles.info}>{user?.name}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.field}>Email: </Text>
-              <Text style={styles.info}>{user?.email}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.field}>Dirección: </Text>
-              <Text style={styles.info}>{branch?.address}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.field}>Teléfono: </Text>
-              <Text style={styles.info}>{branch?.telephone}</Text>
-            </View>
-          </View>
+        <ScrollView contentContainerStyle={styles.view}>
           <View style={{ width: "100%" }}>
-            <Text style={{ fontFamily: "Sora_Regular", fontSize: 16, textAlign: "center", marginBottom: 14 }}>
-              Link a redes para más información
-            </Text>
-            <View
-              style={{
-                width: "100%",
-                height: 50,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 8,
-              }}
-            >
-              <Link href={"https://www.youtube.com/watch?v=WJmduq-Aojg"} style={{ height: 100, marginHorizontal: 16 }}>
-                <Image source={youtube_logo} style={{ width: 50, height: 50 }} />
-              </Link>
-              <Link
-                href={"https://www.instagram.com/enregla_oficial/?igsh=MTl2a2R5dzFvaGR3NA%3D%3D"}
-                style={{ height: 100, marginHorizontal: 16 }}
-              >
-                <Image source={instagram_logo} style={{ width: 50, height: 50 }} />
-              </Link>
-              <Link
-                href={"https://www.tiktok.com/@enreglaoficial?_t=8iLHvxI40m5&_r=1"}
-                style={{ height: 100, marginHorizontal: 16 }}
-              >
-                <Image source={tiktok_logo} style={{ width: 50, height: 50 }} />
-              </Link>
+            <Text style={styles.title}>Información</Text>
+            <View style={styles.infoContainer}>
+              <View style={styles.row}>
+                <Text style={styles.field}>Operador: </Text>
+                <Text style={styles.info}>{user?.name}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.field}>Email: </Text>
+                <Text style={styles.info}>{user?.email}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.field}>Dirección: </Text>
+                <Text style={styles.info}>{branch?.address}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.field}>Teléfono: </Text>
+                <Text style={styles.info}>{branch?.telephone}</Text>
+              </View>
             </View>
-            <CustomButton text="Solicitar insumos" onPress={handleShowModal} type="primary" isLoading={false} />
-            <CustomButton text="Cerrar sesión" onPress={closeSession} type="warning" isLoading={loading} />
+            <View style={{ width: "100%", marginTop: 32, alignItems: "center" }}>
+              <Text style={{ fontFamily: "Sora_Regular", fontSize: 16, textAlign: "center", marginBottom: 14 }}>
+                Link a redes para más información
+              </Text>
+              <View
+                style={{
+                  width: "100%",
+                  height: 50,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 8,
+                }}
+              >
+                <Link href={"https://www.youtube.com/watch?v=WJmduq-Aojg"} style={{ height: 100, marginHorizontal: 16 }}>
+                  <Image source={youtube_logo} style={{ width: 40, height: 40 }} />
+                </Link>
+                <Link
+                  href={"https://www.instagram.com/enregla_oficial/?igsh=MTl2a2R5dzFvaGR3NA%3D%3D"}
+                  style={{ height: 100, marginHorizontal: 16 }}
+                >
+                  <Image source={instagram_logo} style={{ width: 40, height: 40 }} />
+                </Link>
+                <Link
+                  href={"https://www.tiktok.com/@enreglaoficial?_t=8iLHvxI40m5&_r=1"}
+                  style={{ height: 100, marginHorizontal: 16 }}
+                >
+                  <Image source={tiktok_logo} style={{ width: 40, height: 40 }} />
+                </Link>
+              </View>
+            </View>
+            <View style={{ width: "100%" }}>
+              <CustomButton text="Solicitar insumos" onPress={handleShowModal} type="primary" isLoading={false} />
+              <CustomButton text="Cerrar sesión" onPress={closeSession} type="warning" isLoading={loading} />
+            </View>
           </View>
-        </View>
+        </ScrollView>
         <CustomModal visible={showModal}>
           <View style={{ width: "90%" }}>
             <ScrollView contentContainerStyle={{ paddingTop: 32 }}>
@@ -152,14 +156,17 @@ export default function Profile() {
 
 const styles = StyleSheet.create({
   view: {
-    width: "100%",
-    height: "100%",
+    height: "auto",
     justifyContent: "space-between",
+    alignItems: "center",
     paddingTop: 32,
   },
   title: {
     fontFamily: "Sora_SemiBold",
-    fontSize: 24,
+    fontSize: 22,
+    width: "100%",
+    textAlign: "left",
+    marginBottom: 16,
   },
   infoContainer: {
     width: "100%",
@@ -173,10 +180,10 @@ const styles = StyleSheet.create({
   },
   field: {
     fontFamily: "Sora_SemiBold",
-    fontSize: 18,
+    fontSize: 16,
   },
   info: {
     fontFamily: "Sora_Regular",
-    fontSize: 18,
+    fontSize: 16,
   },
 });

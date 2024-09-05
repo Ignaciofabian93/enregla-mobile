@@ -21,7 +21,7 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
               font-family: Arial, sans-serif;
               height: 100%;
               width: 100%;
-              transform: scaleX(-1) rotate(-270deg);
+              transform: scaleX(-1);
               transform-origin: center;
             }
             .label-container {
@@ -33,26 +33,31 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
               height: 74mm;
             }
             .logo {
-              width: 100px;
-              height: 100px;
+              width: 64px;
+              height: auto;
+              margin-bottom: 2px;
+            }
+            .vin, .plate {
+            text-transform: uppercase; /* Ensure uppercase */
             }
             .vin {
-              font-size: 12px;
+              font-size: 14px;
               font-weight: 400;
-              margin: 10px 0;
+              margin: 2mm 0;
+              transform: scaleY(1.4); 
             }
             .plate {
-              font-size: 24px;
-              font-weight: 700;
-              margin-top: 10px;
+              font-size: 32px;
+              font-weight: 600;
+              transform: scaleY(1.4); 
             }
           </style>
         </head>
         <body>
           <div class="label-container">
           ${logo ? `<img src="${logo}" class="logo" alt="logo" />` : ""}
-          ${vin ? `<div class="vin">${vin}</div>` : ""}
-          ${plate ? `<div class="plate">${plate}</div>` : ""}
+          ${vin ? `<div class="vin">${vin.toUpperCase()}</div>` : ""}
+          ${plate ? `<div class="plate">${plate.toUpperCase()}</div>` : ""}
           </div>
         </body>
       </html>`;
@@ -143,7 +148,7 @@ export function SupplyRequest({
         <body>
           <div class="header">
             <span>Fecha: ${moment().format("DD-MM-YYYY")}</span>
-            <span>Solicitud de insumos de sucursal ubicada en ${branch} por operador ${operator}.</span>
+            <span>Solicitud de insumos de sucursal ubicada en ${branch} por ${operator}.</span>
           </div>
           <div class="label-container">
             <div class="item"><span class="label">Ácido:</span> <span class="value">${acid}</span></div>

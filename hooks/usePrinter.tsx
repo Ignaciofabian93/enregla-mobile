@@ -57,6 +57,7 @@ export default function usePrinter() {
   const [loading, setLoading] = useState<boolean>(false);
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<boolean>(false);
+  const [askAgain, setAskAgain] = useState<boolean>(true);
   const [message, setMessage] = useState<Message>({
     content: "",
     type: "error",
@@ -130,8 +131,8 @@ export default function usePrinter() {
   const closePreview = () => setShowPreview(false);
 
   const labelIsOk = () => {
-    setForm({ ...form, label_quantity: form.label_quantity + 1 });
     setConfirm(false);
+    setAskAgain(false);
   };
 
   const labelIsNotOk = () => {
@@ -141,8 +142,10 @@ export default function usePrinter() {
 
   const print = async () => {
     const html = PrintTemplate({ vin: form.vehicle_vin, plate: form.vehicle_plate, logo: form.vehicle_logo });
-    await printAsync({ html, orientation: "portrait", height: 74, width: 105 });
+    await printAsync({ html, orientation: "landscape", height: 105, width: 74 });
+    // await printAsync({ html, orientation: "landscape", height: 105, width: 74 });
     setConfirm(true);
+    setForm({ ...form, label_quantity: form.label_quantity + 1 });
   };
 
   const saveLabelData = () => {
@@ -218,5 +221,6 @@ export default function usePrinter() {
     labelIsNotOk,
     saveLabelData,
     operators,
+    askAgain,
   };
 }

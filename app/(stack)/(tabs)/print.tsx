@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Sora_SemiBold",
-    fontSize: 24,
+    fontSize: 22,
   },
 });

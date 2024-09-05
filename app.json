@@ -3,7 +3,7 @@
     "name": "enregla",
     "slug": "enregla-mobile",
     "scheme": "enregla",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "orientation": "portrait",
     "icon": "./assets/icons/enregla-icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +23,7 @@
         "foregroundImage": "./assets/icons/enregla-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 8,
+      "versionCode": 9,
       "package": "com.ignaciofabian93.enreglamobile",
       "permissions": [
         "android.permission.CAMERA",

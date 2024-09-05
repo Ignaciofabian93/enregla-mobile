@@ -36,7 +36,7 @@ export default function Card({ plate, vin, print_type, date }: Card) {
 const styles = StyleSheet.create({
   card: {
     width: 350,
-    height: "80%",
+    height: "95%",
     borderWidth: 1,
     borderColor: colors.light[400],
     borderRadius: 12,

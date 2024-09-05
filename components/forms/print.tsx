@@ -38,6 +38,7 @@ export default function PrintForm() {
     labelIsNotOk,
     saveLabelData,
     operators,
+    askAgain,
   } = usePrinter();
   return (
     <View style={{ width: "100%", paddingBottom: "10%" }}>
@@ -136,14 +137,34 @@ export default function PrintForm() {
             onPress={print}
             type="primary"
             isLoading={loading}
-            disabled={!form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
+            disabled={
+              !form.vehicle_model_id ||
+              !form.operator_id ||
+              !form.vehicle_year ||
+              !form.show_logo ||
+              !form.show_plate ||
+              !form.show_vin ||
+              !form.print_type ||
+              !form.vehicle_plate ||
+              !form.vehicle_vin
+            }
           />
           <CustomButton
             text="Finalizar"
             onPress={saveLabelData}
             type="secondary"
             isLoading={loading}
-            disabled={!form.vehicle_model_id && !form.vehicle_plate && !form.vehicle_vin}
+            disabled={
+              !form.vehicle_model_id ||
+              !form.operator_id ||
+              !form.vehicle_year ||
+              !form.show_logo ||
+              !form.show_plate ||
+              !form.show_vin ||
+              !form.print_type ||
+              !form.vehicle_plate ||
+              !form.vehicle_vin
+            }
           />
         </View>
         <PreviewModal
@@ -153,7 +174,7 @@ export default function PrintForm() {
           plate={form.show_plate ? form.vehicle_plate : undefined}
           logo={form.show_logo ? form.vehicle_logo : undefined}
         />
-        <CustomModal visible={confirm}>
+        <CustomModal visible={confirm && askAgain}>
           <View style={{ width: "100%", height: "100%", justifyContent: "center" }}>
             <Text
               style={{

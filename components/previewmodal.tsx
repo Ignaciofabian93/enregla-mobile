@@ -14,7 +14,7 @@ const LabelPreview = ({ vin, plate, logo }: { vin?: string; plate?: string; logo
   return (
     <>
       <View style={styles.label}>
-        {logo && <Image source={{ uri: logo }} style={{ width: 64, height: 64, marginBottom: 2 }} />}
+        {logo && <Image source={{ uri: logo }} style={{ width: 64, height: 64, marginBottom: 6 }} />}
         {vin && <Text style={styles.vin}>{vin.toUpperCase()}</Text>}
         {plate && <Text style={styles.plate}>{plate.toUpperCase()}</Text>}
       </View>
@@ -72,13 +72,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   vin: {
-    fontFamily: "Sora_SemiBold",
+    fontFamily: "Sora_Light",
     fontSize: 14,
-    marginBottom: 2,
+    marginBottom: 4,
+    transform: [{ scaleY: 1.2 }],
   },
   plate: {
     fontFamily: "Sora_SemiBold",
     fontSize: 26,
-    marginBottom: 2,
+    marginBottom: 6,
+    transform: [{ scaleY: 1.4 }],
   },
 });
