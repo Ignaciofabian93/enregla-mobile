@@ -142,7 +142,7 @@ export default function usePrinter() {
 
   const print = async () => {
     const html = PrintTemplate({ vin: form.vehicle_vin, plate: form.vehicle_plate, logo: form.vehicle_logo });
-    await printAsync({ html, orientation: "landscape", height: 105, width: 74 });
+    await printAsync({ html, orientation: "portrait", height: 74, width: 105 });
     // await printAsync({ html, orientation: "landscape", height: 105, width: 74 });
     setConfirm(true);
     setForm({ ...form, label_quantity: form.label_quantity + 1 });

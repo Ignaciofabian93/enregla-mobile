@@ -21,7 +21,7 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
               font-family: Arial, sans-serif;
               height: 100%;
               width: 100%;
-              transform: scaleX(-1);
+              transform: scaleX(-1) rotate(90deg);
               transform-origin: center;
             }
             .label-container {
