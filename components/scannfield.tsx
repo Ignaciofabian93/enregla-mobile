@@ -36,7 +36,7 @@ export default function ScannField({ value, scan, name, onChange, isInvalid, err
           autoCapitalize="characters"
           isInvalid={isInvalid}
           errorMessage={errorMessage}
-          maxLength={name === "Patente" ? 8 : 17}
+          maxLength={name === "Patente" ? 6 : 17}
           size="lg"
         />
       </View>

@@ -33,22 +33,27 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
               height: 74mm;
             }
             .logo {
-              width: 64px;
+              width: 30mm;
               height: auto;
               margin-bottom: 2px;
             }
             .vin, .plate {
-            text-transform: uppercase; /* Ensure uppercase */
+              text-transform: uppercase; /* Ensure uppercase */
+              width: 46mm;
             }
             .vin {
-              font-size: 14px;
-              font-weight: 400;
+              font-size: 4mm;
+              font-weight: 300;
+              width: 46mm;
+              height: 4mm;
               margin: 2mm 0;
               transform: scaleY(1.4); 
             }
             .plate {
-              font-size: 32px;
-              font-weight: 600;
+              font-size: 7mm;
+              font-weight: 500;
+              width: 35mm;
+              height: 7mm;
               transform: scaleY(1.4); 
             }
           </style>

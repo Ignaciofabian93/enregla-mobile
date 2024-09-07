@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { Image, Text, View, StyleSheet, ScrollView } from "react-native";
+import { Image, Text, View, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import { GetLocalLabels } from "@/sqlite/labels";
 import { LocalLabel } from "@/types/label";
 import CustomButton from "@/components/button";
@@ -13,18 +13,27 @@ const enregla = require("@/assets/icons/splash.png");
 
 export default function Home() {
   const { session } = useSessionStore();
-  const { refreshData, loading, sendLabelsData } = useSync();
+  const { refreshData, loadingData, sendLabelsData, sendingData } = useSync();
   const [labels, setLabels] = useState<LocalLabel[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [haveToSync, setHaveToSync] = useState<boolean>(false);
 
   useFocusEffect(
     useCallback(() => {
       fetchLocalLabels();
-    }, [])
+    }, [haveToSync, sendingData])
   );
 
   const fetchLocalLabels = async () => {
+    setLoading(true);
     const response = await GetLocalLabels();
+    if (response.some((label) => label.label_id === 0)) {
+      setHaveToSync(true);
+    } else {
+      setHaveToSync(false);
+    }
     setLabels(response);
+    setLoading(false);
   };
 
   return (
@@ -37,14 +46,21 @@ export default function Home() {
           <View style={{ width: "100%", height: "8%", flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
             <Text style={styles.title}>Bienvenido</Text>
           </View>
-          <View style={{ width: "100%", height: "45%" }}>
+          <View>
+            <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 14 }}>
+              {haveToSync ? "Hay etiquetas sin enviar" : "Todo actualizado"}
+            </Text>
+          </View>
+          <View style={{ width: "100%", height: "38%", maxHeight: 200 }}>
             <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 16, marginBottom: 12 }}>Actividad reciente</Text>
-            {labels.length ? (
+            {loading ? (
+              <View style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center" }}>
+                <ActivityIndicator size="large" color="#00ffff" />
+              </View>
+            ) : labels.length ? (
               <ScrollView
                 horizontal={true}
                 contentContainerStyle={{
-                  // width: "auto",
-                  // height: "auto",
                   flexDirection: "row",
                   justifyContent: "flex-start",
                 }}
@@ -54,7 +70,7 @@ export default function Home() {
                     key={label.id}
                     plate={label.vehicle_plate}
                     vin={label.vehicle_vin}
-                    print_type={label.print_type}
+                    operator={label.operator}
                     date={label.date}
                   />
                 ))}
@@ -70,13 +86,13 @@ export default function Home() {
               text="Enviar datos"
               onPress={() => sendLabelsData({ token: session.token })}
               type="primary"
-              isLoading={false}
+              isLoading={sendingData}
             />
             <CustomButton
               text="Cargar datos"
               onPress={() => refreshData({ token: session.token })}
               type="secondary"
-              isLoading={loading}
+              isLoading={loadingData}
             />
           </View>
         </View>

@@ -10,7 +10,6 @@ import ScannField from "@/components/scannfield";
 import PreviewModal from "@/components/previewmodal";
 import CustomModal from "@/components/modal";
 import usePrinter from "@/hooks/usePrinter";
-import { validate_plate, validate_vin } from "@/utils/regex";
 
 const generateYearsRange = () => {
   const currentYear = new Date().getFullYear();
@@ -67,17 +66,11 @@ export default function PrintForm() {
               data={vehicleModels.filter((el) => el.brand_id === form.vehicle_brand_id).map((item) => item.model)}
               value={form.vehicle_model}
               onChange={(e) => handleForm("vehicle_model", e)}
-              disabled={!form.vehicle_brand_id}
             />
           </View>
           <View style={{ width: "100%", marginBottom: 24 }}>
             <Text style={styles.field}>Elija año del vehículo:</Text>
-            <CustomPicker
-              data={years}
-              disabled={!form.vehicle_model}
-              value={form.vehicle_year}
-              onChange={(e) => handleForm("vehicle_year", e)}
-            />
+            <CustomPicker data={years} value={form.vehicle_year} onChange={(e) => handleForm("vehicle_year", e)} />
           </View>
 
           <View style={{ width: "100%", marginBottom: 24 }}>
@@ -87,17 +80,8 @@ export default function PrintForm() {
               value={form.vehicle_plate}
               scan={takePlatePhoto}
               name="Patente"
-              isInvalid={validate_plate(form.vehicle_plate)}
-              errorMessage="Formato de patente inválido."
             />
-            <ScannField
-              onChange={(e) => handleForm("vehicle_vin", e)}
-              value={form.vehicle_vin}
-              scan={takeVINPhoto}
-              name="VIN"
-              isInvalid={validate_vin(form.vehicle_vin)}
-              errorMessage="VIN inválido."
-            />
+            <ScannField onChange={(e) => handleForm("vehicle_vin", e)} value={form.vehicle_vin} scan={takeVINPhoto} name="VIN" />
           </View>
 
           <View style={{ width: "100%", marginBottom: 24 }}>
@@ -137,34 +121,14 @@ export default function PrintForm() {
             onPress={print}
             type="primary"
             isLoading={loading}
-            disabled={
-              !form.vehicle_model_id ||
-              !form.operator_id ||
-              !form.vehicle_year ||
-              !form.show_logo ||
-              !form.show_plate ||
-              !form.show_vin ||
-              !form.print_type ||
-              !form.vehicle_plate ||
-              !form.vehicle_vin
-            }
+            disabled={!form.show_vin && !form.show_plate && !form.show_logo}
           />
           <CustomButton
             text="Finalizar"
             onPress={saveLabelData}
             type="secondary"
             isLoading={loading}
-            disabled={
-              !form.vehicle_model_id ||
-              !form.operator_id ||
-              !form.vehicle_year ||
-              !form.show_logo ||
-              !form.show_plate ||
-              !form.show_vin ||
-              !form.print_type ||
-              !form.vehicle_plate ||
-              !form.vehicle_vin
-            }
+            disabled={!form.show_vin && !form.show_plate && !form.show_logo}
           />
         </View>
         <PreviewModal

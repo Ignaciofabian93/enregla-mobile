@@ -23,7 +23,8 @@ export default function useSync() {
   const { session } = useSessionStore();
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [connectionType, setConnectionType] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [sendingData, setSendingData] = useState<boolean>(false);
+  const [loadingData, setLoadingData] = useState<boolean>(false);
 
   useEffect(() => {
     // Subscription to network status changes
@@ -39,8 +40,10 @@ export default function useSync() {
   }, []);
 
   const fetchVehicleBrands = async ({ token }: { token: string }) => {
+    setLoadingData(true);
     const response = await GetVehicleBrands({ token });
     if (response.error) {
+      setLoadingData(false);
       return Alert.alert("Error", response.error);
     }
     await CleanLocalBrands();
@@ -52,11 +55,14 @@ export default function useSync() {
       };
       await SaveLocalBrands({ vehicle_brand: brandObject });
     }
+    setLoadingData(false);
   };
 
   const fetchVehicleModels = async ({ token }: { token: string }) => {
+    setLoadingData(true);
     const response = await GetVehicleModels({ token });
     if (response.error) {
+      setLoadingData(false);
       return Alert.alert("Error", response.error);
     }
     await CleanLocalModels();
@@ -68,12 +74,14 @@ export default function useSync() {
       };
       await SaveLocalModels({ vehicle_model: modelObject });
     }
+    setLoadingData(false);
   };
 
   const fetchSupplyList = async ({ token }: { token: string }) => {
+    setLoadingData(true);
     const response = await GetSupplyList({ token });
-
     if (response.error) {
+      setLoadingData(false);
       return Alert.alert("Error", response.error);
     }
     await CleanLocalSupplies();
@@ -89,12 +97,14 @@ export default function useSync() {
       };
       await SaveLocalSupplies({ supply: supplyObject });
     }
+    setLoadingData(false);
   };
 
   const fetchOperatorsList = async ({ token }: { token: string }) => {
+    setLoadingData(true);
     const response = await GetAllOperators({ token });
-
     if (response.error) {
+      setLoadingData(false);
       return Alert.alert("Error", response.error);
     }
     await CleanLocalOperators();
@@ -109,12 +119,14 @@ export default function useSync() {
       };
       await SaveLocalOperators({ user: operatorObject });
     }
+    setLoadingData(false);
   };
 
   const fetchBranchData = async ({ token }: { token: string }) => {
+    setLoadingData(true);
     const response = await GetBranchData({ token });
-
     if (response.error) {
+      setLoadingData(false);
       return Alert.alert("Error", response.error);
     }
     await CleanLocalBranch();
@@ -125,13 +137,15 @@ export default function useSync() {
       telephone: response.branches[0].telephone,
     };
     await SaveLocalBranch({ branch: branchObject });
+    setLoadingData(false);
   };
 
   const fetchLabelsData = async ({ token }: { token: string }) => {
+    setLoadingData(true);
     const response = await GetLabels({ token });
     if (response.error) {
-      Alert.alert("Error", response.error);
-      return;
+      setLoadingData(false);
+      return Alert.alert("Error", response.error);
     }
     await CleanLocalLabels();
     for (const label of response.labels) {
@@ -144,9 +158,7 @@ export default function useSync() {
         label_quantity: label.label_quantity,
         wrong_labels: label.wrong_labels,
         coordinates: label.coordinates,
-        // vehicle_brand: label.vehicle_brand,
         vehicle_brand_id: label.vehicle_brand_id,
-        // vehicle_model: label.vehicle_model,
         vehicle_model_id: label.vehicle_model_id,
         vehicle_year: label.vehicle_year,
         show_vin: label.show_vin,
@@ -154,27 +166,25 @@ export default function useSync() {
         show_plate: label.show_plate,
         vehicle_plate: label.vehicle_plate,
         show_logo: label.show_logo,
-        // vehicle_logo: label.vehicle_logo,
         print_type: label.print_type,
         description: label.description,
       };
       await SaveLocalLabels({ label: labelObject });
     }
+    setLoadingData(false);
   };
 
   const loadData = ({ token }: { token: string }) => {
-    setLoading(true);
     fetchOperatorsList({ token });
     fetchVehicleBrands({ token });
     fetchVehicleModels({ token });
     fetchSupplyList({ token });
     fetchBranchData({ token });
     fetchLabelsData({ token });
-    setLoading(false);
   };
 
   const generateAndSendLabelData = async ({ token }: { token: string }) => {
-    setLoading(true);
+    setSendingData(true);
     const labels = await GetLocalLabels();
     if (labels.length) {
       const formattedLabels: Label[] = labels
@@ -206,13 +216,17 @@ export default function useSync() {
       const response = await SaveLabel({ token, labels: formattedLabels });
       if (response.error) {
         Alert.alert("Error", response.error);
-        setLoading(false);
+        setSendingData(false);
       } else {
         Alert.alert("Éxito", "Datos enviados correctamente");
-        setLoading(false);
+        setSendingData(false);
+        await CleanLocalLabels();
+        fetchLabelsData({ token });
       }
+    } else {
+      Alert.alert("Atención", "No hay datos para enviar");
+      setSendingData(false);
     }
-    setLoading(false);
   };
 
   const sendLabelsData = async ({ token }: { token: string }) => {
@@ -260,5 +274,5 @@ export default function useSync() {
     }
   };
 
-  return { loadData, isConnected, connectionType, refreshData, loading, sendLabelsData };
+  return { loadData, isConnected, connectionType, refreshData, loadingData, sendLabelsData, sendingData };
 }

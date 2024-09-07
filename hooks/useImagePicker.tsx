@@ -12,11 +12,7 @@ export default function useImagePicker() {
   const processImage = async (image: string) => {
     try {
       const text = await MlKitOcr.detectFromUri(image);
-      let formattedPlate = text[0].text.replace(/[^A-Z0-9]/gi, "-");
-
-      if (formattedPlate.length > 4 && formattedPlate[4] !== "-") {
-        formattedPlate = formattedPlate.slice(0, 4) + "-" + formattedPlate.slice(4);
-      }
+      let formattedPlate = text[0].text.replace(/[^A-Z0-9]/gi, "");
 
       return formattedPlate;
     } catch (error) {
@@ -37,7 +33,12 @@ export default function useImagePicker() {
       if (image.assets) {
         setPlateImage(image.assets[0].base64 as string);
         const text = await processImage(image.assets[0].uri);
-        setPlateText(text as string);
+        if (!text) {
+          Alert.alert("Error", "No se pudo procesar la imagen. Inténtelo nuevamente o ingrese el valor manualmente.");
+          return;
+        } else {
+          setPlateText(text as string);
+        }
       }
     }
   };
@@ -55,7 +56,12 @@ export default function useImagePicker() {
       if (image.assets) {
         setVinImage(image.assets[0].base64 as string);
         const text = await processImage(image.assets[0].uri);
-        setVinText(text as string);
+        if (!text) {
+          Alert.alert("Error", "No se pudo procesar la imagen. Inténtelo nuevamente o ingrese el valor manualmente.");
+          return;
+        } else {
+          setVinText(text as string);
+        }
       }
     }
   };

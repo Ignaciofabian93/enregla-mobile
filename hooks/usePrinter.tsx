@@ -85,12 +85,16 @@ export default function usePrinter() {
   }, [coordinates]);
 
   useEffect(() => {
-    if (plateText) {
-      setForm({ ...form, vehicle_plate: plateText });
-    } else if (vinText) {
+    if (vinText) {
       setForm({ ...form, vehicle_vin: vinText });
     }
-  }, [plateText, vinText]);
+  }, [vinText]);
+
+  useEffect(() => {
+    if (plateText) {
+      setForm({ ...form, vehicle_plate: plateText });
+    }
+  }, [plateText]);
 
   const getLocalBrands = async () => {
     const response = await GetLocalBrands();
@@ -104,7 +108,8 @@ export default function usePrinter() {
 
   const getLocalOperators = async () => {
     const response = await GetLocalOperators();
-    setOperators(response as User[]);
+    const filteredOperators = response.filter((operator) => operator.role_id === 3);
+    setOperators(filteredOperators);
   };
 
   const handleForm = (field: string, value: string | boolean) => {
@@ -122,6 +127,33 @@ export default function usePrinter() {
     } else if (field === "vehicle_model") {
       const model = vehicleModels.find((model) => model.model === value);
       setForm({ ...form, vehicle_model_id: model?.model_id as number, vehicle_model: value as string });
+    } else if (field === "show_vin") {
+      if (!form.vehicle_vin) {
+        Alert.alert("Atención", "No se ha registrado VIN para impresión. Si quiere imprimir el VIN primero debe ingresarlo.");
+        return;
+      } else {
+        setForm({ ...form, show_vin: value as boolean });
+      }
+    } else if (field === "show_plate") {
+      if (!form.vehicle_plate) {
+        Alert.alert(
+          "Atención",
+          "No se ha registrado patente para impresión. Si quiere imprimir la patente primero debe ingresarla."
+        );
+        return;
+      } else {
+        setForm({ ...form, show_plate: value as boolean });
+      }
+    } else if (field === "show_logo") {
+      if (!form.vehicle_logo) {
+        Alert.alert(
+          "Atención",
+          "No se ha seleccionado marca de vehículo. Si quiere imprimir el logo primero debe seleccionar una marca."
+        );
+        return;
+      } else {
+        setForm({ ...form, show_logo: value as boolean });
+      }
     } else {
       setForm({ ...form, [field]: value });
     }
