@@ -1,9 +1,9 @@
 import moment from "moment";
 
 type Template = {
-  vin: string;
-  plate: string;
-  logo: string;
+  vin: string | null;
+  plate: string | null;
+  logo: string | null;
 };
 
 export function PrintTemplate({ vin, logo, plate }: Template) {
@@ -29,32 +29,28 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
               flex-direction: column;
               justify-content: center;
               align-items: center;
-              width: 105mm;
-              height: 74mm;
             }
             .logo {
-              width: 30mm;
+              width: 80px;
               height: auto;
               margin-bottom: 2px;
             }
             .vin, .plate {
               text-transform: uppercase; /* Ensure uppercase */
-              width: 46mm;
             }
             .vin {
-              font-size: 4mm;
-              font-weight: 300;
-              width: 46mm;
-              height: 4mm;
-              margin: 2mm 0;
-              transform: scaleY(1.4); 
+              font-size: 14px;
+              font-weight: 400;
+              margin-bottom: 10px;
+              transform: scaleY(1.4);
             }
             .plate {
-              font-size: 7mm;
+              font-size: 32px;
               font-weight: 500;
-              width: 35mm;
-              height: 7mm;
-              transform: scaleY(1.4); 
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              transform: scaleY(1.5);
             }
           </style>
         </head>

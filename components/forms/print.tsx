@@ -7,9 +7,9 @@ import CustomTextInput from "@/components/textinput";
 import Notification from "@/components/toast";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ScannField from "@/components/scannfield";
-import PreviewModal from "@/components/previewmodal";
 import CustomModal from "@/components/modal";
 import usePrinter from "@/hooks/usePrinter";
+import PreviewModal from "../htmlPreview";
 
 const generateYearsRange = () => {
   const currentYear = new Date().getFullYear();

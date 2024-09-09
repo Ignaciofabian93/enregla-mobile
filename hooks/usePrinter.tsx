@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { printAsync } from "expo-print";
+import { printAsync, printToFileAsync } from "expo-print";
 import { Label } from "@/types/label";
 import { VehicleBrand, VehicleModel } from "@/types/vehicle";
 import { GetLocalBrands } from "@/sqlite/brands";
@@ -173,11 +173,23 @@ export default function usePrinter() {
   };
 
   const print = async () => {
-    const html = PrintTemplate({ vin: form.vehicle_vin, plate: form.vehicle_plate, logo: form.vehicle_logo });
-    await printAsync({ html, orientation: "portrait", height: 74, width: 105 });
-    // await printAsync({ html, orientation: "landscape", height: 105, width: 74 });
+    const html = PrintTemplate({
+      vin: form.show_vin ? form.vehicle_vin : null,
+      plate: form.show_plate ? form.vehicle_plate : null,
+      logo: form.show_logo ? form.vehicle_logo : null,
+    });
+    // const result = await printToFileAsync({ html });
+    // console.log("RESULT: ", result);
+    // if (result.uri) {
+    await printAsync({ html, height: 396.85, width: 279.685 });
     setConfirm(true);
     setForm({ ...form, label_quantity: form.label_quantity + 1 });
+    // } else {
+    //   return Alert.alert("Error", "Hubo un error al ejecutar la impresión. Inténtelo nuevamente");
+    // }
+
+    // await printAsync({ html, orientation: "portrait", height: 74, width: 105 });
+    // await printAsync({ html, orientation: "landscape", height: 105, width: 74 });
   };
 
   const saveLabelData = () => {
