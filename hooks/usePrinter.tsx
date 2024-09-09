@@ -178,7 +178,7 @@ export default function usePrinter() {
       plate: form.show_plate ? form.vehicle_plate : null,
       logo: form.show_logo ? form.vehicle_logo : null,
     });
-    const result = await printToFileAsync({ html, height: 105, width: 74 });
+    const result = await printToFileAsync({ html, height: 74, width: 105 });
     console.log("RESULT: ", result);
     if (result.uri) {
       // await printAsync({ html, height: 279, width: 397 });
