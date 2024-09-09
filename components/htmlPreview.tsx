@@ -2,7 +2,7 @@ import { Modal, Text, View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 import { colors } from "@/constants/theme";
 import CustomButton from "./button";
-import { PrintTemplate } from "@/constants/templates";
+import { PrintTemplate, PrintTemplate2 } from "@/constants/templates";
 
 type Preview = {
   visible: boolean;
@@ -14,7 +14,7 @@ type Preview = {
 
 export default function PreviewModal({ visible, close, vin, plate, logo }: Preview) {
   // Generate the HTML string using the PrintTemplate function
-  const htmlContent = PrintTemplate({ vin: vin as string, plate: plate as string, logo: logo as string });
+  const htmlContent = PrintTemplate2({ vin: vin as string, plate: plate as string, logo: logo as string });
 
   return (
     <>

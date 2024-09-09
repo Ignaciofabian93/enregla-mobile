@@ -4,7 +4,7 @@ import { Label } from "@/types/label";
 import { VehicleBrand, VehicleModel } from "@/types/vehicle";
 import { GetLocalBrands } from "@/sqlite/brands";
 import { GetLocalModels } from "@/sqlite/models";
-import { PrintTemplate } from "@/constants/templates";
+import { PrintTemplate, PrintTemplate2 } from "@/constants/templates";
 import { SaveLocalLabels } from "@/sqlite/labels";
 import moment from "moment";
 import useImagePicker from "./useImagePicker";
@@ -173,23 +173,21 @@ export default function usePrinter() {
   };
 
   const print = async () => {
-    const html = PrintTemplate({
+    const html = PrintTemplate2({
       vin: form.show_vin ? form.vehicle_vin : null,
       plate: form.show_plate ? form.vehicle_plate : null,
       logo: form.show_logo ? form.vehicle_logo : null,
     });
-    // const result = await printToFileAsync({ html });
-    // console.log("RESULT: ", result);
-    // if (result.uri) {
-    await printAsync({ html, height: 396.85, width: 279.685 });
-    setConfirm(true);
-    setForm({ ...form, label_quantity: form.label_quantity + 1 });
-    // } else {
-    //   return Alert.alert("Error", "Hubo un error al ejecutar la impresión. Inténtelo nuevamente");
-    // }
-
-    // await printAsync({ html, orientation: "portrait", height: 74, width: 105 });
-    // await printAsync({ html, orientation: "landscape", height: 105, width: 74 });
+    const result = await printToFileAsync({ html, height: 105, width: 74 });
+    console.log("RESULT: ", result);
+    if (result.uri) {
+      // await printAsync({ html, height: 279, width: 397 });
+      await printAsync({ uri: result.uri, height: 279, width: 397 });
+      setConfirm(true);
+      setForm({ ...form, label_quantity: form.label_quantity + 1 });
+    } else {
+      return Alert.alert("Error", "Hubo un error al ejecutar la impresión. Inténtelo nuevamente");
+    }
   };
 
   const saveLabelData = () => {

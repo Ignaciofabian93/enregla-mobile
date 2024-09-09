@@ -21,7 +21,7 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
               font-family: Arial, sans-serif;
               height: 100%;
               width: 100%;
-              transform: scaleX(-1) rotate(90deg);
+              transform: scaleX(-1)
               transform-origin: center;
             }
             .label-container {
@@ -29,28 +29,32 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
               flex-direction: column;
               justify-content: center;
               align-items: center;
+              width: 105mm; /* Fixed width for A7 size */
+              height: 74mm; /* Fixed height for A7 size */
+              box-sizing: border-box;
             }
             .logo {
-              width: 80px;
+              width: 50px;
               height: auto;
-              margin-bottom: 2px;
+              margin-bottom: 5px;
             }
             .vin, .plate {
               text-transform: uppercase; /* Ensure uppercase */
             }
             .vin {
-              font-size: 14px;
+              font-size: 12px;
               font-weight: 400;
               margin-bottom: 10px;
               transform: scaleY(1.4);
-            }
+              }
             .plate {
-              font-size: 32px;
+              font-size: 28px;
               font-weight: 500;
               display: flex;
               justify-content: center;
               align-items: center;
               transform: scaleY(1.5);
+              margin-bottom: 5px;
             }
           </style>
         </head>
@@ -62,6 +66,73 @@ export function PrintTemplate({ vin, logo, plate }: Template) {
           </div>
         </body>
       </html>`;
+}
+
+export function PrintTemplate2({ vin, logo, plate }: Template) {
+  return `
+    <html>
+      <head>
+        <style>
+          body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            width: 100%;
+            transform: scaleX(-1) rotate(90deg); // Rotate for landscape orientation
+            transform-origin: center;
+          }
+          .label-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 207px; // Fixed width for A7 size
+            height: 300px; // Fixed height for A7 size
+            box-sizing: border-box;
+            border: 1px solid transparent; // Optional border for visualization
+          }
+          .logo {
+            width: 40px;
+            height: 40px; // Fix the height to reserve space
+            margin-bottom: 5px;
+            background: #fff; // Placeholder background if needed
+            min-width: 40px;
+            min-height: 40px;
+          }
+          .vin, .plate {
+            text-transform: uppercase;
+          }
+          .vin {
+            font-size: 8px; // Adjusted size to fit better
+            font-weight: 400;
+            margin-bottom: 8px;
+            transform: scaleY(1.1); // Adjusted scaling
+            min-height: 10px;
+            min-width: 120px;
+          }
+          .plate {
+            min-width: 100px;
+            min-height: 14px;
+            font-size: 18px; // Adjusted size for plate
+            font-weight: 600;
+            transform: scaleY(1.1);
+            margin-bottom: 5px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="label-container">
+          ${logo ? `<img src="${logo}" class="logo" alt="logo" />` : '<div class="logo"></div>'}
+          ${vin ? `<div class="vin">${vin.toUpperCase()}</div>` : '<div class="vin" style="visibility: hidden;"></div>'}
+          ${plate ? `<div class="plate">${plate.toUpperCase()}</div>` : '<div class="plate" style="visibility: hidden;"></div>'}
+        </div>
+      </body>
+    </html>`;
 }
 
 type SupplyRequest = {
