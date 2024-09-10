@@ -14,6 +14,12 @@ import { Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { User } from "@/types/user";
 import { GetLocalOperators } from "@/sqlite/operators";
+import { FullTemplate } from "@/constants/templates/full";
+import { LogoPlateTemplate } from "@/constants/templates/logo_plate";
+import { LogoTemplate } from "@/constants/templates/logo";
+import { PlateTemplate } from "@/constants/templates/plate";
+import { PlateVinTemplate } from "@/constants/templates/plate_vin";
+import { VinLogoTemplate } from "@/constants/templates/logo_vin";
 
 type Message = {
   content: string;
@@ -172,21 +178,72 @@ export default function usePrinter() {
     setConfirm(false);
   };
 
+  // const print = async () => {
+  //   const html = PrintTemplate2({
+  //     vin: form.show_vin ? form.vehicle_vin : null,
+  //     plate: form.show_plate ? form.vehicle_plate : null,
+  //     logo: form.show_logo ? form.vehicle_logo : null,
+  //   });
+  //   // const result = await printToFileAsync({ html, height: 74, width: 105 });
+  //   // if (result.uri) {
+  //   await printAsync({ html, height: 300, width: 207 });
+  //   setConfirm(true);
+  //   setForm({ ...form, label_quantity: form.label_quantity + 1 });
+  //   // } else {
+  //   //   return Alert.alert("Error", "Hubo un error al ejecutar la impresión. Inténtelo nuevamente");
+  //   // }
+  // };
+
   const print = async () => {
-    const html = PrintTemplate2({
-      vin: form.show_vin ? form.vehicle_vin : null,
-      plate: form.show_plate ? form.vehicle_plate : null,
-      logo: form.show_logo ? form.vehicle_logo : null,
+    let html;
+
+    if (form.show_logo && form.show_vin && form.show_plate) {
+      html = FullTemplate({
+        vin: form.vehicle_vin,
+        plate: form.vehicle_plate,
+        logo: form.vehicle_logo,
+      });
+    } else if (form.show_logo && form.show_plate) {
+      html = LogoPlateTemplate({
+        plate: form.vehicle_plate,
+        logo: form.vehicle_logo,
+      });
+    } else if (form.show_vin && form.show_plate) {
+      html = PlateVinTemplate({
+        plate: form.vehicle_plate,
+        vin: form.vehicle_vin,
+      });
+    } else if (form.show_vin && form.show_logo) {
+      html = VinLogoTemplate({
+        vin: form.vehicle_vin,
+        logo: form.vehicle_logo,
+      });
+    } else if (form.show_logo) {
+      html = LogoTemplate({
+        logo: form.vehicle_logo,
+      });
+    } else if (form.show_plate) {
+      html = PlateTemplate({
+        plate: form.vehicle_plate,
+      });
+    }
+
+    const file = await printToFileAsync({
+      html,
+      height: 397, // A7 height in px
+      width: 279, // A7 width in px
+      base64: false,
     });
-    const result = await printToFileAsync({ html, height: 74, width: 105 });
-    console.log("RESULT: ", result);
-    if (result.uri) {
-      // await printAsync({ html, height: 279, width: 397 });
-      await printAsync({ uri: result.uri, height: 279, width: 397 });
+    if (file.uri) {
+      await printAsync({
+        uri: file.uri,
+        height: 397, // A7 height in px
+        width: 279, // A7 width in px
+        orientation: "portrait",
+      });
+
       setConfirm(true);
       setForm({ ...form, label_quantity: form.label_quantity + 1 });
-    } else {
-      return Alert.alert("Error", "Hubo un error al ejecutar la impresión. Inténtelo nuevamente");
     }
   };
 

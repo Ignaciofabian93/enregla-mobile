@@ -52,7 +52,7 @@ export default function Home() {
             </Text>
           </View>
           <View style={{ width: "100%", height: "38%", maxHeight: 200 }}>
-            <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 16, marginBottom: 12 }}>Actividad reciente</Text>
+            <Text style={{ fontFamily: "Sora_SemiBold", fontSize: 16, marginBottom: 8 }}>Actividad reciente</Text>
             {loading ? (
               <View style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center" }}>
                 <ActivityIndicator size="large" color="#00ffff" />

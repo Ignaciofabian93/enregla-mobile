@@ -83,53 +83,53 @@ export function PrintTemplate2({ vin, logo, plate }: Template) {
             font-family: Arial, sans-serif;
             height: 100%;
             width: 100%;
-            transform: scaleX(-1)
+            transform: scaleX(-1);
             transform-origin: center;
           }
           .label-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            width: 207px; // Fixed width for A7 size
-            height: 300px; // Fixed height for A7 size
+            width: 74mm; // Fixed width for A7 size
+            height: 105mm; // Fixed height for A7 size
             box-sizing: border-box;
-            border: 1px solid transparent; // Optional border for visualization
+            padding_bottom: 10mm;
           }
           .logo {
-            width: 40px;
-            height: 40px; // Fix the height to reserve space
-            margin-bottom: 5px;
-            background: #fff; // Placeholder background if needed
-            min-width: 40px;
-            min-height: 40px;
+            width: 35mm;
+            height: 35mm; // Fix the height to reserve space
+            margin-bottom: 5mm;
           }
           .vin, .plate {
             text-transform: uppercase;
           }
           .vin {
-            font-size: 8px; // Adjusted size to fit better
+            font-size: 8mm;
             font-weight: 400;
-            margin-bottom: 8px;
-            transform: scaleY(1.1); // Adjusted scaling
-            min-height: 10px;
-            min-width: 120px;
+            text-align: center;
+            padding: 0 2mm;
           }
           .plate {
-            min-width: 100px;
-            min-height: 14px;
-            font-size: 18px; // Adjusted size for plate
-            font-weight: 600;
-            transform: scaleY(1.1);
-            margin-bottom: 5px;
+            font-size: 12mm;
+            font-weight: 500;
+            text-align: center;
+            padding: 0 2mm;
+            width: 35mm; /* Fixed width for the plate */
+          }
+          .spacer {
+            flex-grow: 1; /* Push content to top, use remaining space */
+            margin: 5mm 0;
           }
         </style>
       </head>
       <body>
         <div class="label-container">
-          ${logo ? `<img src="${logo}" class="logo" alt="logo" />` : '<div class="logo"></div>'}
-          ${vin ? `<div class="vin">${vin.toUpperCase()}</div>` : '<div class="vin" style="visibility: hidden;"></div>'}
-          ${plate ? `<div class="plate">${plate.toUpperCase()}</div>` : '<div class="plate" style="visibility: hidden;"></div>'}
+          <div class="spacer"></div> <!-- Ensure full label height -->
+          ${logo ? `<img src="${logo}" class="logo" alt="logo" />` : '<div class="logo"> </div>'}
+          ${vin ? `<div class="vin">${vin.toUpperCase()}</div>` : '<div class="vin" style="visibility: hidden;"> </div>'}
+          ${plate ? `<div class="plate">${plate.toUpperCase()}</div>` : '<div class="plate" style="visibility: hidden;"> </div>'}
+          <div class="spacer"></div> <!-- Ensure full label height -->
         </div>
       </body>
     </html>`;
