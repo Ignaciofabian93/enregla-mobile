@@ -7,6 +7,7 @@ export function PlateTemplate({ plate }: { plate: string }) {
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -20,6 +21,7 @@ export function PlateTemplate({ plate }: { plate: string }) {
             width: 35mm;
             height: 35mm;
             margin-bottom: 5mm;
+            visibility: hidden; /* Invisible spacer for consistent layout */
           }
           .vin {
             font-size: 6mm;
@@ -30,6 +32,7 @@ export function PlateTemplate({ plate }: { plate: string }) {
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
+            visibility: hidden; /* Invisible spacer for consistent layout */
           }
           .plate {
             font-size: 12mm;

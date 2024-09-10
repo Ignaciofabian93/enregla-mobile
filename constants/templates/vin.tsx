@@ -1,4 +1,4 @@
-export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
+export function VinTemplate({ vin }: { vin: string }) {
   return `
     <html>
       <head>
@@ -17,16 +17,12 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
-          .logo {
-            width: 35mm;
-            height: 35mm;
-            margin-bottom: 5mm;
-          }
           .vin {
             font-size: 6mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
+            margin-bottom: 5mm;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
@@ -34,7 +30,6 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
         </style>
       </head>
       <body>
-        <img src="${logo}" class="logo" alt="logo" />
         <div class="vin">${vin.toUpperCase()}</div>
       </body>
     </html>`;

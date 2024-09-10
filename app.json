@@ -8,16 +8,17 @@
     "icon": "./assets/icons/enregla-icon.png",
     "userInterfaceStyle": "light",
     "privacy": "public",
-    "platforms": ["android"],
+    "platforms": [
+      "android"
+    ],
     "splash": {
       "image": "./assets/icons/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
-    "updates": {
-      "url": "https://u.expo.dev/0acd45a2-3ca4-44b6-a8fb-b638981b9acb"
-    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/enregla-icon.png",
@@ -74,7 +75,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "0acd45a2-3ca4-44b6-a8fb-b638981b9acb"
+        "projectId": "93d67ee6-d038-4e8e-92aa-af2129403975"
       }
     },
     "runtimeVersion": {
@@ -83,6 +84,7 @@
     "sdkVersion": "51.0.0",
     "ios": {
       "bundleIdentifier": "com.ignaciofabian93.enreglamobile"
-    }
+    },
+    "owner": "dmmtapia"
   }
 }

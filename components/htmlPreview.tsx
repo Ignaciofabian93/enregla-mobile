@@ -9,6 +9,7 @@ import { PlateVinTemplate } from "@/constants/templates/plate_vin";
 import { VinLogoTemplate } from "@/constants/templates/logo_vin";
 import { LogoTemplate } from "@/constants/templates/logo";
 import { PlateTemplate } from "@/constants/templates/plate";
+import { VinTemplate } from "@/constants/templates/vin";
 
 type Preview = {
   visible: boolean;
@@ -52,6 +53,8 @@ export default function PreviewModal({ visible, close, vin, plate, logo }: Previ
     html = PlateTemplate({
       plate,
     });
+  } else if (vin) {
+    html = VinTemplate({ vin });
   } else {
     html = "";
   }

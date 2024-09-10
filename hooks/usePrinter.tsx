@@ -20,6 +20,7 @@ import { LogoTemplate } from "@/constants/templates/logo";
 import { PlateTemplate } from "@/constants/templates/plate";
 import { PlateVinTemplate } from "@/constants/templates/plate_vin";
 import { VinLogoTemplate } from "@/constants/templates/logo_vin";
+import { VinTemplate } from "@/constants/templates/vin";
 
 type Message = {
   content: string;
@@ -226,6 +227,8 @@ export default function usePrinter() {
       html = PlateTemplate({
         plate: form.vehicle_plate,
       });
+    } else if (form.show_vin) {
+      html = VinTemplate({ vin: form.vehicle_vin });
     }
 
     const file = await printToFileAsync({

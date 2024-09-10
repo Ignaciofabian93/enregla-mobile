@@ -7,6 +7,7 @@ export function LogoTemplate({ logo }: { logo: string }) {
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
