@@ -22,17 +22,19 @@ export function PlateVinTemplate({ plate, vin }: { plate: string; vin: string })
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 5mm;
+            margin-bottom: 3mm;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
           }
           .plate {
-            font-size: 12mm;
+            font-size: 10mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
             width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
           }
         </style>
       </head>

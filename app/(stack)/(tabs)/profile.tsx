@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 32,
+    paddingBottom: 32,
   },
   title: {
     fontFamily: "Sora_SemiBold",

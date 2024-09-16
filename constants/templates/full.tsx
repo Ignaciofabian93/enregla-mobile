@@ -18,26 +18,30 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             transform-origin: center;
           }
           .logo {
-            width: 35mm;
-            height: 35mm;
-            margin-bottom: 5mm;
+            width: 28mm;
+            height: 28mm;
+            margin-bottom: 3mm;
+            overflow: hidden;
+            white-space: nowrap;
           }
           .vin {
             font-size: 6mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 5mm;
+            margin-bottom: 3mm;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
           }
           .plate {
-            font-size: 12mm;
+            font-size: 10mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
             width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
           }
         </style>
       </head>

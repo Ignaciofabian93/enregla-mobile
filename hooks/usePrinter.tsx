@@ -4,7 +4,6 @@ import { Label } from "@/types/label";
 import { VehicleBrand, VehicleModel } from "@/types/vehicle";
 import { GetLocalBrands } from "@/sqlite/brands";
 import { GetLocalModels } from "@/sqlite/models";
-import { PrintTemplate, PrintTemplate2 } from "@/constants/templates";
 import { SaveLocalLabels } from "@/sqlite/labels";
 import moment from "moment";
 import useImagePicker from "./useImagePicker";
@@ -67,11 +66,20 @@ export default function usePrinter() {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<boolean>(false);
   const [askAgain, setAskAgain] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [message, setMessage] = useState<Message>({
     content: "",
     type: "error",
   });
   const [form, setForm] = useState<Label>(defaultLabel);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setForm(defaultLabel);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  };
 
   const handleMessageShow = () => setTimeout(() => setShowMessage(false), 2000);
 
@@ -361,5 +369,7 @@ export default function usePrinter() {
     saveLabelData,
     operators,
     askAgain,
+    onRefresh,
+    refreshing,
   };
 }

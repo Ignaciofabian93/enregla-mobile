@@ -18,16 +18,20 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             transform-origin: center;
           }
           .logo {
-            width: 35mm;
-            height: 35mm;
-            margin-bottom: 5mm;
+            width: 28mm;
+            height: 28mm;
+            margin-bottom: 3mm;
+            overflow: hidden;
+            white-space: nowrap;
           }
           .plate {
-            font-size: 12mm;
+            font-size: 10mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
             width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
           }
         </style>
       </head>

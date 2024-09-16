@@ -3,28 +3,24 @@
     "name": "enregla",
     "slug": "enregla-mobile",
     "scheme": "enregla",
-    "version": "2.0.11",
+    "version": "2.0.12",
     "orientation": "portrait",
     "icon": "./assets/icons/enregla-icon.png",
     "userInterfaceStyle": "light",
     "privacy": "public",
-    "platforms": [
-      "android"
-    ],
+    "platforms": ["android"],
     "splash": {
       "image": "./assets/icons/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/enregla-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 13,
+      "versionCode": 14,
       "package": "com.ignaciofabian93.enreglamobile",
       "permissions": [
         "android.permission.CAMERA",

@@ -18,9 +18,11 @@ export function LogoTemplate({ logo }: { logo: string }) {
             transform-origin: center;
           }
           .logo {
-            width: 35mm;
-            height: 35mm;
-            margin-bottom: 10mm;
+            width: 28mm;
+            height: 28mm;
+            margin-bottom: 3mm;
+            overflow: hidden;
+            white-space: nowrap;
           }
         </style>
       </head>

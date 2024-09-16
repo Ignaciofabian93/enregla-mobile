@@ -18,9 +18,11 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             transform-origin: center;
           }
           .logo {
-            width: 35mm;
-            height: 35mm;
-            margin-bottom: 5mm;
+            width: 28mm;
+            height: 28mm;
+            margin-bottom: 3mm;
+            overflow: hidden;
+            white-space: nowrap;
           }
           .vin {
             font-size: 6mm;

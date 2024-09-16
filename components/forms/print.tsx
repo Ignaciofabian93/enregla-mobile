@@ -1,5 +1,5 @@
 import { colors } from "@/constants/theme";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, RefreshControl } from "react-native";
 import CustomButton from "@/components/button";
 import CustomCheckBox from "@/components/checkbox";
 import CustomPicker from "@/components/select";
@@ -38,11 +38,16 @@ export default function PrintForm() {
     saveLabelData,
     operators,
     askAgain,
+    onRefresh,
+    refreshing,
   } = usePrinter();
   return (
     <View style={{ width: "100%", paddingBottom: "10%" }}>
       <Notification visible={showMessage} message={message.content} type={message.type} />
-      <ScrollView contentContainerStyle={{ width: "100%", paddingTop: 32 }}>
+      <ScrollView
+        contentContainerStyle={{ width: "100%", paddingTop: 32 }}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      >
         <View style={{ marginBottom: 20, alignItems: "center" }}>
           <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Elija operador:</Text>

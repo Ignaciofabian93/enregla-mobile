@@ -22,7 +22,7 @@ export function VinTemplate({ vin }: { vin: string }) {
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 5mm;
+            margin-bottom: 3mm;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
