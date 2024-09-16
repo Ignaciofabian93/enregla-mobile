@@ -8,11 +8,15 @@ import Card from "@/components/card";
 import Layout from "@/components/layout";
 import useSync from "@/hooks/useSync";
 import useSessionStore from "@/store/session";
+import useLabelStore from "@/store/label";
+import { useRouter } from "expo-router";
 
 const enregla = require("@/assets/icons/splash.png");
 
 export default function Home() {
+  const router = useRouter();
   const { session } = useSessionStore();
+  const { setLabelSelected } = useLabelStore();
   const { refreshData, loadingData, sendLabelsData, sendingData } = useSync();
   const [labels, setLabels] = useState<LocalLabel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,6 +27,13 @@ export default function Home() {
       fetchLocalLabels();
     }, [haveToSync, sendingData])
   );
+
+  const selectLabel = (label: LocalLabel) => {
+    setLabelSelected(label);
+    setTimeout(() => {
+      router.push("/(tabs)/print");
+    }, 1000);
+  };
 
   const fetchLocalLabels = async () => {
     setLoading(true);
@@ -72,6 +83,7 @@ export default function Home() {
                     vin={label.vehicle_vin}
                     operator={label.operator}
                     date={label.date}
+                    onPress={() => selectLabel(label)}
                   />
                 ))}
               </ScrollView>

@@ -21,6 +21,7 @@ import { PlateTemplate } from "@/constants/templates/plate";
 import { PlateVinTemplate } from "@/constants/templates/plate_vin";
 import { VinLogoTemplate } from "@/constants/templates/logo_vin";
 import { VinTemplate } from "@/constants/templates/vin";
+import useLabelStore from "@/store/label";
 
 type Message = {
   content: string;
@@ -55,6 +56,7 @@ const defaultLabel: Label = {
 export default function usePrinter() {
   const router = useRouter();
   const { session } = useSessionStore();
+  const { labelSelected } = useLabelStore();
   const { coordinates } = useLocation();
   const { takePlatePhoto, takeVINPhoto, vinText, plateText } = useImagePicker();
   const [operators, setOperators] = useState<User[]>([]);
@@ -78,6 +80,41 @@ export default function usePrinter() {
     getLocalModels();
     getLocalOperators();
   }, []);
+
+  useEffect(() => {
+    if (labelSelected) {
+      fillForm();
+    }
+  }, [labelSelected]);
+
+  const fillForm = () => {
+    const findBrand = vehicleBrands.find((el) => el.id === labelSelected.vehicle_brand_id);
+    const findModel = vehicleModels.find((el) => el.id === labelSelected.vehicle_model_id);
+    setForm({
+      id: labelSelected.id,
+      label_id: labelSelected.label_id,
+      operator: labelSelected.operator,
+      operator_id: labelSelected.operator_id,
+      date: moment().format("DD-MM-YYYY"),
+      branch_id: labelSelected.branch_id,
+      label_quantity: labelSelected.label_quantity,
+      wrong_labels: labelSelected.wrong_labels,
+      coordinates: labelSelected.coordinates,
+      vehicle_brand: findBrand?.brand as string,
+      vehicle_brand_id: labelSelected.vehicle_brand_id,
+      vehicle_model: findModel?.model as string,
+      vehicle_model_id: labelSelected.vehicle_model_id,
+      vehicle_year: labelSelected.vehicle_year,
+      show_vin: labelSelected.show_vin === 1 ? true : false,
+      vehicle_vin: labelSelected.vehicle_vin,
+      show_plate: labelSelected.show_plate === 1 ? true : false,
+      vehicle_plate: labelSelected.vehicle_plate,
+      show_logo: labelSelected.show_logo === 1 ? true : false,
+      vehicle_logo: findBrand?.logo as string,
+      print_type: labelSelected.print_type,
+      description: labelSelected.description,
+    });
+  };
 
   useEffect(() => {
     if (session) {

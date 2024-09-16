@@ -6,12 +6,13 @@ type Card = {
   vin: string;
   operator: string;
   date: string;
+  onPress: () => void;
 };
 
-export default function Card({ plate, vin, operator, date }: Card) {
+export default function Card({ plate, vin, operator, date, onPress }: Card) {
   return (
     <>
-      <TouchableOpacity style={styles.card} activeOpacity={0.9}>
+      <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={onPress}>
         <View style={styles.row}>
           <Text style={styles.field}>Fecha:</Text>
           <Text style={styles.value}>{date}</Text>
