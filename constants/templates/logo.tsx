@@ -34,7 +34,7 @@ export function LogoTemplate({ logo }: { logo: string }) {
             text-transform: uppercase;
             text-align: center;
             width: 100%;
-            height: 10%;
+            height: 20mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -44,7 +44,7 @@ export function LogoTemplate({ logo }: { logo: string }) {
             text-transform: uppercase;
             text-align: center;
             width: 100%;
-            height: 10%;
+            height: 20mm;
             overflow: hidden;
             white-space: nowrap;
           }

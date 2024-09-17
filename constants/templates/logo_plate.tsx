@@ -45,7 +45,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             text-transform: uppercase;
             text-align: center;
             width: 100%;
-            height: 10%;
+            height: 20mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -55,7 +55,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             text-transform: uppercase;
             text-align: center;
             width: 100%;
-            height: 10%;
+            height: 20mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -84,7 +84,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             white-space: nowrap;
           }
           .plate {
-            font-size: 24mm;
+            font-size: 22mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
