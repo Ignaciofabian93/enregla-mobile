@@ -25,7 +25,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             text-align: center;
             width: 100%;
             height: 36mm;
-            margin-bottom: 2mm;
+            margin-bottom: 3mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -36,7 +36,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            height: 32mm;
             overflow: hidden;
             white-space: nowrap;
           }

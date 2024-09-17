@@ -24,7 +24,8 @@ export function PlateTemplate({ plate }: { plate: string }) {
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            max-width: 38mm;
+            height: 32mm;
             overflow: hidden;
             white-space: nowrap;
           }

@@ -25,7 +25,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             text-align: center;
             width: 100%;
             height: 36mm;
-            margin-bottom: 2mm;
+            margin-bottom: 3mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -37,7 +37,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             text-align: center;
             width: 100%;
             height: 10mm;
-            margin-bottom: 2mm;
+            margin-bottom: 1mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -48,7 +48,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            height: 32mm;
             overflow: hidden;
             white-space: nowrap;
           }

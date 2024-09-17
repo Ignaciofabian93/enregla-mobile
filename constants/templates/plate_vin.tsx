@@ -25,6 +25,7 @@ export function PlateVinTemplate({ plate, vin }: { plate: string; vin: string })
             text-align: center;
             width: 100%;
             height: 10mm;
+            max-width: 52mm;
             margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
@@ -36,7 +37,8 @@ export function PlateVinTemplate({ plate, vin }: { plate: string; vin: string })
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            max-width: 38mm;
+            height: 32mm;
             overflow: hidden;
             white-space: nowrap;
           }

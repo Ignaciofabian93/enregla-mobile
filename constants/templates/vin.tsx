@@ -24,6 +24,7 @@ export function VinTemplate({ vin }: { vin: string }) {
             align-items: center;
             text-align: center;
             width: 100%;
+            max-width: 52mm;
             height: 10mm;
             margin-bottom: 2mm;
             overflow: hidden;
