@@ -17,17 +17,50 @@ export function LogoTemplate({ logo }: { logo: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
+          .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 35mm;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .left {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 1%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .right {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 1%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
           .logo {
-            width: 28mm;
-            height: 28mm;
-            margin-bottom: 3mm;
+            width: 35mm;
+            height: 35mm;
+            margin-bottom: 1mm;
             overflow: hidden;
             white-space: nowrap;
           }
         </style>
       </head>
       <body>
-        <img src="${logo}" class="logo" alt="logo" />
+        <div class="container">
+          <span class="left">${" . "}</span>
+          <img src="${logo}" class="logo" alt="logo" />
+          <span class="right">${" . "}</span>
+        </div>
       </body>
     </html>`;
 }

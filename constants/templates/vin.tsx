@@ -17,20 +17,53 @@ export function VinTemplate({ vin }: { vin: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
-          .vin {
-            font-size: 6mm;
+          .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 35mm;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .left {
+            font-size: 0.5mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 3mm;
-            width: 100%;
+            width: 1%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .right {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 1%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .vin {
+            font-size: 14mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 1mm;
+            width: 98%;
             overflow: hidden;
             white-space: nowrap;
           }
         </style>
       </head>
       <body>
-        <div class="vin">${vin.toUpperCase()}</div>
+        <div class="container">
+          <span class="left">${" . "}</span>
+          <span class="vin">${vin.toUpperCase()}</span>
+          <span class="right">${" . "}</span>
+        </div>
       </body>
     </html>`;
 }

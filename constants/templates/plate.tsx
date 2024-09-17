@@ -17,40 +17,53 @@ export function PlateTemplate({ plate }: { plate: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
-          .logo {
-            width: 28mm;
-            height: 28mm;
-            margin-bottom: 3mm;
+          .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 35mm;
             overflow: hidden;
             white-space: nowrap;
-            visibility: hidden; /* Invisible spacer for consistent layout */
           }
-          .vin {
-            font-size: 6mm;
+          .left {
+            font-size: 0.5mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 3mm;
-            width: 100%;
+            width: 1%;
             overflow: hidden;
             white-space: nowrap;
-            visibility: hidden; /* Invisible spacer for consistent layout */
+          }
+          .right {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 1%;
+            overflow: hidden;
+            white-space: nowrap;
           }
           .plate {
-            font-size: 10mm;
+            font-size: 24mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            width: 100%;
+            width: 98%;
+            margin-bottom: 1mm;
             overflow: hidden;
             white-space: nowrap;
           }
         </style>
       </head>
       <body>
-        <div class="logo" alt="logo"> </div>
-        <div class="vin"> </div>
-        <div class="plate">${plate.toUpperCase()}</div>
+        <div class="container">
+          <span class="left">${" . "}</span>
+          <span class="plate">${plate.toUpperCase()}</span>
+          <span class="right">${" . "}</span>
+        </div>
       </body>
     </html>`;
 }
