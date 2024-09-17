@@ -50,6 +50,26 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             overflow: hidden;
             white-space: nowrap;
           }
+          .top {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            height: 10%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .bottom {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            height: 10%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
           .left {
             font-size: 0.5mm;
             font-weight: 400;
@@ -75,7 +95,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             white-space: nowrap;
           }
           .vin {
-            font-size: 8mm;
+            font-size: 12mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
@@ -84,7 +104,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             white-space: nowrap;
           }
           .plate {
-            font-size: 18mm;
+            font-size: 24mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
@@ -95,6 +115,9 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
         </style>
       </head>
       <body>
+        <div class="top">
+          <span class="left">${" . "}</span>
+        </div>
         <div class="logo-container">
           <span class="left">${" . "}</span>
           <img src="${logo}" class="logo" alt="logo" />
@@ -108,6 +131,9 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
         <div class="plate-container">
           <span class="left">${" . "}</span>
           <span class="plate">${plate.toUpperCase()}</span>
+          <span class="right">${" . "}</span>
+        </div>
+        <div class="bottom">
           <span class="right">${" . "}</span>
         </div>
       </body>

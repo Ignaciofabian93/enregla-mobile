@@ -69,7 +69,7 @@ export default function PreviewModal({ visible, close, vin, plate, logo }: Previ
           <WebView
             originWhitelist={["*"]}
             source={{ html: html }}
-            style={[styles.webView]}
+            style={[styles.webView, { transform: [{ scale: 0.6 }] }]}
             scalesPageToFit={false} // Fit the content to the WebView
           />
 

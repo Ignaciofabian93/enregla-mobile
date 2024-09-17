@@ -39,6 +39,26 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             overflow: hidden;
             white-space: nowrap;
           }
+          .top {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            height: 10%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .bottom {
+            font-size: 0.5mm;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            height: 10%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
           .left {
             font-size: 0.5mm;
             font-weight: 400;
@@ -64,7 +84,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             white-space: nowrap;
           }
           .plate {
-            font-size: 18mm;
+            font-size: 24mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
@@ -75,6 +95,9 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
         </style>
       </head>
       <body>
+        <div class="top">
+          <span class="left">${" . "}</span>
+        </div>
         <div class="logo-container">
           <span class="left">${" . "}</span>
           <img src="${logo}" class="logo" alt="logo" />
@@ -83,6 +106,9 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
         <div class="plate-container">
           <span class="left">${" . "}</span>
           <span class="plate">${plate.toUpperCase()}</span>
+          <span class="right">${" . "}</span>
+        </div>
+        <div class="bottom">
           <span class="right">${" . "}</span>
         </div>
       </body>
