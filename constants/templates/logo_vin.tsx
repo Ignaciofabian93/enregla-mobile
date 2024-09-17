@@ -14,7 +14,7 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             font-family: Arial, sans-serif;
             height: 100%;
             width: 100%;
-            transform: scaleX(-1);
+            transform: scaleX(-1) rotate(90deg);
             transform-origin: center;
           }
           .logo-container {
@@ -24,7 +24,8 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            height: 36mm;
+            margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -36,6 +37,7 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             text-align: center;
             width: 100%;
             height: 10mm;
+            margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -84,7 +86,7 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             white-space: nowrap;
           }
           .vin {
-            font-size: 10mm;
+            font-size: 9mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;

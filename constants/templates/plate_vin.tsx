@@ -14,7 +14,7 @@ export function PlateVinTemplate({ plate, vin }: { plate: string; vin: string })
             font-family: Arial, sans-serif;
             height: 100%;
             width: 100%;
-            transform: scaleX(-1);
+            transform: scaleX(-1) rotate(90deg);
             transform-origin: center;
           }
           .vin-container {
@@ -24,7 +24,8 @@ export function PlateVinTemplate({ plate, vin }: { plate: string; vin: string })
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 14mm;
+            height: 10mm;
+            margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -78,7 +79,7 @@ export function PlateVinTemplate({ plate, vin }: { plate: string; vin: string })
             white-space: nowrap;
           }
           .vin {
-            font-size: 10mm;
+            font-size: 9mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
@@ -87,7 +88,7 @@ export function PlateVinTemplate({ plate, vin }: { plate: string; vin: string })
             white-space: nowrap;
           }
           .plate {
-            font-size: 22mm;
+            font-size: 20mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;

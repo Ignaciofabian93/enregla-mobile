@@ -14,7 +14,7 @@ export function LogoTemplate({ logo }: { logo: string }) {
             font-family: Arial, sans-serif;
             height: 100%;
             width: 100%;
-            transform: scaleX(-1);
+            transform: scaleX(-1) rotate(90deg);
             transform-origin: center;
           }
           .logo-container {
@@ -24,7 +24,8 @@ export function LogoTemplate({ logo }: { logo: string }) {
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            height: 36mm;
+            margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
           }

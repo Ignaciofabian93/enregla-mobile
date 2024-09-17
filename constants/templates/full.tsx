@@ -14,7 +14,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             font-family: Arial, sans-serif;
             height: 100%;
             width: 100%;
-            transform: scaleX(-1);
+            transform: scaleX(-1) rotate(90deg);
             transform-origin: center;
           }
           .logo-container {
@@ -24,7 +24,8 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            height: 36mm;
+            margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -36,6 +37,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             text-align: center;
             width: 100%;
             height: 10mm;
+            margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -95,7 +97,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             white-space: nowrap;
           }
           .vin {
-            font-size: 10mm;
+            font-size: 9mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
@@ -104,7 +106,7 @@ export function FullTemplate({ logo, vin, plate }: { logo: string; vin: string; 
             white-space: nowrap;
           }
           .plate {
-            font-size: 22mm;
+            font-size: 20mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;

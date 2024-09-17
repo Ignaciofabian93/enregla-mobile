@@ -14,7 +14,7 @@ export function PlateTemplate({ plate }: { plate: string }) {
             font-family: Arial, sans-serif;
             height: 100%;
             width: 100%;
-            transform: scaleX(-1);
+            transform: scaleX(-1) rotate(90deg);
             transform-origin: center;
           }
           .plate-container {
@@ -67,7 +67,7 @@ export function PlateTemplate({ plate }: { plate: string }) {
             white-space: nowrap;
           }
           .plate {
-            font-size: 22mm;
+            font-size: 20mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;

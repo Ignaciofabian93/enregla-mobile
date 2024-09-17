@@ -14,7 +14,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             font-family: Arial, sans-serif;
             height: 100%;
             width: 100%;
-            transform: scaleX(-1);
+            transform: scaleX(-1) rotate(90deg);
             transform-origin: center;
           }
           .logo-container {
@@ -24,7 +24,8 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            height: 36mm;
+            margin-bottom: 2mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -84,7 +85,7 @@ export function LogoPlateTemplate({ logo, plate }: { logo: string; plate: string
             white-space: nowrap;
           }
           .plate {
-            font-size: 22mm;
+            font-size: 20mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
