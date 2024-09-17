@@ -17,7 +17,7 @@ export function PlateTemplate({ plate }: { plate: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
-          .container {
+          .plate-container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -47,19 +47,18 @@ export function PlateTemplate({ plate }: { plate: string }) {
             white-space: nowrap;
           }
           .plate {
-            font-size: 24mm;
+            font-size: 18mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
             width: 98%;
-            margin-bottom: 1mm;
             overflow: hidden;
             white-space: nowrap;
           }
         </style>
       </head>
       <body>
-        <div class="container">
+        <div class="plate-container">
           <span class="left">${" . "}</span>
           <span class="plate">${plate.toUpperCase()}</span>
           <span class="right">${" . "}</span>

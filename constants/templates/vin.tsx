@@ -17,14 +17,14 @@ export function VinTemplate({ vin }: { vin: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
-          .container {
+          .vin-container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
             text-align: center;
             width: 100%;
-            height: 35mm;
+            height: 14mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -47,11 +47,10 @@ export function VinTemplate({ vin }: { vin: string }) {
             white-space: nowrap;
           }
           .vin {
-            font-size: 14mm;
+            font-size: 8mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 1mm;
             width: 98%;
             overflow: hidden;
             white-space: nowrap;
@@ -59,7 +58,7 @@ export function VinTemplate({ vin }: { vin: string }) {
         </style>
       </head>
       <body>
-        <div class="container">
+        <div class="vin-container">
           <span class="left">${" . "}</span>
           <span class="vin">${vin.toUpperCase()}</span>
           <span class="right">${" . "}</span>

@@ -17,7 +17,7 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
-          .container {
+          .logo-container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -25,6 +25,17 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
             text-align: center;
             width: 100%;
             height: 35mm;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          .vin-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 14mm;
             overflow: hidden;
             white-space: nowrap;
           }
@@ -49,16 +60,14 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
           .logo {
             width: 35mm;
             height: 35mm;
-            margin-bottom: 1mm;
             overflow: hidden;
             white-space: nowrap;
           }
           .vin {
-            font-size: 14mm;
+            font-size: 8mm;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 1mm;
             width: 98%;
             overflow: hidden;
             white-space: nowrap;
@@ -66,12 +75,12 @@ export function VinLogoTemplate({ vin, logo }: { vin: string; logo: string }) {
         </style>
       </head>
       <body>
-        <div class="container">
+        <div class="logo-container">
           <span class="left">${" . "}</span>
           <img src="${logo}" class="logo" alt="logo" />
           <span class="right">${" . "}</span>
         </div>
-        <div class="container">
+        <div class="vin-container">
           <span class="left">${" . "}</span>
           <span class="vin">${vin.toUpperCase()}</span>
           <span class="right">${" . "}</span>

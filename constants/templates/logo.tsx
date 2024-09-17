@@ -17,7 +17,7 @@ export function LogoTemplate({ logo }: { logo: string }) {
             transform: scaleX(-1);
             transform-origin: center;
           }
-          .container {
+          .logo-container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -49,14 +49,13 @@ export function LogoTemplate({ logo }: { logo: string }) {
           .logo {
             width: 35mm;
             height: 35mm;
-            margin-bottom: 1mm;
             overflow: hidden;
             white-space: nowrap;
           }
         </style>
       </head>
       <body>
-        <div class="container">
+        <div class="logo-container">
           <span class="left">${" . "}</span>
           <img src="${logo}" class="logo" alt="logo" />
           <span class="right">${" . "}</span>
