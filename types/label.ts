@@ -1,5 +1,6 @@
 export type Label = {
   id: number;
+  work_order: string;
   label_id: number;
   operator: string;
   operator_id: number;
@@ -25,6 +26,7 @@ export type Label = {
 
 export type LocalLabel = {
   id: number;
+  work_order: string;
   label_id: number;
   operator: string;
   operator_id: number;

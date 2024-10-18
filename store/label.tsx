@@ -3,6 +3,7 @@ import { LocalLabel } from "@/types/label";
 
 const defaultLabel: LocalLabel = {
   id: 0,
+  work_order: "",
   label_id: 0,
   operator: "",
   operator_id: 0,

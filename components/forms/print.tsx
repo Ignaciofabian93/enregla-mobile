@@ -50,6 +50,16 @@ export default function PrintForm() {
       >
         <View style={{ marginBottom: 20, alignItems: "center" }}>
           <View style={{ width: "100%", marginBottom: 16 }}>
+            <Text style={styles.field}>Orden de trabajo (OT):</Text>
+            <CustomTextInput
+              value={form.work_order}
+              multiline={false}
+              verticalAlign="top"
+              size="lg"
+              onChangeText={(e) => handleForm("work_order", e)}
+            />
+          </View>
+          <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Elija operador:</Text>
             <CustomPicker
               data={operators.map((el) => el.name)}

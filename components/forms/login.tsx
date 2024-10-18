@@ -3,7 +3,7 @@ import Notification from "@/components/toast";
 import CustomTextInput from "@/components/textinput";
 import CustomButton from "@/components/button";
 import { View } from "react-native";
-import { validate_password, validate_email } from "@/utils/regex";
+import { validate_email } from "@/utils/regex";
 
 export default function LoginForm() {
   const { login, form, handleForm, isPasswordVisible, togglePasswordVisibility, message, showMessage, loading } = useSession();
@@ -28,8 +28,6 @@ export default function LoginForm() {
           onChangeText={(e) => handleForm("password", e)}
           size="lg"
           placeholder="Contraseña"
-          isInvalid={validate_password(form.password)}
-          errorMessage="Contraseña inválida"
           icon={true}
           iconName={isPasswordVisible ? "eye-off" : "eye"}
           onIconPress={togglePasswordVisibility}

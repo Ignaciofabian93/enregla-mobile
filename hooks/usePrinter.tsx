@@ -29,10 +29,11 @@ type Message = {
 
 const defaultLabel: Label = {
   id: 0,
+  work_order: "",
   label_id: 0,
   operator: "",
   operator_id: 0,
-  date: moment().format("DD-MM-YYYY"),
+  date: moment().format("DD-MM-YYYY HH:mm"),
   branch_id: 0,
   label_quantity: 0,
   wrong_labels: 0,
@@ -100,6 +101,7 @@ export default function usePrinter() {
     const findModel = vehicleModels.find((el) => el.id === labelSelected.vehicle_model_id);
     setForm({
       id: labelSelected.id,
+      work_order: labelSelected.work_order,
       label_id: labelSelected.label_id,
       operator: labelSelected.operator,
       operator_id: labelSelected.operator_id,
@@ -307,6 +309,7 @@ export default function usePrinter() {
           setLoading(true);
           const localLabel = {
             id: form.id,
+            work_order: form.work_order,
             label_id: form.label_id,
             operator: form.operator,
             operator_id: form.operator_id,
