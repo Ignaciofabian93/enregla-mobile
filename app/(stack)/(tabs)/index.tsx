@@ -17,9 +17,9 @@ export default function Home() {
   const router = useRouter();
   const { session } = useSessionStore();
   const { setLabelSelected } = useLabelStore();
-  const { refreshData, loadingData, sendLabelsData, sendingData } = useSync();
   const [labels, setLabels] = useState<LocalLabel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const { refreshData, loadingData, sendLabelsData, sendingData } = useSync();
   const [haveToSync, setHaveToSync] = useState<boolean>(false);
 
   useFocusEffect(
@@ -27,6 +27,8 @@ export default function Home() {
       fetchLocalLabels();
     }, [haveToSync, sendingData])
   );
+
+
 
   const selectLabel = (label: LocalLabel) => {
     setLabelSelected(label);

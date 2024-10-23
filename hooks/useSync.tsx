@@ -143,6 +143,7 @@ export default function useSync() {
   const fetchLabelsData = async ({ token }: { token: string }) => {
     setLoadingData(true);
     const response = await GetLabels({ token });
+    console.log("data label", response)
     if (response.error) {
       setLoadingData(false);
       return Alert.alert("Error", response.error);
@@ -151,6 +152,7 @@ export default function useSync() {
     for (const label of response.labels) {
       const labelObject: Omit<LocalLabel, "id"> = {
         label_id: label.id,
+        work_order: label.work_order,
         operator: label.operator,
         operator_id: label.operator_id,
         date: label.date,
@@ -191,6 +193,7 @@ export default function useSync() {
         .filter((el) => el.label_id === 0)
         .map((label) => ({
           id: label.id,
+          work_order: label.work_order,
           label_id: label.label_id,
           operator: label.operator,
           operator_id: label.operator_id,

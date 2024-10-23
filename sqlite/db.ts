@@ -63,6 +63,7 @@ export const initDatabase = async (db: SQLiteDatabase) => {
     CREATE TABLE IF NOT EXISTS labels (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       label_id INTEGER,
+      work_order TEXT,
       operator TEXT,
       operator_id INTEGER,
       date TEXT,
