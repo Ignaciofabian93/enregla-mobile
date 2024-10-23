@@ -2,7 +2,7 @@ import { User } from "@/types/user";
 import { openDatabaseAsync } from "expo-sqlite";
 
 export async function SaveLocalOperators({ user }: { user: User }) {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-integral.db");
   const statement = await db.prepareAsync(`
     INSERT INTO operators (user_id, name, email, role_id, branch_id)
     VALUES (?, ?, ?, ?, ?)
@@ -17,7 +17,7 @@ export async function SaveLocalOperators({ user }: { user: User }) {
 }
 
 export async function GetLocalOperators() {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-integral.db");
   const statement = await db.prepareAsync(`SELECT * FROM operators`);
   try {
     const response = await statement.executeAsync();
@@ -31,7 +31,7 @@ export async function GetLocalOperators() {
 }
 
 export async function CleanLocalOperators() {
-  const db = await openDatabaseAsync("enregla.db");
+  const db = await openDatabaseAsync("enregla-integral.db");
   const statement = await db.prepareAsync(`DELETE FROM operators`);
   try {
     await statement.executeAsync();

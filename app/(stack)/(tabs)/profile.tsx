@@ -156,7 +156,7 @@ export default function Profile() {
 
 const styles = StyleSheet.create({
   view: {
-    height: "auto",
+    height: "100%",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 32,

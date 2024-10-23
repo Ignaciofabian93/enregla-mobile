@@ -163,13 +163,14 @@ export default function usePrinter() {
   const getLocalOperators = async () => {
     const response = await GetLocalOperators();
     const filteredOperators = response.filter((operator) => operator.role_id === 3);
+
     setOperators(filteredOperators);
   };
 
   const handleForm = (field: string, value: string | boolean) => {
     if (field === "operator") {
       const operator = operators.find((operator) => operator.name === value);
-      setForm({ ...form, operator_id: Number(operator?.id), operator: value as string });
+      setForm({ ...form, operator_id: Number(operator?.user_id), operator: value as string });
     } else if (field === "vehicle_brand") {
       const brand = vehicleBrands.find((brand) => brand.brand === value);
       setForm({

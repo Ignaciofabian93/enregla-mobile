@@ -143,7 +143,6 @@ export default function useSync() {
   const fetchLabelsData = async ({ token }: { token: string }) => {
     setLoadingData(true);
     const response = await GetLabels({ token });
-    console.log("data label", response)
     if (response.error) {
       setLoadingData(false);
       return Alert.alert("Error", response.error);
@@ -177,17 +176,20 @@ export default function useSync() {
   };
 
   const loadData = ({ token }: { token: string }) => {
-    fetchOperatorsList({ token });
-    fetchVehicleBrands({ token });
-    fetchVehicleModels({ token });
-    fetchSupplyList({ token });
-    fetchBranchData({ token });
-    fetchLabelsData({ token });
+    Promise.all([
+      fetchOperatorsList({ token }),
+      fetchVehicleBrands({ token }),
+      fetchVehicleModels({ token }),
+      fetchSupplyList({ token }),
+      fetchBranchData({ token }),
+      fetchLabelsData({ token }),
+    ]);
   };
 
   const generateAndSendLabelData = async ({ token }: { token: string }) => {
     setSendingData(true);
     const labels = await GetLocalLabels();
+
     if (labels.length) {
       const formattedLabels: Label[] = labels
         .filter((el) => el.label_id === 0)
@@ -223,7 +225,6 @@ export default function useSync() {
       } else {
         Alert.alert("Éxito", "Datos enviados correctamente");
         setSendingData(false);
-        await CleanLocalLabels();
         fetchLabelsData({ token });
       }
     } else {

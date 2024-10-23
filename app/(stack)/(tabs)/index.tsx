@@ -28,8 +28,6 @@ export default function Home() {
     }, [haveToSync, sendingData])
   );
 
-
-
   const selectLabel = (label: LocalLabel) => {
     setLabelSelected(label);
     setTimeout(() => {

@@ -31,7 +31,7 @@ export default function useSession() {
     setForm({ ...form, [field]: value });
   };
 
-  const handleMessageShow = () => setTimeout(() => setShowMessage(false), 2000);
+  const handleMessageShow = () => setTimeout(() => setShowMessage(false), 3000);
 
   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
@@ -72,11 +72,18 @@ export default function useSession() {
         role_id: response.user.role_id,
       };
       setShowMessage(true);
-      handleMessageShow();
+      // handleMessageShow();
       setSession(result);
       await SaveLocalSession({ session: result });
       loadData({ token: response.token });
-      router.replace("/(tabs)");
+      setMessage({
+        content: "Cargando datos",
+        type: "success",
+      });
+      setTimeout(() => {
+        router.replace("/(tabs)");
+        setLoading(false);
+      }, 3000);
     } catch (error) {
       setMessage({
         content: "Error al iniciar sesión",
@@ -84,9 +91,8 @@ export default function useSession() {
       });
       setShowMessage(true);
       handleMessageShow();
-      console.error("Login error: ", error);
-    } finally {
       setLoading(false);
+      console.error("Login error: ", error);
     }
   };
 
