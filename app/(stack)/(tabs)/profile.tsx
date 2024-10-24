@@ -39,7 +39,7 @@ export default function Profile() {
                 <Text style={styles.info}>{branch?.telephone}</Text>
               </View>
             </View>
-            <View style={{ width: "100%", marginTop: 32, alignItems: "center" }}>
+            <View style={{ width: "100%",  alignItems: "center" }}>
               <Text style={{ fontFamily: "Sora_Regular", fontSize: 16, textAlign: "center", marginBottom: 14 }}>
                 Link a redes para más información
               </Text>
@@ -50,7 +50,6 @@ export default function Profile() {
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginBottom: 8,
                 }}
               >
                 <Link href={"https://www.youtube.com/watch?v=WJmduq-Aojg"} style={{ height: 100, marginHorizontal: 16 }}>
@@ -156,11 +155,10 @@ export default function Profile() {
 
 const styles = StyleSheet.create({
   view: {
-    height: "100%",
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: 32,
-    paddingBottom: 32,
+    paddingBottom: 64,
   },
   title: {
     fontFamily: "Sora_SemiBold",
