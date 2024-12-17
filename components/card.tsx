@@ -3,27 +3,28 @@ import { colors } from "@/constants/theme";
 
 type Card = {
   plate: string;
-  vin: string;
-  operator: string;
   date: string;
   onPress: () => void;
 };
 
-export default function Card({ plate, vin, operator, date, onPress }: Card) {
+export default function Card({ plate, date, onPress }: Card) {
   return (
     <>
       <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={onPress}>
-        <View style={styles.row}>
-          <Text style={styles.field}>Fecha:</Text>
-          <Text style={styles.value}>{date}</Text>
+        <View>
+          <View style={styles.row}>
+            <Text style={styles.field}>Fecha:</Text>
+            <Text style={styles.value}>{date}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.field}>Patente:</Text>
+            <Text style={styles.value}>{plate ?? "No registrada"}</Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.field}>Patente:</Text>
-          <Text style={styles.value}>{plate ?? "No registrada"}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.field}>VIN:</Text>
-          <Text style={styles.value}>{vin ?? "No registrado"}</Text>
+        <View>
+          <TouchableOpacity style={styles.button}>
+            <Text style={{ color: "#fff" }}>Reimprimir</Text>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </>
@@ -32,18 +33,19 @@ export default function Card({ plate, vin, operator, date, onPress }: Card) {
 
 const styles = StyleSheet.create({
   card: {
-    width: 310,
-    height: "95%",
+    width: "100%",
+    height: "85%",
     borderWidth: 1,
     borderColor: colors.light[400],
     borderRadius: 12,
-    paddingVertical: 20,
+    paddingVertical: 8,
     paddingHorizontal: 18,
-    marginBottom: 12,
     justifyContent: "space-between",
-    elevation: 2,
+    elevation: 4,
     backgroundColor: "#fff",
-    marginHorizontal: 8,
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
   },
   row: {
     width: "100%",
@@ -62,5 +64,11 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontFamily: "Sora_Regular",
     fontSize: 16,
+  },
+  button: {
+    backgroundColor: colors.primary[700],
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 4,
   },
 });

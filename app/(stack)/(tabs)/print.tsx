@@ -20,10 +20,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "space-between",
-    paddingTop: 32,
+    paddingVertical: 32,
   },
   title: {
     fontFamily: "Sora_SemiBold",
     fontSize: 22,
+    paddingBottom: 16,
   },
 });

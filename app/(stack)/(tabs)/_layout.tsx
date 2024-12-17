@@ -37,6 +37,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="record"
+        options={{
+          title: "Guardados",
+          tabBarIcon: ({ focused }) => (
+            <View style={[styles.icon, focused ? styles.focused : styles.default]}>
+              <TabBarIcon
+                name={focused ? "book-sharp" : "book-outline"}
+                color={focused ? colors.primary[100] : colors.light[400]}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Perfil",

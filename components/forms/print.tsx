@@ -1,5 +1,5 @@
 import { colors } from "@/constants/theme";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View, RefreshControl } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/button";
 import CustomCheckBox from "@/components/checkbox";
 import CustomPicker from "@/components/select";
@@ -10,12 +10,6 @@ import ScannField from "@/components/scannfield";
 import CustomModal from "@/components/modal";
 import usePrinter from "@/hooks/usePrinter";
 import PreviewModal from "../htmlPreview";
-
-const generateYearsRange = () => {
-  const currentYear = new Date().getFullYear();
-  return Array.from({ length: 30 }, (_, i) => String(currentYear - i));
-};
-const years = generateYearsRange();
 
 export default function PrintForm() {
   const {
@@ -31,23 +25,17 @@ export default function PrintForm() {
     openPreview,
     closePreview,
     vehicleBrands,
-    vehicleModels,
     confirm,
     labelIsOk,
     labelIsNotOk,
     saveLabelData,
     operators,
     askAgain,
-    onRefresh,
-    refreshing,
   } = usePrinter();
   return (
     <View style={{ width: "100%", paddingBottom: "10%" }}>
       <Notification visible={showMessage} message={message.content} type={message.type} />
-      <ScrollView
-        contentContainerStyle={{ width: "100%", paddingTop: 32 }}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-      >
+      <ScrollView contentContainerStyle={{ width: "100%", paddingTop: 32 }}>
         <View style={{ marginBottom: 20, alignItems: "center" }}>
           <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Orden de trabajo (OT):</Text>
@@ -75,18 +63,6 @@ export default function PrintForm() {
               onChange={(e) => handleForm("vehicle_brand", e)}
             />
           </View>
-          <View style={{ width: "100%", marginBottom: 16 }}>
-            <Text style={styles.field}>Elija modelo del vehículo:</Text>
-            <CustomPicker
-              data={vehicleModels.filter((el) => el.brand_id === form.vehicle_brand_id).map((item) => item.model)}
-              value={form.vehicle_model}
-              onChange={(e) => handleForm("vehicle_model", e)}
-            />
-          </View>
-          <View style={{ width: "100%", marginBottom: 24 }}>
-            <Text style={styles.field}>Elija año del vehículo:</Text>
-            <CustomPicker data={years} value={form.vehicle_year} onChange={(e) => handleForm("vehicle_year", e)} />
-          </View>
 
           <View style={{ width: "100%", marginBottom: 24 }}>
             <Text style={styles.field}>Escanear:</Text>
@@ -106,14 +82,6 @@ export default function PrintForm() {
               <CustomCheckBox title="Patente" checked={form.show_plate} onChange={(e) => handleForm("show_plate", e)} />
               <CustomCheckBox title="Logo" checked={form.show_logo} onChange={(e) => handleForm("show_logo", e)} />
             </View>
-          </View>
-          <View style={{ width: "100%", marginBottom: 16 }}>
-            <Text style={styles.field}>Tipo de grabado:</Text>
-            <CustomPicker
-              data={["Normal", "Especial"].map((el) => el)}
-              value={form.print_type}
-              onChange={(e) => handleForm("print_type", e)}
-            />
           </View>
           <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Comentarios:</Text>

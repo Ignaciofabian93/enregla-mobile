@@ -17,14 +17,14 @@ export default function Auth() {
 
   useEffect(() => {
     const getLocalSession = async () => {
-      const response = await GetLocalSession();
-      if (!response) navigateTo("/(stack)/login");
-      else if (response.token) {
-        loadData({ token: response.token });
-        setSession(response);
-        navigateTo("/(tabs)");
-      }
+      // const response = await GetLocalSession();
+      // if (!response) navigateTo("/(stack)/login");
+      // else if (response.token) {
+      //   loadData({ token: response.token });
+      //   setSession(response);
+      navigateTo("/(tabs)");
     };
+    // };
 
     getLocalSession();
   }, []);
