@@ -1,13 +1,6 @@
-export type VehicleBrand = {
+export type Vehicle = {
   id: number;
-  brand_id: number;
+  vehicle_id: number;
   brand: string;
   logo: string;
-};
-
-export type VehicleModel = {
-  id: number;
-  brand_id: number;
-  model_id: number;
-  model: string;
 };

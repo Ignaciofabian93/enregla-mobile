@@ -6,14 +6,15 @@ type Checkbox = {
   checked: boolean;
   onChange: (value: boolean) => void;
   title: string;
+  disabled: boolean;
 };
 
-export default function CustomCheckBox({ checked = false, onChange, title }: Checkbox) {
+export default function CustomCheckBox({ checked = false, onChange, title, disabled }: Checkbox) {
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
-        <Checkbox value={checked} onValueChange={onChange} color={colors.light[700]} style={[styles.check]} />
+        <Checkbox disabled={disabled} value={checked} onValueChange={onChange} color={colors.light[700]} style={[styles.check]} />
       </View>
     </>
   );

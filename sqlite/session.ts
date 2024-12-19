@@ -2,7 +2,7 @@ import { Session } from "@/types/session";
 import { openDatabaseAsync } from "expo-sqlite";
 
 export async function SaveLocalSession({ session }: { session: Session }) {
-  const db = await openDatabaseAsync("enregla-integral.db");
+  const db = await openDatabaseAsync("local.db");
   const statement = await db.prepareAsync(`
     INSERT INTO session (token, user_id, name, email, role_id, branch_id)
     VALUES (?, ?, ?, ?, ?, ?)
@@ -17,7 +17,7 @@ export async function SaveLocalSession({ session }: { session: Session }) {
 }
 
 export async function GetLocalSession() {
-  const db = await openDatabaseAsync("enregla-integral.db");
+  const db = await openDatabaseAsync("local.db");
   const statement = await db.prepareAsync(`SELECT * FROM session LIMIT 1`);
   try {
     const response = await statement.executeAsync();
@@ -31,10 +31,10 @@ export async function GetLocalSession() {
 }
 
 export async function DeleteLocalSession() {
-  const db = await openDatabaseAsync("enregla-integral.db");
-  const tables = ["session", "vehicle_brands", "vehicle_models", "supplies", "labels", "branch"];
+  const db = await openDatabaseAsync("local.db");
+  const tables = ["session", "vehicles", "labels", "branch", "operators"];
   tables.map(async (table) => {
-    const statement = await db.prepareAsync(`DELETE FROM ${table}`);
+    const statement = await db.prepareAsync(`DROP TABLE ${table}`);
     try {
       await statement.executeAsync();
     } catch (error) {

@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import { printAsync, printToFileAsync } from "expo-print";
 import { Label } from "@/types/label";
-import { VehicleBrand, VehicleModel } from "@/types/vehicle";
-import { GetLocalBrands } from "@/sqlite/brands";
-import { GetLocalModels } from "@/sqlite/models";
+import { Vehicle } from "@/types/vehicle";
+import { GetLocalVehicles } from "@/sqlite/vehicles";
 import { SaveLocalLabels } from "@/sqlite/labels";
-import moment from "moment";
-import useImagePicker from "./useImagePicker";
-import useSessionStore from "@/store/session";
-import useLocation from "./useLocation";
 import { Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { User } from "@/types/user";
@@ -20,7 +15,10 @@ import { PlateTemplate } from "@/constants/templates/plate";
 import { PlateVinTemplate } from "@/constants/templates/plate_vin";
 import { VinLogoTemplate } from "@/constants/templates/logo_vin";
 import { VinTemplate } from "@/constants/templates/vin";
-import useLabelStore from "@/store/label";
+import moment from "moment";
+import useImagePicker from "./useImagePicker";
+import useSessionStore from "@/store/session";
+import useLocation from "./useLocation";
 
 type Message = {
   content: string;
@@ -29,8 +27,8 @@ type Message = {
 
 const defaultLabel: Label = {
   id: 0,
-  work_order: "",
   label_id: 0,
+  work_order: "",
   operator: "",
   operator_id: 0,
   date: moment().format("DD-MM-YYYY HH:mm"),
@@ -38,30 +36,24 @@ const defaultLabel: Label = {
   label_quantity: 0,
   wrong_labels: 0,
   coordinates: "",
+  vehicle_id: 0,
   vehicle_brand: "",
-  vehicle_brand_id: 0,
-  vehicle_model: "",
-  vehicle_model_id: 0,
-  vehicle_year: "",
   show_vin: false,
-  vehicle_vin: "",
   show_plate: false,
-  vehicle_plate: "",
   show_logo: false,
+  vehicle_vin: "",
+  vehicle_plate: "",
   vehicle_logo: "",
-  print_type: "",
   description: "",
 };
 
 export default function usePrinter() {
   const router = useRouter();
   const { session } = useSessionStore();
-  const { labelSelected } = useLabelStore();
   const { coordinates } = useLocation();
   const { takePlatePhoto, takeVINPhoto, vinText, plateText } = useImagePicker();
   const [operators, setOperators] = useState<User[]>([]);
-  const [vehicleBrands, setVehicleBrands] = useState<VehicleBrand[]>([]);
-  const [vehicleModels, setVehicleModels] = useState<VehicleModel[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [showPreview, setShowPreview] = useState<boolean>(false);
@@ -74,6 +66,8 @@ export default function usePrinter() {
   });
   const [form, setForm] = useState<Label>(defaultLabel);
 
+  console.log("form: ", form);
+
   const onRefresh = () => {
     setRefreshing(true);
     setForm(defaultLabel);
@@ -85,46 +79,39 @@ export default function usePrinter() {
   const handleMessageShow = () => setTimeout(() => setShowMessage(false), 2000);
 
   useEffect(() => {
-    getLocalBrands();
-    getLocalModels();
+    getLocalVehicles();
     getLocalOperators();
   }, []);
 
-  useEffect(() => {
-    if (labelSelected) {
-      fillForm();
-    }
-  }, [labelSelected]);
+  // useEffect(() => {
+  //   if (labelSelected) {
+  //     fillForm();
+  //   }
+  // }, [labelSelected]);
 
-  const fillForm = () => {
-    const findBrand = vehicleBrands.find((el) => el.id === labelSelected.vehicle_brand_id);
-    const findModel = vehicleModels.find((el) => el.id === labelSelected.vehicle_model_id);
-    setForm({
-      id: labelSelected.id,
-      work_order: labelSelected.work_order,
-      label_id: labelSelected.label_id,
-      operator: labelSelected.operator,
-      operator_id: labelSelected.operator_id,
-      date: moment().format("DD-MM-YYYY"),
-      branch_id: labelSelected.branch_id,
-      label_quantity: labelSelected.label_quantity,
-      wrong_labels: labelSelected.wrong_labels,
-      coordinates: labelSelected.coordinates,
-      vehicle_brand: findBrand?.brand as string,
-      vehicle_brand_id: labelSelected.vehicle_brand_id,
-      vehicle_model: findModel?.model as string,
-      vehicle_model_id: labelSelected.vehicle_model_id,
-      vehicle_year: labelSelected.vehicle_year,
-      show_vin: labelSelected.show_vin === 1 ? true : false,
-      vehicle_vin: labelSelected.vehicle_vin,
-      show_plate: labelSelected.show_plate === 1 ? true : false,
-      vehicle_plate: labelSelected.vehicle_plate,
-      show_logo: labelSelected.show_logo === 1 ? true : false,
-      vehicle_logo: findBrand?.logo as string,
-      print_type: labelSelected.print_type,
-      description: labelSelected.description,
-    });
-  };
+  // const fillForm = () => {
+  //   const findBrand = vehicles.find((el) => el.id === labelSelected.vehicle_id);
+  //   setForm({
+  //     id: labelSelected.id,
+  //     label_id: labelSelected.label_id,
+  //     work_order: labelSelected.work_order,
+  //     operator: labelSelected.operator,
+  //     operator_id: labelSelected.operator_id,
+  //     date: moment().format("DD-MM-YYYY"),
+  //     branch_id: labelSelected.branch_id,
+  //     label_quantity: labelSelected.label_quantity,
+  //     wrong_labels: labelSelected.wrong_labels,
+  //     coordinates: labelSelected.coordinates,
+  //     vehicle_id: labelSelected.vehicle_id,
+  //     show_vin: labelSelected.show_vin === 1 ? true : false,
+  //     vehicle_vin: labelSelected.vehicle_vin,
+  //     show_plate: labelSelected.show_plate === 1 ? true : false,
+  //     vehicle_plate: labelSelected.vehicle_plate,
+  //     show_logo: labelSelected.show_logo === 1 ? true : false,
+  //     vehicle_logo: findBrand?.logo as string,
+  //     description: labelSelected.description,
+  //   });
+  // };
 
   useEffect(() => {
     if (session) {
@@ -150,14 +137,9 @@ export default function usePrinter() {
     }
   }, [plateText]);
 
-  const getLocalBrands = async () => {
-    const response = await GetLocalBrands();
-    setVehicleBrands(response);
-  };
-
-  const getLocalModels = async () => {
-    const response = await GetLocalModels();
-    setVehicleModels(response);
+  const getLocalVehicles = async () => {
+    const response = await GetLocalVehicles();
+    setVehicles(response);
   };
 
   const getLocalOperators = async () => {
@@ -171,44 +153,14 @@ export default function usePrinter() {
     if (field === "operator") {
       const operator = operators.find((operator) => operator.name === value);
       setForm({ ...form, operator_id: Number(operator?.user_id), operator: value as string });
-    } else if (field === "vehicle_brand") {
-      const brand = vehicleBrands.find((brand) => brand.brand === value);
+    } else if (field === "vehicle_id") {
+      const vehicle = vehicles.find((vehicle) => vehicle.brand === value);
       setForm({
         ...form,
-        vehicle_brand_id: brand?.brand_id as number,
-        vehicle_brand: value as string,
-        vehicle_logo: brand?.logo as string,
+        vehicle_id: vehicle?.vehicle_id as number,
+        vehicle_brand: vehicle?.brand as string,
+        vehicle_logo: vehicle?.logo as string,
       });
-    } else if (field === "vehicle_model") {
-      const model = vehicleModels.find((model) => model.model === value);
-      setForm({ ...form, vehicle_model_id: model?.model_id as number, vehicle_model: value as string });
-    } else if (field === "show_vin") {
-      if (!form.vehicle_vin) {
-        Alert.alert("Atención", "No se ha registrado VIN para impresión. Si quiere imprimir el VIN primero debe ingresarlo.");
-        return;
-      } else {
-        setForm({ ...form, show_vin: value as boolean });
-      }
-    } else if (field === "show_plate") {
-      if (!form.vehicle_plate) {
-        Alert.alert(
-          "Atención",
-          "No se ha registrado patente para impresión. Si quiere imprimir la patente primero debe ingresarla."
-        );
-        return;
-      } else {
-        setForm({ ...form, show_plate: value as boolean });
-      }
-    } else if (field === "show_logo") {
-      if (!form.vehicle_logo) {
-        Alert.alert(
-          "Atención",
-          "No se ha seleccionado marca de vehículo. Si quiere imprimir el logo primero debe seleccionar una marca."
-        );
-        return;
-      } else {
-        setForm({ ...form, show_logo: value as boolean });
-      }
     } else {
       setForm({ ...form, [field]: value });
     }
@@ -226,22 +178,6 @@ export default function usePrinter() {
     setForm({ ...form, label_quantity: form.label_quantity + 1, wrong_labels: form.wrong_labels + 1 });
     setConfirm(false);
   };
-
-  // const print = async () => {
-  //   const html = PrintTemplate2({
-  //     vin: form.show_vin ? form.vehicle_vin : null,
-  //     plate: form.show_plate ? form.vehicle_plate : null,
-  //     logo: form.show_logo ? form.vehicle_logo : null,
-  //   });
-  //   // const result = await printToFileAsync({ html, height: 74, width: 105 });
-  //   // if (result.uri) {
-  //   await printAsync({ html, height: 300, width: 207 });
-  //   setConfirm(true);
-  //   setForm({ ...form, label_quantity: form.label_quantity + 1 });
-  //   // } else {
-  //   //   return Alert.alert("Error", "Hubo un error al ejecutar la impresión. Inténtelo nuevamente");
-  //   // }
-  // };
 
   const print = async () => {
     let html;
@@ -319,15 +255,13 @@ export default function usePrinter() {
             label_quantity: form.label_quantity,
             wrong_labels: form.wrong_labels,
             coordinates: form.coordinates,
-            vehicle_brand_id: form.vehicle_brand_id,
-            vehicle_model_id: form.vehicle_model_id,
-            vehicle_year: form.vehicle_year,
+            vehicle_id: form.vehicle_id,
+            vehicle_brand: form.vehicle_brand,
             show_vin: form.show_vin ? 1 : 0,
-            vehicle_vin: form.vehicle_vin.toUpperCase(),
             show_plate: form.show_plate ? 1 : 0,
-            vehicle_plate: form.vehicle_plate.toUpperCase(),
             show_logo: form.show_logo ? 1 : 0,
-            print_type: form.print_type,
+            vehicle_vin: form.vehicle_vin.toUpperCase(),
+            vehicle_plate: form.vehicle_plate.toUpperCase(),
             description: form.description,
           };
           const response = await SaveLocalLabels({ label: localLabel });
@@ -365,8 +299,7 @@ export default function usePrinter() {
     showPreview,
     openPreview,
     closePreview,
-    vehicleBrands,
-    vehicleModels,
+    vehicles,
     confirm,
     labelIsOk,
     labelIsNotOk,

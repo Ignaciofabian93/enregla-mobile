@@ -1,7 +1,6 @@
-const protocol: string = "https";
+const protocol: string = "http";
 const port: number = 4000;
-// const ip: string = "192.168.0.9";
-// const ip: string = "10.146.151.187";
-const ip: string = "www.enreglaintegral.cl";
+const ip: string = "192.168.1.86";
+// const ip: string = "www.enreglaintegral.cl";
 
 export const endpoint = `${protocol}://${ip}:${port}/api`;

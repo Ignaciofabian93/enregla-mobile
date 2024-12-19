@@ -9,25 +9,21 @@ export type Label = {
   label_quantity: number;
   wrong_labels: number;
   coordinates: string;
+  vehicle_id: number;
   vehicle_brand: string;
-  vehicle_model: string;
-  vehicle_brand_id: number;
-  vehicle_model_id: number;
-  vehicle_year: string;
   show_vin: boolean;
   vehicle_vin: string;
   show_plate: boolean;
   vehicle_plate: string;
-  show_logo: boolean;
   vehicle_logo: string;
-  print_type: string;
+  show_logo: boolean;
   description: string;
 };
 
 export type LocalLabel = {
   id: number;
-  work_order: string;
   label_id: number;
+  work_order: string;
   operator: string;
   operator_id: number;
   date: string;
@@ -35,14 +31,12 @@ export type LocalLabel = {
   label_quantity: number;
   wrong_labels: number;
   coordinates: string;
-  vehicle_brand_id: number;
-  vehicle_model_id: number;
-  vehicle_year: string;
+  vehicle_id: number;
+  vehicle_brand: string;
   vehicle_vin: string;
   show_vin: number;
   show_plate: number;
   show_logo: number;
   vehicle_plate: string;
-  print_type: string;
   description: string;
 };

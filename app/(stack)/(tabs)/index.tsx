@@ -21,6 +21,8 @@ export default function Home() {
 
   const fetchLocalLabels = async () => {
     const response = await GetLocalLabels();
+    console.log("response!!: ", response);
+
     if (response.some((label) => label.label_id === 0)) {
       setHaveToSync(true);
     } else {

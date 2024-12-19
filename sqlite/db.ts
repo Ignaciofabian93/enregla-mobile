@@ -23,19 +23,11 @@ export const initDatabase = async (db: SQLiteDatabase) => {
     );  
   `);
   await db.execAsync(`
-    CREATE TABLE IF NOT EXISTS vehicle_brands (
+    CREATE TABLE IF NOT EXISTS vehicles (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      brand_id INTEGER NOT NULL,
+      vehicle_id INTEGER NOT NULL,
       brand TEXT NOT NULL,
       logo TEXT
-    )  
-  `);
-  await db.execAsync(`
-    CREATE TABLE IF NOT EXISTS vehicle_models (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      brand_id INTEGER NOT NULL,
-      model_id INTEGER NOT NULL,
-      model TEXT NOT NULL
     )  
   `);
   await db.execAsync(`
@@ -46,18 +38,6 @@ export const initDatabase = async (db: SQLiteDatabase) => {
       location TEXT NOT NULL,
       telephone TEXT NOT NULL
     )  
-  `);
-  await db.execAsync(`
-    CREATE TABLE IF NOT EXISTS supplies (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      supply_id INTEGER NOT NULL,
-      name TEXT NOT NULL,
-      category TEXT NOT NULL,
-      price INTEGER NOT NULL,
-      quantity INTEGER NOT NULL,
-      branch TEXT NOT NULL,
-      agency TEXT NOT NULL
-    )
   `);
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS labels (
@@ -71,15 +51,13 @@ export const initDatabase = async (db: SQLiteDatabase) => {
       label_quantity INTEGER,
       wrong_labels INTEGER,
       coordinates TEXT,
-      vehicle_brand_id INTEGER,
-      vehicle_model_id INTEGER,
-      vehicle_year TEXT,
+      vehicle_id INTEGER,
+      vehicle_brand TEXT,
       show_vin INTEGER,
       show_plate INTEGER,
       show_logo INTEGER,
       vehicle_vin TEXT,
       vehicle_plate TEXT,
-      print_type TEXT,
       description TEXT
     )  
   `);

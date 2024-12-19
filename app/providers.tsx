@@ -3,7 +3,7 @@ import { SQLiteProvider } from "expo-sqlite";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <SQLiteProvider databaseName="enregla-integral.db" onInit={initDatabase}>
+    <SQLiteProvider databaseName="local.db" onInit={initDatabase}>
       {children}
     </SQLiteProvider>
   );

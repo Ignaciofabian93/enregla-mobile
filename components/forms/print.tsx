@@ -24,7 +24,7 @@ export default function PrintForm() {
     showPreview,
     openPreview,
     closePreview,
-    vehicleBrands,
+    vehicles,
     confirm,
     labelIsOk,
     labelIsNotOk,
@@ -58,9 +58,9 @@ export default function PrintForm() {
           <View style={{ width: "100%", marginBottom: 16 }}>
             <Text style={styles.field}>Elija marca del vehículo:</Text>
             <CustomPicker
-              data={vehicleBrands.map((el) => el.brand)}
-              value={form.vehicle_brand}
-              onChange={(e) => handleForm("vehicle_brand", e)}
+              data={vehicles.map((el) => el.brand)}
+              value={form.vehicle_id ? vehicles[form.vehicle_id - 1]?.brand : ""}
+              onChange={(e) => handleForm("vehicle_id", e)}
             />
           </View>
 
@@ -78,9 +78,24 @@ export default function PrintForm() {
           <View style={{ width: "100%", marginBottom: 24 }}>
             <Text style={styles.field}>Elementos para la etiqueta:</Text>
             <View style={styles.checkboxList}>
-              <CustomCheckBox title="VIN" checked={form.show_vin} onChange={(e) => handleForm("show_vin", e)} />
-              <CustomCheckBox title="Patente" checked={form.show_plate} onChange={(e) => handleForm("show_plate", e)} />
-              <CustomCheckBox title="Logo" checked={form.show_logo} onChange={(e) => handleForm("show_logo", e)} />
+              <CustomCheckBox
+                disabled={!form.vehicle_vin}
+                title="VIN"
+                checked={form.show_vin}
+                onChange={(e) => handleForm("show_vin", e)}
+              />
+              <CustomCheckBox
+                disabled={!form.vehicle_plate}
+                title="Patente"
+                checked={form.show_plate}
+                onChange={(e) => handleForm("show_plate", e)}
+              />
+              <CustomCheckBox
+                disabled={!form.vehicle_logo}
+                title="Logo"
+                checked={form.show_logo}
+                onChange={(e) => handleForm("show_logo", e)}
+              />
             </View>
           </View>
           <View style={{ width: "100%", marginBottom: 16 }}>
