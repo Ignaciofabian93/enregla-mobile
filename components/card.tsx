@@ -22,8 +22,8 @@ export default function Card({ plate, date, onPress }: Card) {
           </View>
         </View>
         <View>
-          <TouchableOpacity style={styles.button}>
-            <Text style={{ color: "#fff" }}>Reimprimir</Text>
+          <TouchableOpacity style={styles.button} onPress={onPress}>
+            <Text style={{ color: "#fff" }}>Imprimir</Text>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
     borderColor: colors.light[400],
     borderRadius: 12,
     paddingVertical: 8,
-    paddingHorizontal: 18,
+    paddingHorizontal: 8,
     justifyContent: "space-between",
     elevation: 4,
     backgroundColor: "#fff",
-    marginVertical: 8,
+    marginVertical: 4,
     flexDirection: "row",
     alignItems: "center",
   },

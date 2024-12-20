@@ -95,6 +95,7 @@ export default function useSync() {
   const fetchLabelsData = async ({ token }: { token: string }) => {
     setLoadingData(true);
     const response = await GetLabels({ token });
+
     if (response.error) {
       setLoadingData(false);
       return Alert.alert("Error", response.error);
@@ -111,7 +112,7 @@ export default function useSync() {
         label_quantity: label.label_quantity,
         wrong_labels: label.wrong_labels,
         coordinates: label.coordinates,
-        vehicle_id: label.vehicle_brand_id,
+        vehicle_id: label.vehicle_id,
         vehicle_brand: label.vehicle_brand,
         show_vin: label.show_vin,
         vehicle_vin: label.vehicle_vin,

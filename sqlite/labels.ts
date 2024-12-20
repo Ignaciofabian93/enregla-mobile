@@ -12,8 +12,8 @@ export async function SaveLocalLabels({ label }: { label: Omit<LocalLabel, "id">
   `);
   try {
     const response = await statement.executeAsync([
-      label.work_order,
       label.label_id,
+      label.work_order,
       label.operator,
       label.operator_id,
       label.date,

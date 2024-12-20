@@ -34,7 +34,7 @@ export async function DeleteLocalSession() {
   const db = await openDatabaseAsync("local.db");
   const tables = ["session", "vehicles", "labels", "branch", "operators"];
   tables.map(async (table) => {
-    const statement = await db.prepareAsync(`DROP TABLE ${table}`);
+    const statement = await db.prepareAsync(`DELETE FROM ${table}`);
     try {
       await statement.executeAsync();
     } catch (error) {

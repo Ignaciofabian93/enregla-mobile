@@ -59,22 +59,11 @@ export default function usePrinter() {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<boolean>(false);
   const [askAgain, setAskAgain] = useState<boolean>(true);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [message, setMessage] = useState<Message>({
     content: "",
     type: "error",
   });
   const [form, setForm] = useState<Label>(defaultLabel);
-
-  console.log("form: ", form);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    setForm(defaultLabel);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  };
 
   const handleMessageShow = () => setTimeout(() => setShowMessage(false), 2000);
 
@@ -82,48 +71,6 @@ export default function usePrinter() {
     getLocalVehicles();
     getLocalOperators();
   }, []);
-
-  // useEffect(() => {
-  //   if (labelSelected) {
-  //     fillForm();
-  //   }
-  // }, [labelSelected]);
-
-  // const fillForm = () => {
-  //   const findBrand = vehicles.find((el) => el.id === labelSelected.vehicle_id);
-  //   setForm({
-  //     id: labelSelected.id,
-  //     label_id: labelSelected.label_id,
-  //     work_order: labelSelected.work_order,
-  //     operator: labelSelected.operator,
-  //     operator_id: labelSelected.operator_id,
-  //     date: moment().format("DD-MM-YYYY"),
-  //     branch_id: labelSelected.branch_id,
-  //     label_quantity: labelSelected.label_quantity,
-  //     wrong_labels: labelSelected.wrong_labels,
-  //     coordinates: labelSelected.coordinates,
-  //     vehicle_id: labelSelected.vehicle_id,
-  //     show_vin: labelSelected.show_vin === 1 ? true : false,
-  //     vehicle_vin: labelSelected.vehicle_vin,
-  //     show_plate: labelSelected.show_plate === 1 ? true : false,
-  //     vehicle_plate: labelSelected.vehicle_plate,
-  //     show_logo: labelSelected.show_logo === 1 ? true : false,
-  //     vehicle_logo: findBrand?.logo as string,
-  //     description: labelSelected.description,
-  //   });
-  // };
-
-  useEffect(() => {
-    if (session) {
-      setForm({ ...form, branch_id: session.branch_id });
-    }
-  }, [session]);
-
-  useEffect(() => {
-    if (coordinates.latitude !== 0) {
-      setForm({ ...form, coordinates: `${coordinates.latitude}, ${coordinates.longitude}` });
-    }
-  }, [coordinates]);
 
   useEffect(() => {
     if (vinText) {
@@ -247,14 +194,14 @@ export default function usePrinter() {
           const localLabel = {
             id: form.id,
             work_order: form.work_order,
-            label_id: form.label_id,
+            label_id: 0,
             operator: form.operator,
             operator_id: form.operator_id,
             date: form.date,
-            branch_id: form.branch_id,
+            branch_id: session.branch_id,
             label_quantity: form.label_quantity,
             wrong_labels: form.wrong_labels,
-            coordinates: form.coordinates,
+            coordinates: `${coordinates.latitude}, ${coordinates.longitude}`,
             vehicle_id: form.vehicle_id,
             vehicle_brand: form.vehicle_brand,
             show_vin: form.show_vin ? 1 : 0,
@@ -264,6 +211,7 @@ export default function usePrinter() {
             vehicle_plate: form.vehicle_plate.toUpperCase(),
             description: form.description,
           };
+
           const response = await SaveLocalLabels({ label: localLabel });
           if (response > 0) {
             setMessage({ content: "Etiqueta guardada correctamente", type: "success" });
@@ -306,7 +254,5 @@ export default function usePrinter() {
     saveLabelData,
     operators,
     askAgain,
-    onRefresh,
-    refreshing,
   };
 }

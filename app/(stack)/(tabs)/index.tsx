@@ -16,13 +16,11 @@ export default function Home() {
   useFocusEffect(
     useCallback(() => {
       fetchLocalLabels();
-    }, [haveToSync, sendingData])
+    }, [sendingData, loadingData])
   );
 
   const fetchLocalLabels = async () => {
     const response = await GetLocalLabels();
-    console.log("response!!: ", response);
-
     if (response.some((label) => label.label_id === 0)) {
       setHaveToSync(true);
     } else {
@@ -59,9 +57,10 @@ export default function Home() {
             />
             <CustomButton
               text="Cargar datos"
-              onPress={() => refreshData({ token: session.token })}
+              onPress={() => (haveToSync ? null : refreshData({ token: session.token }))}
               type="secondary"
               isLoading={loadingData}
+              disabled={haveToSync}
             />
           </View>
         </View>
